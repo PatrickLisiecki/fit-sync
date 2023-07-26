@@ -1,18 +1,18 @@
 class ForbiddenError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "ForbiddenError";
-  }
+    constructor(message) {
+        super(message);
+        this.name = "ForbiddenError";
+    }
 }
 
 class NotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "NotFoundError";
-  }
+    constructor(message) {
+        super(message);
+        this.name = "NotFoundError";
+    }
 }
 
 module.exports = {
-  ForbiddenError,
-  NotFoundError,
+    ForbiddenError,
+    NotFoundError,
 };

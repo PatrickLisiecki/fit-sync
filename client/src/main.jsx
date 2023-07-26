@@ -10,31 +10,31 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Root from "./routes/root";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <ProtectedRoute>
-        <Root />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-    errorElement: <ErrorPage />,
-  },
+    {
+        path: "/",
+        element: (
+            <ProtectedRoute>
+                <Root />
+            </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/login",
+        element: <Login />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/signup",
+        element: <Signup />,
+        errorElement: <ErrorPage />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
+    </React.StrictMode>
 );
