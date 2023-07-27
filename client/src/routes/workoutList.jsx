@@ -56,21 +56,22 @@ const WorkoutList = () => {
   };
 
   const handleAddToMyWorkout = (workout) => {
-    // Store the selected workout in state or send it to the backend
+    // Implement the logic to add the workout to "My Workout"
+    // For example, you could store the selected workout in state or send it to the backend
     console.log('Adding to My Workout:', workout.name);
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Workout List</h1>
+    <div className="container mx-auto p-4 ">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Workout List</h1>
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex items-center mb-4">
-          <label htmlFor="muscleSelect" className="block font-semibold text-lg mr-4">
+          <label htmlFor="muscleSelect" className="block font-semibold text-lg text-gray-700 mr-4">
             Select Muscle Group:
           </label>
           <select
             id="muscleSelect"
-            className="block w-48 mt-1 p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block w-48 mt-1 p-2 rounded-lg border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-200"
             value={selectedMuscle}
             onChange={(e) => setSelectedMuscle(e.target.value)}
           >
@@ -83,12 +84,12 @@ const WorkoutList = () => {
           </select>
         </div>
         <div className="flex items-center mb-4">
-          <label htmlFor="difficultySelect" className="block font-semibold text-lg mr-4">
+          <label htmlFor="difficultySelect" className="block font-semibold text-lg text-gray-700 mr-4">
             Select Difficulty:
           </label>
           <select
             id="difficultySelect"
-            className="block w-48 mt-1 p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block w-48 mt-1 p-2 rounded-lg border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-200"
             value={selectedDifficulty}
             onChange={(e) => setSelectedDifficulty(e.target.value)}
           >
@@ -112,7 +113,10 @@ const WorkoutList = () => {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workouts.map((workout, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+            <div
+              key={index}
+              className="bg-gray-800 p-6 rounded-lg shadow-md text-white"
+            >
               <h2 className="text-xl font-semibold mb-2">{workout.name}</h2>
               <p><span className="font-semibold">Type:</span> {workout.type}</p>
               <p><span className="font-semibold">Muscle:</span> {workout.muscle}</p>
@@ -120,13 +124,13 @@ const WorkoutList = () => {
               <p><span className="font-semibold">Difficulty:</span> {workout.difficulty}</p>
               <div>
                 <span className="font-semibold">Instructions:</span>
-                <div className="max-h-16 overflow-y-auto">
+                <div className="max-h-16 overflow-y-auto text-gray-300">
                   {workout.instructions}
                 </div>
               </div>
               <button
                 onClick={() => handleAddToMyWorkout(workout)}
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mt-4"
+                className="bg-blue-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mt-4"
               >
                 Add to My Workout
               </button>
