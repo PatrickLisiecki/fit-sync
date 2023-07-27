@@ -9,7 +9,7 @@ export default function Root() {
 
         logout();
 
-        redirect("/login");
+        redirect("/auth");
     };
 
     return (
