@@ -6,6 +6,7 @@ import "./index.css";
 import Auth from "./routes/Auth/Auth";
 import ErrorPage from "./routes/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import WorkoutList from "./routes/workoutlist";
 import Root from "./routes/root";
 
 const router = createBrowserRouter([
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
         element: <Auth />,
         errorElement: <ErrorPage />,
     },
+    {
+        path: "/ninja",
+        element: <WorkoutList />,
+        errorElement: <ErrorPage />,
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
