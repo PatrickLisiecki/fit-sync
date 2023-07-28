@@ -7,7 +7,7 @@ export default function Auth() {
     const [byLogin, setByLogin] = useState(true);
 
     if (currentUser) {
-        return <Navigate to="/" />;
+        return <Navigate to="/dashboard" />;
     }
 
     const handleLogin = async (e) => {
@@ -85,33 +85,7 @@ export default function Auth() {
                                     required=""
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-start">
-                                    <div className="flex items-center h-5">
-                                        <input
-                                            id="remember"
-                                            aria-describedby="remember"
-                                            type="checkbox"
-                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-accent dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-accent dark:ring-offset-gray-800"
-                                            required=""
-                                        />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label
-                                            htmlFor="remember"
-                                            className="text-gray-500 dark:text-gray-300"
-                                        >
-                                            Remember me
-                                        </label>
-                                    </div>
-                                </div>
-                                <a
-                                    href="#"
-                                    className="text-sm font-medium text-accent hover:underline dark:text-accent"
-                                >
-                                    Forgot password?
-                                </a>
-                            </div>
+
                             <button
                                 type="submit"
                                 className="w-full text-white bg-accent hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-accent dark:hover:bg-accent dark:focus:ring-accent"
@@ -120,13 +94,12 @@ export default function Auth() {
                             </button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don’t have an account yet?{" "}
-                                <a
-                                    href="#"
+                                <button
                                     className="font-medium text-accent hover:underline dark:text-accent"
                                     onClick={() => setByLogin(!byLogin)}
                                 >
                                     Sign up
-                                </a>
+                                </button>
                             </p>
                         </Form>
                     </div>
@@ -147,6 +120,22 @@ export default function Auth() {
                         >
                             <div>
                                 {authError && <div className="text-red-300">{authError}</div>}
+                                <label
+                                    htmlFor="name"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Username
+                                </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="name"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required=""
+                                />
+                            </div>
+                            <div>
                                 <label
                                     htmlFor="email"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -178,24 +167,6 @@ export default function Auth() {
                                     required=""
                                 />
                             </div>
-
-                            {/* <div>
-                                <label
-                                    htmlFor="confirm-password"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Confirm Password
-                                </label>
-                                <input
-                                    type="confirm-password"
-                                    name="confirm-password"
-                                    id="confirm-password"
-                                    placeholder="••••••••"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required=""
-                                />
-                            </div> */}
-
                             <button
                                 type="submit"
                                 className="w-full text-white bg-accent hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-accent dark:hover:bg-accent dark:focus:ring-accent"
@@ -204,13 +175,12 @@ export default function Auth() {
                             </button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Have an account?{" "}
-                                <a
-                                    href="#"
+                                <button
                                     className="font-medium text-accent hover:underline dark:text-accent"
                                     onClick={() => setByLogin(!byLogin)}
                                 >
                                     Log in
-                                </a>
+                                </button>
                             </p>
                         </Form>
                     </div>
