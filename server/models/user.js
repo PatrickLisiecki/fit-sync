@@ -1,11 +1,16 @@
 const { Model } = require("sequelize");
 const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
-      User.hasMany(models.Workout, { foreignKey: "userId" }); // Adjust the foreign key here
+      this.hasMany(models.Workout, {
+        foreignKey: "userId", // Specify the correct foreign key for the workout association
+      });
+
+      this.hasMany(models.Exercise, {
+        foreignKey: "userId", // Specify the correct foreign key for the exercise association
+      });
     }
   }
   User.init(
@@ -21,7 +26,7 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: "User",
-      tableName: "users", // Adjust the table name here
+      tableName: "users",
     }
   );
   return User;

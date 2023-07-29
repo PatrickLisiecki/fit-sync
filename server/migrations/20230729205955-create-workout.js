@@ -1,34 +1,29 @@
 "use strict";
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import('sequelize').QueryInterface} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("exercises", {
+    await queryInterface.createTable("workouts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      exerciseId: {
+      userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       name: {
         type: Sequelize.STRING,
       },
-      type: {
-        type: Sequelize.STRING,
-      },
-      muscle: {
-        type: Sequelize.STRING,
-      },
-      equipment: {
-        type: Sequelize.STRING,
-      },
-      difficulty: {
-        type: Sequelize.STRING,
-      },
-      instructions: {
-        type: Sequelize.STRING,
+      day: {
+        type: Sequelize.STRING, // Store the day of the week (e.g., "Monday", "Tuesday")
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("exercises");
+    await queryInterface.dropTable("workouts");
   },
 };

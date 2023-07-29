@@ -3,7 +3,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRouter = require("./routes/auth");
-const models = require("./models");
+const { Workout, User, Exercise } = require("./models"); // Import the User model
 
 const { authenticateUser } = require("./middleware/authMiddleware");
 const port = 4000;
@@ -26,41 +26,58 @@ app.use(
 );
 app.use("/api/auth", authRouter);
 
-app.get("/users/:userId/workouts", async (req, res) => {
+// GET /api/days/:day/workouts
+app.get("/days/:day/workouts", async (req, res) => {
+  const day = req.params.day;
+
   try {
-    const { userId } = req.params;
-    console.log("Received request for user with ID:", userId);
+    // Find workouts for the specified day
+    const workouts = await Workout.findAll({
+      where: { day }, // Filter workouts by the specified day
+      include: Exercise, // Include associated exercises for each workout
+    });
 
-    // Get the date of the upcoming Monday
-    const mondayDate = moment().isoWeekday(1).format("YYYY-MM-DD");
+    res.json(workouts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-    const user = await models.User.findByPk(userId, {
-      include: {
-        model: models.Workout,
-        include: models.Exercise,
-        where: {
-          date: "monday", // Use the upcoming Monday's date in the query
-        },
-      },
+// GET /api/workoutPlan/:workoutId/exercises
+app.get("/workoutPlan/:workoutId/exercises", async (req, res) => {
+  const workoutId = parseInt(req.params.workoutId, 10);
+
+  try {
+    // Find exercises for the specified workout
+    const exercises = await Exercise.findAll({
+      where: { workoutId },
+    });
+
+    res.json(exercises);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get("/users/:userId/workouts", async (req, res) => {
+  const targetId = parseInt(req.params.userId, 10);
+
+  try {
+    const user = await User.findByPk(targetId, {
+      include: Workout, // Remove include: Exercise
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log("Workouts:", user.Workouts);
+    const workouts = user.Workouts;
 
-    // Extract exercises for each workout
-    const workoutsWithExercises = user.Workouts.map((workout) => {
-      const exercises = workout.getExercises(); // Get associated exercises for the workout
-      return {
-        ...workout.toJSON(),
-        exercises,
-      };
-    });
-
-    res.json(workoutsWithExercises);
+    res.json(workouts);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 });

@@ -6,17 +6,15 @@ module.exports = {
     const sampleWorkouts = [
       {
         userId: 1,
-        workoutId: 1,
         name: "Monday Workout",
-        day: "monday", // Replace with the desired date
+        day: "Monday", // Replace with the desired date
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        userId: 1,
-        workoutId: 2,
+        userId: 2,
         name: "Tuesday Workout",
-        day: "tuesday", // Replace with the desired date
+        day: "Tuesday", // Replace with the desired date
         createdAt: new Date(),
         updatedAt: new Date(),
       },

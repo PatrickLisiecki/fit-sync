@@ -27,13 +27,14 @@ fs.readdirSync(__dirname)
       file.indexOf(".") !== 0 &&
       file !== basename &&
       file.slice(-3) === ".js" &&
-      file.indexOf(".test.js") === -1 &&
-      file !== "index.js" // Exclude the index.js file from being processed as a model
+      file.indexOf(".test.js") === -1
     );
   })
   .forEach((file) => {
-    const modelDefiner = require(path.join(__dirname, file));
-    const model = modelDefiner(sequelize, Sequelize.DataTypes);
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
     db[model.name] = model;
   });
 
@@ -42,5 +43,8 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 module.exports = db;

@@ -5,7 +5,8 @@ module.exports = {
     // Sample exercise data
     const sampleExercises = [
       {
-        exerciseId: 1,
+        workoutId: 1, // Add the workoutId for the first exercise
+        userId: 2,
         name: "Push-up",
         type: "Strength",
         muscle: "Chest",
@@ -16,7 +17,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        exerciseId: 2,
+        workoutId: 1,
+        userId: 2, // Add the workoutId for the second exercise
         name: "Squat",
         type: "Strength",
         muscle: "Legs",

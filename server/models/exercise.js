@@ -1,34 +1,31 @@
 "use strict";
 const { Model } = require("sequelize");
-const Workout = require("./workout");
 
 module.exports = (sequelize, DataTypes) => {
   class Exercise extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      Exercise.belongsToMany(models.Workout, { through: "workout_exercise" });
-      Exercise.hasMany(models.WorkoutExercise, { foreignKey: "exerciseId" });
+      this.belongsTo(models.User, {
+        foreignKey: "userId", // Specify the correct foreign key for the user association
+      });
+      this.belongsTo(models.Workout, {
+        foreignKey: "workoutId", // Specify the correct foreign key for the workout association
+      });
     }
   }
   Exercise.init(
     {
+      workoutId: DataTypes.INTEGER, // Add the workoutId field
       name: DataTypes.STRING,
-      exerciseId: DataTypes.INTEGER,
       type: DataTypes.STRING,
       muscle: DataTypes.STRING,
       equipment: DataTypes.STRING,
       difficulty: DataTypes.STRING,
-      instructions: DataTypes.STRING,
+      instructions: DataTypes.TEXT,
     },
     {
       sequelize,
       modelName: "Exercise",
-      tableName: "Exercises",
+      tableName: "exercises",
     }
   );
   return Exercise;

@@ -1,28 +1,28 @@
 const { Model } = require("sequelize");
 const { DataTypes } = require("sequelize");
 const Exercise = require("./exercise");
-const User = require("./user");
 
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   class Workout extends Model {
     static associate(models) {
-      const Exercise = models.Exercise; // Import Exercise model from models parameter
-      // define association here
-      Workout.belongsToMany(Exercise, { through: "workout_exercise" });
-      Workout.belongsTo(models.User, { foreignKey: "userId" });
-      Workout.hasMany(models.WorkoutExercise, { foreignKey: "workoutId" });
+      this.belongsTo(models.User, {
+        foreignKey: "userId", // Specify the correct foreign key for the user association
+      });
+      this.hasMany(models.Exercise, {
+        foreignKey: "workoutId", // Specify the correct foreign key for the exercise association
+      });
     }
   }
   Workout.init(
     {
       userId: DataTypes.INTEGER,
       name: DataTypes.STRING,
-      day: DataTypes.STRING,
+      day: DataTypes.STRING, // e.g., 'Monday', 'Tuesday', etc.
     },
     {
       sequelize,
       modelName: "Workout",
-      tableName: "workouts", // Adjust the table name here
+      tableName: "workouts",
     }
   );
   return Workout;
