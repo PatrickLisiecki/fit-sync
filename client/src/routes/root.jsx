@@ -1,20 +1,14 @@
-// import { useContext } from "react";
-// import { Form, redirect } from "react-router-dom";
-// import { AuthContext } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 export default function Root() {
-    // const { currentUser, logout } = useContext(AuthContext);
-
-    // const handleLogout = (e) => {
-    //     e.preventDefault();
-
-    //     logout();
-
-    //     redirect("/auth");
-    // };
-
     return (
-        <div className="w-full min-h-screen flex flex-row justify-start">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center">
             <span className="text-2xl font-bold text-gray-800">Homepage</span>
+            <Link
+                to="/auth"
+                className="w-[100px] h-[50px] bg-gray-300 flex items-center justify-center text-black"
+            >
+                Log In
+            </Link>
         </div>
     );
 }
