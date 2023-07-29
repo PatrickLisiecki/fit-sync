@@ -2,198 +2,248 @@ import { useContext, useState } from "react";
 import { Form, Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
 export default function Auth() {
-  const { currentUser, login, signup, authError } = useContext(AuthContext);
-  const [byLogin, setByLogin] = useState(true);
+    const { currentUser, login, signup, authError } = useContext(AuthContext);
+    const [byLogin, setByLogin] = useState(true);
 
-  if (currentUser) {
-    return <Navigate to="/dashboard" />;
-  }
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const credentials = Object.fromEntries(formData);
-    await login(credentials);
-  };
-
-  const handleSignup = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const credentials = Object.fromEntries(formData);
-
-    // Check if any of the required fields are empty
-    if (!credentials.name || !credentials.email || !credentials.password) {
-      // Show an error message or set a state to display an error message
-      console.error("All fields are required");
-      return;
+    // Redirect if user is already logged in
+    if (currentUser) {
+        return <Navigate to="/dashboard" />;
     }
 
-    await signup(credentials);
-  };
+    // Handle form submission for login
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const credentials = Object.fromEntries(formData);
+        await login(credentials);
+    };
 
-  return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          <img
-            className="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-            alt="Logo"
-          />
-          Flex Fusion
-        </div>
-        <div
-          className={`${
-            byLogin ? "block" : "hidden"
-          } w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700`}
-        >
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
-            </h1>
-            <Form
-              className="space-y-4 md:space-y-6"
-              method="post"
-              onSubmit={handleLogin}
-            >
-              <div>
-                {authError && <div className="text-red-300">{authError}</div>}
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="username"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
+    // Handle form submission for signup
+    const handleSignup = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const credentials = Object.fromEntries(formData);
 
-              <button
-                type="submit"
-                className="w-full text-white bg-accent hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-accent dark:hover:bg-accent dark:focus:ring-accent"
-              >
-                Sign in
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <button
-                  className="font-medium text-accent hover:underline dark:text-accent"
-                  onClick={() => setByLogin(!byLogin)}
+        // Check if any of the required fields are empty
+        if (!credentials.username || !credentials.email || !credentials.password) {
+            // Show an error message or set a state to display an error message
+            console.error("All fields are required");
+            return;
+        }
+
+        await signup(credentials);
+    };
+
+    return (
+        <section className="w-full min-h-screen flex justify-center items-center bg-gray-200">
+            <div className="w-full container mx-auto flex flex-col items-center justify-center">
+                {/* Header */}
+                {/* <div className="text-[32px] font-semibold uppercase flex items-center mb-2 text-teal-400">
+                    Flex Fusion
+                </div> */}
+
+                {/* Login Form */}
+                <div
+                    className={`${
+                        byLogin ? "block" : "hidden"
+                    } min-w-[300px] md:min-w-[500px] bg-white rounded-lg p-10 shadow-bs`}
                 >
-                  Sign up
-                </button>
-              </p>
-            </Form>
-          </div>
-        </div>
-        <div
-          className={`${
-            byLogin ? "hidden" : "block"
-          } w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700`}
-        >
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create an account
-            </h1>
-            <Form
-              className="space-y-4 md:space-y-6"
-              method="post"
-              onSubmit={handleSignup}
-            >
-              <div>
-                {authError && <div className="text-red-300">{authError}</div>}
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    {/* Form Header */}
+                    <div className="w-full text-left mb-4">
+                        <span className="h3 uppercase  text-cyan-400">Login</span>
+                    </div>
+
+                    {/* Form */}
+                    <Form
+                        className="flex flex-col justify-center items-center gap-y-6"
+                        method="post"
+                        onSubmit={handleLogin}
+                    >
+                        {/* Username Field */}
+                        <fieldset className="w-full">
+                            {authError && <div className="text-red-300">{authError}</div>}
+                            <label
+                                htmlFor="username"
+                                className="block text-sm font-semibold uppercase text-gray-600"
+                            >
+                                Username
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder="Username"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    required=""
+                                />
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                    <FontAwesomeIcon icon={faUser} />
+                                </span>
+                            </div>
+                        </fieldset>
+
+                        {/* Password Field */}
+                        <fieldset className="w-full">
+                            <label
+                                htmlFor="password"
+                                className="block text-sm font-semibold uppercase text-gray-600"
+                            >
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter your password"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    required=""
+                                />
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                    <FontAwesomeIcon icon={faLock} />
+                                </span>
+                            </div>
+                        </fieldset>
+
+                        {/* Login Button */}
+                        <fieldset className="w-full">
+                            <button
+                                type="submit"
+                                className="w-full rounded-md px-4 py-3 text-sm uppercase font-bold text-white bg-gray-700 hover:bg-gray-600"
+                            >
+                                Sign in
+                            </button>
+                        </fieldset>
+
+                        {/* Create Account Button */}
+                        <div className="text-sm font-semibold text-gray-700">
+                            Don’t have an account?{" "}
+                            <span
+                                className="text-sm cursor-pointer text-blue-500 hover:underline"
+                                onClick={() => setByLogin(!byLogin)}
+                            >
+                                Sign up
+                            </span>
+                        </div>
+                    </Form>
+                </div>
+
+                {/* Signup Form */}
+                <div
+                    className={`${
+                        byLogin ? "hidden" : "block"
+                    } min-w-[300px] md:min-w-[500px] bg-white rounded-lg p-10 shadow-bs`}
                 >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  required=""
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-accent hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-accent dark:hover:bg-accent dark:focus:ring-accent"
-              >
-                Create account
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Have an account?{" "}
-                <button
-                  className="font-medium text-accent hover:underline dark:text-accent"
-                  onClick={() => setByLogin(!byLogin)}
-                >
-                  Log in
-                </button>
-              </p>
-            </Form>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                    {/* Form Header */}
+                    <div className="w-full text-left mb-4">
+                        <span className="h3 uppercase  text-cyan-400">Sign Up</span>
+                    </div>
+
+                    {/* Form */}
+                    <Form
+                        className="flex flex-col justify-center items-center gap-y-6"
+                        method="post"
+                        onSubmit={handleSignup}
+                    >
+                        {/* Username Field */}
+                        <fieldset className="w-full">
+                            {authError && <div className="text-red-300">{authError}</div>}
+                            <label
+                                htmlFor="username"
+                                className="block text-sm font-semibold uppercase text-gray-600"
+                            >
+                                Username
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder="Username"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    required=""
+                                />
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                    <FontAwesomeIcon icon={faUser} />
+                                </span>
+                            </div>
+                        </fieldset>
+
+                        {/* Email Field */}
+                        <fieldset className="w-full">
+                            <label
+                                htmlFor="email"
+                                className="block text-sm font-semibold uppercase text-gray-600"
+                            >
+                                Email
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    placeholder="email@domain.com"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    required=""
+                                />
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                </span>
+                            </div>
+                        </fieldset>
+
+                        {/* Password Field */}
+                        <fieldset className="w-full">
+                            <label
+                                htmlFor="password"
+                                className="block text-sm font-semibold uppercase text-gray-600"
+                            >
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Password"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    required=""
+                                />
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                    <FontAwesomeIcon icon={faLock} />
+                                </span>
+                            </div>
+                        </fieldset>
+
+                        {/* Login Button */}
+                        <fieldset className="w-full">
+                            <button
+                                type="submit"
+                                className="w-full rounded-md px-4 py-3 text-sm uppercase font-bold text-white bg-gray-700 hover:bg-gray-600"
+                            >
+                                Sign up
+                            </button>
+                        </fieldset>
+
+                        {/* Create Account Button */}
+                        <div className="text-sm font-semibold text-gray-700">
+                            Already have an account?{" "}
+                            <span
+                                className="cursor-pointer text-blue-500 hover:underline"
+                                onClick={() => setByLogin(!byLogin)}
+                            >
+                                Log in
+                            </span>
+                        </div>
+                    </Form>
+                </div>
+            </div>
+        </section>
+    );
 }

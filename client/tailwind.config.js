@@ -18,13 +18,12 @@ module.exports = {
         },
         extend: {
             colors: {
-                primary: "#333333",
-                secondary: "#777777",
-                accent: "#0d9488",
+                primary: "#b4b4b4",
+                secondary: "#333333",
+                accent: "#00F6FF",
             },
             boxShadow: {
                 bs: "0 0 10px rgba(0,0,0,.1)",
-                soft: "-5px -5px 10px #b3b3b3,5px 5px 10px #ffffff",
             },
         },
     },
