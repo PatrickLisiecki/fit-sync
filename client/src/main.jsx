@@ -4,16 +4,16 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthProvider from "./contexts/AuthContext";
 import "./index.css";
 import Auth from "./routes/Auth/Auth";
-import ErrorPage from "./routes/ErrorPage";
+import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./routes/Dashboard/Dashboard";
 import WorkoutList from "./routes/workoutlist";
-import Root from "./routes/Root";
+import Home from "./routes/Home/Home";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: <Home />,
         errorElement: <ErrorPage />,
     },
     {

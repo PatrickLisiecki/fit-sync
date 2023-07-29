@@ -55,7 +55,7 @@ export default function Auth() {
                 >
                     {/* Form Header */}
                     <div className="w-full text-left mb-4">
-                        <span className="h3 uppercase  text-cyan-400">Login</span>
+                        <span className="h3 uppercase  text-accent">Login</span>
                     </div>
 
                     {/* Form */}
@@ -66,10 +66,10 @@ export default function Auth() {
                     >
                         {/* Username Field */}
                         <fieldset className="w-full">
-                            {authError && <div className="text-red-300">{authError}</div>}
+                            {authError && <div className="text-red-500">{authError}</div>}
                             <label
                                 htmlFor="username"
-                                className="block text-sm font-semibold uppercase text-gray-600"
+                                className="block text-sm font-semibold uppercase text-primary"
                             >
                                 Username
                             </label>
@@ -79,10 +79,10 @@ export default function Auth() {
                                     name="username"
                                     id="username"
                                     placeholder="Username"
-                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
                                     required=""
                                 />
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
                                     <FontAwesomeIcon icon={faUser} />
                                 </span>
                             </div>
@@ -92,7 +92,7 @@ export default function Auth() {
                         <fieldset className="w-full">
                             <label
                                 htmlFor="password"
-                                className="block text-sm font-semibold uppercase text-gray-600"
+                                className="block text-sm font-semibold uppercase text-primary"
                             >
                                 Password
                             </label>
@@ -102,10 +102,10 @@ export default function Auth() {
                                     name="password"
                                     id="password"
                                     placeholder="Enter your password"
-                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
                                     required=""
                                 />
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
                                     <FontAwesomeIcon icon={faLock} />
                                 </span>
                             </div>
@@ -122,7 +122,7 @@ export default function Auth() {
                         </fieldset>
 
                         {/* Create Account Button */}
-                        <div className="text-sm font-semibold text-gray-700">
+                        <div className="text-sm font-semibold text-primary">
                             Don’t have an account?{" "}
                             <span
                                 className="text-sm cursor-pointer text-blue-500 hover:underline"
@@ -142,7 +142,7 @@ export default function Auth() {
                 >
                     {/* Form Header */}
                     <div className="w-full text-left mb-4">
-                        <span className="h3 uppercase  text-cyan-400">Sign Up</span>
+                        <span className="h3 uppercase  text-accent">Sign Up</span>
                     </div>
 
                     {/* Form */}
@@ -153,10 +153,10 @@ export default function Auth() {
                     >
                         {/* Username Field */}
                         <fieldset className="w-full">
-                            {authError && <div className="text-red-300">{authError}</div>}
+                            {authError && <div className="text-red-500">{authError}</div>}
                             <label
                                 htmlFor="username"
-                                className="block text-sm font-semibold uppercase text-gray-600"
+                                className="block text-sm font-semibold uppercase text-primary"
                             >
                                 Username
                             </label>
@@ -166,10 +166,10 @@ export default function Auth() {
                                     name="username"
                                     id="username"
                                     placeholder="Username"
-                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
                                     required=""
                                 />
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
                                     <FontAwesomeIcon icon={faUser} />
                                 </span>
                             </div>
@@ -179,7 +179,7 @@ export default function Auth() {
                         <fieldset className="w-full">
                             <label
                                 htmlFor="email"
-                                className="block text-sm font-semibold uppercase text-gray-600"
+                                className="block text-sm font-semibold uppercase text-primary"
                             >
                                 Email
                             </label>
@@ -189,10 +189,10 @@ export default function Auth() {
                                     name="email"
                                     id="email"
                                     placeholder="email@domain.com"
-                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
                                     required=""
                                 />
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
                                     <FontAwesomeIcon icon={faEnvelope} />
                                 </span>
                             </div>
@@ -202,7 +202,7 @@ export default function Auth() {
                         <fieldset className="w-full">
                             <label
                                 htmlFor="password"
-                                className="block text-sm font-semibold uppercase text-gray-600"
+                                className="block text-sm font-semibold uppercase text-primary"
                             >
                                 Password
                             </label>
@@ -212,10 +212,10 @@ export default function Auth() {
                                     name="password"
                                     id="password"
                                     placeholder="Password"
-                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-gray-600"
+                                    className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
                                     required=""
                                 />
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
                                     <FontAwesomeIcon icon={faLock} />
                                 </span>
                             </div>
@@ -232,7 +232,7 @@ export default function Auth() {
                         </fieldset>
 
                         {/* Create Account Button */}
-                        <div className="text-sm font-semibold text-gray-700">
+                        <div className="text-sm font-semibold text-primary">
                             Already have an account?{" "}
                             <span
                                 className="cursor-pointer text-blue-500 hover:underline"
