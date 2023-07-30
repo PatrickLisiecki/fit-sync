@@ -8,6 +8,9 @@ import Auth from "./routes/Auth/Auth";
 import Dashboard from "./routes/Dashboard/Dashboard";
 import Home from "./routes/Home/Home";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
+import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
+
 import WorkoutList from "./routes/workoutlist";
 
 const router = createBrowserRouter([
@@ -30,6 +33,25 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/user/:userId/workout",
+    element: (
+      <ProtectedRoute>
+        <WorkoutPlan />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/user/:userId/workout/day/:day/exercises",
+    element: (
+      <ProtectedRoute>
+        <WorkoutExercises />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+
   {
     path: "/ninja",
     element: <WorkoutList />,

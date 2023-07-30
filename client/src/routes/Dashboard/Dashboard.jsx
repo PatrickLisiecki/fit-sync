@@ -1,16 +1,31 @@
-import { useContext } from "react";
-import { Form, redirect } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
-export default function Root() {
-  const { currentUser, logout } = useContext(AuthContext);
+
+export default function Dashboard() {
+  const { currentUser, logout, setCurrentUser } = useContext(AuthContext);
 
   const handleLogout = (e) => {
     e.preventDefault();
-
     logout();
-
-    redirect("/auth");
+    setCurrentUser(null); // Set currentUser to null after logout
   };
+
+  const handleWorkoutPlanClick = () => {
+    if (currentUser?.id) {
+      const userId = currentUser.id;
+      const workoutPlanURL = `/user/${userId}/workout`;
+      window.location.href = workoutPlanURL;
+    }
+  };
+
+  useEffect(() => {
+    // If the currentUser is null, it means the user is not logged in,
+    // and we should redirect them to the authentication page.
+    if (!currentUser) {
+      window.location.href = "/auth"; // Replace "/auth" with the correct authentication URL
+    }
+  }, [currentUser]);
 
   return (
     <div className="w-full min-h-screen flex flex-row justify-start">
@@ -30,9 +45,14 @@ export default function Root() {
             <li className="w-[200px] p-4 text-sky-400 bg-gray-800 rounded-[20px]">
               Home
             </li>
-            <li className="w-[200px] p-4 text-sky-400 bg-gray-800 rounded-[20px]">
-              Workout Plan
-            </li>
+            {currentUser ? (
+              <li
+                className="w-[200px] p-4 text-sky-400 bg-gray-800 rounded-[20px]"
+                onClick={handleWorkoutPlanClick}
+              >
+                Workout Plan
+              </li>
+            ) : null}
             <li className="w-[200px] p-4 text-sky-400 bg-gray-800 rounded-[20px]">
               Progress
             </li>
@@ -42,7 +62,7 @@ export default function Root() {
           </ul>
         </div>
         {currentUser && (
-          <Form
+          <form
             method="post"
             onSubmit={handleLogout}
             className="w-full flex justify-center"
@@ -58,7 +78,7 @@ export default function Root() {
                 Sure?
               </span>
             </button>
-          </Form>
+          </form>
         )}
       </div>
       <div className="w-full h-screen bg-gray-200"></div>
