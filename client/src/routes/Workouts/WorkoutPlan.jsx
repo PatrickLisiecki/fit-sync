@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const WorkoutPlan = () => {
   const { userId } = useParams(); // Get the user ID from the URL params
-  const [workouts, setWorkouts] = useState([]);
-  console.log(userId);
-
-  useEffect(() => {
-    // Fetch workouts data from the server for the specified user
-    fetch(`/users/${userId}/workouts`)
-      .then((response) => response.json())
-      .then((data) => setWorkouts(data))
-      .catch((error) => console.log(error));
-  }, [userId]);
 
   const daysOfWeek = [
     "Monday",
@@ -33,15 +22,10 @@ const WorkoutPlan = () => {
             key={index}
             className="p-4 text-white bg-gray-800 rounded-lg shadow-lg text-center"
           >
+            {/* Use Link to navigate to the corresponding endpoint */}
             <Link to={`/user/${userId}/workout/day/${day}/exercises`}>
               <h2>{day}</h2>
             </Link>
-            {workouts.map((workout) => (
-              <div key={workout.id}>
-                <p>{workout.name}</p>
-                {/* Display other workout details here */}
-              </div>
-            ))}
           </div>
         ))}
       </div>

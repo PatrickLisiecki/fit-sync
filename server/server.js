@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
+const workoutRouter = require("./routes/workouts");
 const { Workout, User, Exercise } = require("./models"); // Import the User model
 
 const { authenticateUser } = require("./middleware/authMiddleware");
@@ -28,6 +29,7 @@ app.use(
 app.use("/api/auth", authRouter);
 
 app.use("/api/exercises", exercisesRouter);
+app.use("/api/workout", workoutRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

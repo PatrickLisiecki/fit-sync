@@ -12,7 +12,9 @@ export default function Auth() {
 
   // Redirect if user is already logged in
   if (currentUser) {
-    return <Navigate to="/dashboard" />;
+    // Extract userId from currentUser
+    const userId = currentUser.id;
+    return <Navigate to={`/user/${userId}/dashboard`} />; // Redirect using Navigate with the user's dashboard URL
   }
 
   // Handle form submission for login
@@ -89,6 +91,27 @@ export default function Auth() {
             </fieldset>
 
             {/* Password Field */}
+            <fieldset className="w-full">
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold uppercase text-primary"
+              >
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  required=""
+                />
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                  <FontAwesomeIcon icon={faLock} />
+                </span>
+              </div>
+            </fieldset>
 
             {/* Login Button */}
             <fieldset className="w-full">

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/dashboard",
+    path: "/user/:userId/dashboard",
     element: (
       <ProtectedRoute>
         <Dashboard />

@@ -1,9 +1,10 @@
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Dashboard() {
   const { currentUser, logout, setCurrentUser } = useContext(AuthContext);
+  const { userId } = useParams(); // Get the user ID from the URL params using useParams
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -12,21 +13,11 @@ export default function Dashboard() {
   };
 
   const handleWorkoutPlanClick = () => {
-    if (currentUser?.id) {
-      const userId = currentUser.id;
-      const workoutPlanURL = `/user/${userId}/workout`;
-      window.location.href = workoutPlanURL;
-    }
+    // Instead of checking if currentUser.id exists, directly use the userId from the URL params
+    const workoutPlanURL = `/user/${userId}/workout`;
+    // Use Link component to navigate to the workout plan page
+    return <Link to={workoutPlanURL} />;
   };
-
-  useEffect(() => {
-    // If the currentUser is null, it means the user is not logged in,
-    // and we should redirect them to the authentication page.
-    if (!currentUser) {
-      window.location.href = "/auth"; // Replace "/auth" with the correct authentication URL
-    }
-  }, [currentUser]);
-
   return (
     <div className="w-full min-h-screen flex flex-row justify-start">
       <div className="min-w-[300px] h-screen flex flex-col items-center bg-gray-600">
