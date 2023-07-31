@@ -12,9 +12,7 @@ export default function Auth() {
 
   // Redirect if user is already logged in
   if (currentUser) {
-    // Extract userId from currentUser
-    const userId = currentUser.id;
-    return <Navigate to={`/user/${userId}/dashboard`} />; // Redirect using Navigate with the user's dashboard URL
+    return <Navigate to={`/dashboard`} />;
   }
 
   // Handle form submission for login

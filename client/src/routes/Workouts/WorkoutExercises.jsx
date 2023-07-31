@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const UserExercises = () => {
-  const { userId, day } = useParams();
+  const { currentUser } = useContext(AuthContext);
+  const { day } = useParams();
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
-    // Fetch exercises data from the server for the specified user and day
-    fetch(`/api/exercises/user/${userId}/workout/day/${day}/exercises`)
-      .then((response) => response.json())
-      .then((data) => setExercises(data))
-      .catch((error) => console.log(error));
-  }, [userId, day]);
+    // Check if user is logged in and get the userId from the currentUser object
+    if (currentUser) {
+      const userId = currentUser.id;
+
+      // Fetch exercises data from the server for the specified user and day
+      fetch(`/api/exercises/user/${userId}/workout/day/${day}/exercises`)
+        .then((response) => response.json())
+        .then((data) => setExercises(data))
+        .catch((error) => console.log(error));
+    }
+  }, [currentUser, day]);
 
   return (
     <div className="p-4">
