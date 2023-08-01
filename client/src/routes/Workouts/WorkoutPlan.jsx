@@ -26,7 +26,7 @@ const WorkoutPlan = () => {
           >
             {/* Use Link to navigate to the corresponding endpoint */}
             {currentUser && (
-              <Link to={`/user/${currentUser.id}/workout/day/${day}/exercises`}>
+              <Link to={`/dashboard/workouts/${day}`}>
                 <h2>{day}</h2>
               </Link>
             )}

@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/user/workout",
+    path: "/dashboard/workouts",
     element: (
       <ProtectedRoute>
         <WorkoutPlan />
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/user/:userId/workout/day/:day/exercises",
+    path: "dashboard/workouts/:day",
     element: (
       <ProtectedRoute>
         <WorkoutExercises />

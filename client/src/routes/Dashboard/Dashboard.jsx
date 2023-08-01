@@ -4,18 +4,12 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Dashboard() {
   const { currentUser, logout, setCurrentUser } = useContext(AuthContext);
-  const [workoutPlanURL, setWorkoutPlanURL] = useState("/user/workout");
+  // const [workoutPlanURL, setWorkoutPlanURL] = useState("/user/workout");
 
   const handleLogout = (e) => {
     e.preventDefault();
     logout();
     setCurrentUser(null); // Set currentUser to null after logout
-  };
-
-  const handleWorkoutPlanClick = () => {
-    if (currentUser?.id) {
-      setWorkoutPlanURL(`/user/workout`);
-    }
   };
 
   useEffect(() => {
@@ -45,9 +39,8 @@ export default function Dashboard() {
             </li>
             {currentUser ? (
               <Link
-                to={workoutPlanURL}
+                to="/dashboard/workouts"
                 className="w-[200px] p-4 text-sky-400 bg-gray-800 rounded-[20px]"
-                onClick={handleWorkoutPlanClick}
               >
                 Workout Plan
               </Link>
