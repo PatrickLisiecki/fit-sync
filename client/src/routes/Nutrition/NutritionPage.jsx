@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHamburger, faFire, faUtensils, faDrumstickBite, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  faHamburger,
+  faFire,
+  faUtensils,
+  faDrumstickBite,
+  faCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from 'recharts';
 
 const NutritionPage = () => {
   const [query, setQuery] = useState('');
   const [nutritionFacts, setNutritionFacts] = useState(null);
+  const [totalCalories, setTotalCalories] = useState(0);
+  const [totalProteins, setTotalProteins] = useState(0);
   const API_KEY = 'duVW5E6BSkAgwi62UVJorA==xW9asge73X0q5CsP'; // Replace with your actual API key
 
   const handleQueryChange = (e) => {
@@ -21,7 +40,18 @@ const NutritionPage = () => {
         },
       })
       .then((response) => {
-        setNutritionFacts(response.data.items); // Update to store the array of nutrition facts
+        setNutritionFacts(response.data.items);
+        // Calculate total calories and proteins
+        const totalCalories = response.data.items.reduce(
+          (acc, item) => acc + item.calories,
+          0
+        );
+        setTotalCalories(totalCalories);
+        const totalProteins = response.data.items.reduce(
+          (acc, item) => acc + item.protein_g,
+          0
+        );
+        setTotalProteins(totalProteins);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -68,37 +98,58 @@ const NutritionPage = () => {
                 <ul>
                   {/* List of nutrition facts */}
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faHamburger} className="text-3xl mr-4 text-red-600" />
+                    <FontAwesomeIcon
+                      icon={faHamburger}
+                      className="text-3xl mr-4 text-red-600"
+                    />
                     <span className="font-semibold text-lg">Name: </span>
                     {nutritionFact.name}
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-500" />
+                    <FontAwesomeIcon
+                      icon={faFire}
+                      className="text-3xl mr-4 text-yellow-500"
+                    />
                     <span className="font-semibold text-lg">Calories: </span>
                     {nutritionFact.calories}
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-green-500" />
+                    <FontAwesomeIcon
+                      icon={faUtensils}
+                      className="text-3xl mr-4 text-green-500"
+                    />
                     <span className="font-semibold text-lg">Serving Size: </span>
                     {nutritionFact.serving_size_g} g
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-600" />
+                    <FontAwesomeIcon
+                      icon={faFire}
+                      className="text-3xl mr-4 text-yellow-600"
+                    />
                     <span className="font-semibold text-lg">Total Fat: </span>
                     {nutritionFact.fat_total_g} g
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faCircle} className="text-3xl mr-4 text-yellow-600" />
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="text-3xl mr-4 text-yellow-600"
+                    />
                     <span className="font-semibold text-lg">Saturated Fat: </span>
                     {nutritionFact.fat_saturated_g} g
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faDrumstickBite} className="text-3xl mr-4 text-green-600" />
+                    <FontAwesomeIcon
+                      icon={faDrumstickBite}
+                      className="text-3xl mr-4 text-green-600"
+                    />
                     <span className="font-semibold text-lg">Protein: </span>
                     {nutritionFact.protein_g} g
                   </li>
                   <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-blue-600" />
+                    <FontAwesomeIcon
+                      icon={faUtensils}
+                      className="text-3xl mr-4 text-blue-600"
+                    />
                     <span className="font-semibold text-lg">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
@@ -111,8 +162,9 @@ const NutritionPage = () => {
           {/* Nutrition Visualization */}
           <div className="border rounded-md p-6 bg-white shadow-md my-4">
             <h2 className="text-2xl font-semibold mb-4">Nutrition Visualization</h2>
-            <div className="flex space-x-4">
-              {/* Calories Bar Chart */}
+            <div className="flex flex-wrap space-x-2">
+                <div className="w-full md:w-1/2 lg:w-1/4" >
+                    {/* Calories Bar Chart */}
               <BarChart
                 width={400}
                 height={300}
@@ -126,7 +178,31 @@ const NutritionPage = () => {
                 <Legend />
                 <Bar dataKey="calories" fill="#8884d8" name="Calories" />
               </BarChart>
+              </div>
 
+              <div className="w-full md:w-1/2 lg:w-1/3"> 
+              {/* Pie Chart for Total Calories and Proteins */}
+              <PieChart width={400} height={300}>
+                <Pie
+                  data={[
+                    { name: 'Calories', value: totalCalories },
+                    { name: 'Proteins', value: totalProteins },
+                  ]}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                >
+                  <Cell fill="#82ca9d" />
+                  <Cell fill="#8884d8" />
+                </Pie>
+                <Tooltip />
+              </PieChart>
+              </div>
+
+              <div className="w-full md:w-1/2 lg:w-1/3">
               {/* Proteins Bar Chart */}
               <BarChart
                 width={400}
@@ -141,6 +217,7 @@ const NutritionPage = () => {
                 <Legend />
                 <Bar dataKey="protein_g" fill="#82ca9d" name="Proteins (g)" />
               </BarChart>
+              </div>
             </div>
           </div>
         </>
