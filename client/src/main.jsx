@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage";
 import AuthProvider from "./contexts/AuthContext";
 import "./index.css";
 import Auth from "./routes/Auth/Auth";
-import ErrorPage from "./components/ErrorPage";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./routes/Dashboard/Dashboard";
-import WorkoutList from "./routes/workoutlist";
 import Home from "./routes/Home/Home";
-import PrivacyPolicy from "./components/PrivacyPolicy";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
+import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
+import WorkoutList from "./routes/workoutlist";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -39,16 +41,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/policy",
-    element: <PrivacyPolicy />,
-  },
-  {
     path: "/about",
     element: <About />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/contact",
     element: <Contact />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/policy",
+    element: <PrivacyPolicy />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
