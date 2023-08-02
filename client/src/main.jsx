@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -17,56 +18,61 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/auth",
-    element: <Auth />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/dashboard",
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/ninja",
-    element: <WorkoutList />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/policy",
-    element: <PrivacyPolicy />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "dashboard/nutrition",
-    element: <NutritionPage />,
-    errorElement: <ErrorPage />,
-  }
+    {
+        path: "/",
+        element: <Home />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/auth",
+        element: <Auth />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <ProtectedRoute>
+                <Dashboard />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                path: "/dashboard/nutrition",
+                element: (
+                    <ProtectedRoute>
+                        <NutritionPage />
+                    </ProtectedRoute>
+                ),
+            },
+        ],
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/ninja",
+        element: <WorkoutList />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/about",
+        element: <About />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/contact",
+        element: <Contact />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/policy",
+        element: <PrivacyPolicy />,
+        errorElement: <ErrorPage />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
+    </React.StrictMode>
 );

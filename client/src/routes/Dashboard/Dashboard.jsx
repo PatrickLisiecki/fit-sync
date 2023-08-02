@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
+
 // Components
 import DashboardFooter from "./DashboardFooter";
 import DashboardNavbar from "./DashboardNavbar";
@@ -16,6 +18,11 @@ export default function Dashboard() {
             <Sidebar isExpanded={isExpanded} />
             <div className="w-full min-h-screen flex flex-col justify-between">
                 <DashboardNavbar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+                <div
+                    className={`${isExpanded ? "pl-[200px] lg:pl-[250px]" : "pl-0"} w-full h-full transition-all duration-500`}
+                >
+                    <Outlet />
+                </div>
                 <DashboardFooter isExpanded={isExpanded} />
             </div>
         </div>
