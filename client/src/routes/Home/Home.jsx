@@ -34,10 +34,7 @@ export default function Root() {
           </div>
         </div>
       </section>
-      <section
-        className=" bg-white shadow-bs inline-block w-full"
-        id="features"
-      >
+      <section className=" bg-white shadow-bs inline-block w-full">
         <div className="container mx-auto px-4 py-8">
           <h3 className="text-4xl font-semibold text-center pt-8 ">Features</h3>
           <p className="text-center  font-light">
@@ -83,16 +80,15 @@ export default function Root() {
                 <FontAwesomeIcon icon={faChartLine} className="text-5xl my-6" />
               </div>
               <h3 className="text-2xl font-semibold text-center mt-2">
-                Nutrition Tracker
+                Nutrition Analysis
               </h3>
               <p className="my-4  text-center mx-6 text-secondary text-sm ">
-                As you track your nutrition and record your daily intake, our
-                intelligent algorithm carefully analyzes your dietary habits.
-                Our user-friendly dashboard provides you with informative data
-                and visually appealing charts, showcasing your nutritional
-                progress over time. This personalized insight helps you make
-                informed dietary adjustments to maximize your health and
-                wellness effectively.
+                As you log your daily meals and nutrition, our intelligent
+                algorithm meticulously analyzes the nutritional content of your
+                diet. Our user-friendly dashboard presents you with detailed
+                data and visually engaging charts, providing insights into your
+                meal choices. This personalized meal nutrition analysis empowers
+                you to make informed dietary adjustments.
               </p>
             </div>
             <div className="flex flex-col items-center mt-8 mb-8">
