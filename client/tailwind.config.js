@@ -11,6 +11,7 @@ module.exports = {
             },
         },
         screens: {
+            xs: "300px",
             sm: "640px",
             md: "768px",
             lg: "960px",
@@ -21,6 +22,7 @@ module.exports = {
                 primary: "#333333",
                 secondary: "#565656",
                 accent: "#FFA500",
+                sidebar: "#424242",
             },
             boxShadow: {
                 bs: "0 0 10px rgba(0,0,0,.1)",
