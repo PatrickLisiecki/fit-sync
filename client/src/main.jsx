@@ -14,6 +14,7 @@ import WorkoutList from "./routes/workoutlist";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import NutritionPage from "./routes/Nutrition/NutritionPage";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
     element: <PrivacyPolicy />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "dashboard/nutrition",
+    element: <NutritionPage />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

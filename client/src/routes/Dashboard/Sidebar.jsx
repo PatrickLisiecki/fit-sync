@@ -28,7 +28,7 @@ const sidebarData = [
     },
     {
         title: "Meal Tracker",
-        link: "/dashboard/tracker",
+        link: "/dashboard/nutrition",
         icon: <FontAwesomeIcon icon={faChartPie} className="w-[20px] h-[20px]" />,
     },
     {
