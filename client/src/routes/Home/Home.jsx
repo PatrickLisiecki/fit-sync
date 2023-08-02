@@ -38,85 +38,83 @@ export default function Root() {
         className=" bg-white shadow-bs inline-block w-full"
         id="features"
       >
-        <h3 className="text-4xl font-semibold text-center pt-8 ">Features</h3>
-        <p className="text-center  font-light">
-          Everything you need to achieve your fitness goals, all in one place.
-        </p>
-        <div className="grid lg:grid-cols-2 grid-cols-1 place-items-center my-16">
-          <div className="flex flex-col items-center mt-8  ">
-            <div className=" w-24 h-24 bg-accent rounded-full text-center ">
-              <FontAwesomeIcon icon={faRobot} className="text-5xl my-5" />
+        <div className="container mx-auto px-4 py-8">
+          <h3 className="text-4xl font-semibold text-center pt-8 ">Features</h3>
+          <p className="text-center  font-light">
+            Everything you need to achieve your fitness goals, all in one place.
+          </p>
+          <div className="grid lg:grid-cols-2 grid-cols-1 place-items-center my-8">
+            <div className="flex flex-col items-center mt-8  ">
+              <div className=" w-24 h-24 bg-accent rounded-full text-center ">
+                <FontAwesomeIcon icon={faRobot} className="text-5xl my-5" />
+              </div>
+              <h3 className="text-2xl font-semibold text-center mt-2 ">
+                AI Generated Workouts
+              </h3>
+              <p className="my-4 text-center mx-6 text-secondary text-sm">
+                Our app utilizes state-of-the-art AI technology to craft
+                workouts based on your exact needs, goals, and preferences.
+                Whether you&apos;re looking to build muscle, improve
+                flexibility, burn calories, or enhance your overall fitness, our
+                AI has got you covered. With workouts personalized to your
+                liking, staying motivated and committed to your fitness journey
+                has never been easier.
+              </p>
             </div>
-            <h3 className="text-2xl font-semibold text-center my-2 ">
-              AI Generated Workouts
-            </h3>
-            <p className="my-4  text-center mx-6">
-              Our app utilizes state-of-the-art AI technology to craft workouts
-              based on your exact needs, goals, and preferences. Whether
-              you&apos;re looking to build muscle, improve flexibility, burn
-              calories, or enhance your overall fitness, our AI has got you
-              covered. With workouts personalized to your liking, staying
-              motivated and committed to your fitness journey has never been
-              easier.
-            </p>
-          </div>
-          <div className="flex flex-col items-center mt-8">
-            <div className="w-24 h-24 bg-accent rounded-full text-center ">
-              <FontAwesomeIcon icon={faDumbbell} className="text-5xl my-6" />
+            <div className="flex flex-col items-center mt-8">
+              <div className="w-24 h-24 bg-accent rounded-full text-center ">
+                <FontAwesomeIcon icon={faDumbbell} className="text-5xl my-6" />
+              </div>
+              <h3 className="text-2xl font-semibold text-center mt-2">
+                Massive Workout Library
+              </h3>
+              <p className="my-4  text-center mx-6 text-secondary text-sm ">
+                Whether you&apos;re a seasoned fitness enthusiast or a beginner
+                just starting, our workout library has something for everyone.
+                Our app lets you filter workouts based on your specific
+                objectives, such as muscle building, weight loss, toning, or
+                increasing flexibility. You&apos;re in control of your fitness
+                journey, with the flexibility to mix and match workouts to
+                create your personalized fitness plan.
+              </p>
             </div>
-            <h3 className="text-2xl font-semibold text-center my-2">
-              Massive Workout Library
-            </h3>
-            <p className="my-4  text-center mx-6 ">
-              Whether you&apos;re a seasoned fitness enthusiast or a beginner
-              just starting, our workout library has something for everyone. Our
-              app lets you filter workouts based on your specific objectives,
-              such as muscle building, weight loss, toning, or increasing
-              flexibility. You&apos;re in control of your fitness journey, with
-              the flexibility to mix and match workouts to create your
-              personalized fitness plan.
-            </p>
-          </div>
-          <div className="flex flex-col items-center mt-8 lg:mb-8">
-            <div className=" w-24 h-24 bg-accent rounded-full text-center ">
-              <FontAwesomeIcon icon={faChartLine} className="text-5xl my-6" />
+            <div className="flex flex-col items-center mt-8 lg:mb-8">
+              <div className=" w-24 h-24 bg-accent rounded-full text-center ">
+                <FontAwesomeIcon icon={faChartLine} className="text-5xl my-6" />
+              </div>
+              <h3 className="text-2xl font-semibold text-center mt-2">
+                Nutrition Tracker
+              </h3>
+              <p className="my-4  text-center mx-6 text-secondary text-sm ">
+                As you track your nutrition and record your daily intake, our
+                intelligent algorithm carefully analyzes your dietary habits.
+                Our user-friendly dashboard provides you with informative data
+                and visually appealing charts, showcasing your nutritional
+                progress over time. This personalized insight helps you make
+                informed dietary adjustments to maximize your health and
+                wellness effectively.
+              </p>
             </div>
-            <h3 className="text-2xl font-semibold text-center my-2">
-              Progress Tracker
-            </h3>
-            <p className="my-4  text-center mx-6 ">
-              As you complete workouts and record your activities, our
-              intelligent algorithm meticulously analyzes your performance. Our
-              user-friendly dashboard provides you with insightful data and
-              visually engaging graphs, showcasing your progress over time.
-              Witness how your strength, endurance, and flexibility have evolved
-              week by week. Set personal bests, see your stats improve, and
-              celebrate your achievements like never before. This personalized
-              insight helps you adjust your workouts to maximize results
-              effectively.
-            </p>
-          </div>
-          <div className="flex flex-col items-center mt-8 mb-8">
-            <div className="w-24 h-24 bg-accent rounded-full text-center ">
-              <FontAwesomeIcon
-                icon={faScrewdriverWrench}
-                className="text-5xl my-6"
-              />
+            <div className="flex flex-col items-center mt-8 mb-8">
+              <div className="w-24 h-24 bg-accent rounded-full text-center ">
+                <FontAwesomeIcon
+                  icon={faScrewdriverWrench}
+                  className="text-5xl my-6"
+                />
+              </div>
+              <h3 className="text-2xl font-semibold text-center mt-2">
+                Create Workouts
+              </h3>
+              <p className="my-4  text-center mx-6 text-secondary text-sm">
+                Creating your custom workout is as simple as it is empowering.
+                Mix and match strength training, cardio, yoga, and more to
+                design a routine that suits your unique needs. Adjust sets,
+                reps, and rest periods to tailor the intensity to your liking.
+                Feeling up for a challenge? Amp up the difficulty with advanced
+                variations. Prefer a quick, high-energy session? Opt for a
+                fast-paced circuit. The power is in your hands.
+              </p>
             </div>
-            <h3 className="text-2xl font-semibold text-center my-2">
-              Create Workouts
-            </h3>
-            <p className="my-4  text-center mx-6 ">
-              Creating your custom workout is as simple as it is empowering.
-              Choose from a vast array of exercises in our comprehensive library
-              or even add your own favorite moves. Mix and match strength
-              training, cardio, yoga, and more to design a routine that suits
-              your unique needs. Adjust sets, reps, and rest periods to tailor
-              the intensity to your liking. Feeling up for a challenge? Amp up
-              the difficulty with advanced variations. Prefer a quick,
-              high-energy session? Opt for a fast-paced circuit. The power is in
-              your hands.
-            </p>
           </div>
         </div>
       </section>
@@ -137,6 +135,7 @@ export default function Root() {
           </div>
         </div>
       </section>
+
       <Footer />
     </>
   );
