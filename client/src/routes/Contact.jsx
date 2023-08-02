@@ -1,6 +1,9 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Memodified from "../../public/Me-modified.png";
+import Pat from "../../public/Pat-modified.png";
+import Andro from "../../public/Andro-modified.png";
+import John from "../../public/John-modified.png";
 
 const Contact = () => {
   return (
@@ -16,7 +19,7 @@ const Contact = () => {
         </p>
         <div className="lg:flex gap-10">
           <div className="text-center shadow-lg p-4 rounded-xl my-10  dark:bg-white flex-1 transition-transform transform hover:scale-105">
-            <img src={Memodified} width={100} height={100} alt="Patrick" />
+            <img src={Pat} width={100} height={100} alt="Patrick" />
             <h3 className="text-lg font-medium  pb-2  ">Patrick Lisiecki</h3>
 
             <h4 className="py-4 text-accent">Contact</h4>
@@ -55,7 +58,7 @@ const Contact = () => {
             </p>
           </div>
           <div className="text-center shadow-lg p-4 rounded-xl my-10  dark:bg-white flex-1 transition-transform transform hover:scale-105">
-            <img src={Memodified} width={100} height={100} alt="Andro" />
+            <img src={Andro} width={100} height={100} alt="Andro" />
             <h3 className="text-lg font-medium  pb-2  ">Andro Rezkalla</h3>
 
             <h4 className="py-4 text-accent">Contact</h4>
@@ -96,7 +99,7 @@ const Contact = () => {
         </div>
         <div className="lg:flex gap-10">
           <div className="text-center shadow-lg p-4 rounded-xl my-10  dark:bg-white flex-1 transition-transform transform hover:scale-105">
-            <img src={Memodified} width={100} height={100} alt="John" />
+            <img src={John} width={100} height={100} alt="John" />
             <h3 className="text-lg font-medium  pb-2  ">John Santiago</h3>
 
             <h4 className="py-4 text-accent">Contact</h4>
