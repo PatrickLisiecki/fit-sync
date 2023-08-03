@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ReportIssue from "./ReportIssue";
+import ReportIssue from "../routes/Home/ReportIssue";
 import Modal from "./Modal";
 
 const Footer = () => {

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHamburger,
@@ -8,11 +10,26 @@ import {
     faDrumstickBite,
     faCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+
+// Charts
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    PieChart,
+    Pie,
+    Cell,
+} from "recharts";
 
 const NutritionPage = () => {
     const [query, setQuery] = useState("");
     const [nutritionFacts, setNutritionFacts] = useState(null);
+    const [totalCalories, setTotalCalories] = useState(0);
+    const [totalProteins, setTotalProteins] = useState(0);
     const API_KEY = "duVW5E6BSkAgwi62UVJorA==xW9asge73X0q5CsP"; // Replace with your actual API key
 
     const handleQueryChange = (e) => {
@@ -27,7 +44,18 @@ const NutritionPage = () => {
                 },
             })
             .then((response) => {
-                setNutritionFacts(response.data.items); // Update to store the array of nutrition facts
+                setNutritionFacts(response.data.items);
+                // Calculate total calories and proteins
+                const totalCalories = response.data.items.reduce(
+                    (acc, item) => acc + item.calories,
+                    0
+                );
+                setTotalCalories(totalCalories);
+                const totalProteins = response.data.items.reduce(
+                    (acc, item) => acc + item.protein_g,
+                    0
+                );
+                setTotalProteins(totalProteins);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -142,36 +170,62 @@ const NutritionPage = () => {
                     {/* Nutrition Visualization */}
                     <div className="border rounded-md p-6 bg-white shadow-md my-4">
                         <h2 className="text-2xl font-semibold mb-4">Nutrition Visualization</h2>
-                        <div className="flex space-x-4">
-                            {/* Calories Bar Chart */}
-                            <BarChart
-                                width={400}
-                                height={300}
-                                data={nutritionFacts}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="calories" fill="#8884d8" name="Calories" />
-                            </BarChart>
+                        <div className="flex flex-col lg:flex-row gap-y-4 space-x-2">
+                            <div className="w-full md:w-1/2 lg:w-1/4">
+                                {/* Calories Bar Chart */}
+                                <BarChart
+                                    width={400}
+                                    height={300}
+                                    data={nutritionFacts}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="calories" fill="#8884d8" name="Calories" />
+                                </BarChart>
+                            </div>
 
-                            {/* Proteins Bar Chart */}
-                            <BarChart
-                                width={400}
-                                height={300}
-                                data={nutritionFacts}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="protein_g" fill="#82ca9d" name="Proteins (g)" />
-                            </BarChart>
+                            <div className="relative">
+                                {/* Pie Chart for Total Calories and Proteins */}
+                                <PieChart width={400} height={300}>
+                                    <Pie
+                                        data={[
+                                            { name: "Calories", value: totalCalories },
+                                            { name: "Proteins", value: totalProteins },
+                                        ]}
+                                        dataKey="value"
+                                        nameKey="name"
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius={80}
+                                        fill="#8884d8"
+                                    >
+                                        <Cell fill="#82ca9d" />
+                                        <Cell fill="#8884d8" />
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </div>
+
+                            <div className="w-full md:w-1/2 lg:w-1/3">
+                                {/* Proteins Bar Chart */}
+                                <BarChart
+                                    width={400}
+                                    height={300}
+                                    data={nutritionFacts}
+                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="protein_g" fill="#82ca9d" name="Proteins (g)" />
+                                </BarChart>
+                            </div>
                         </div>
                     </div>
                 </>
