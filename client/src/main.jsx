@@ -11,10 +11,10 @@ import Home from "./routes/Home/Home";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
-import WorkoutList from "./routes/workoutlist";
-import About from "./routes/About";
-import Contact from "./routes/Contact";
-import PrivacyPolicy from "./components/PrivacyPolicy";
+import WorkoutList from "./routes/Workouts/workoutList";
+import About from "./routes/Home/About";
+import Contact from "./routes/Home/Contact";
+import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 
 const router = createBrowserRouter([
@@ -44,12 +44,25 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
             },
+            {
+                path: "/dashboard/workouts",
+                element: (
+                    <ProtectedRoute>
+                        <WorkoutPlan />
+                    </ProtectedRoute>
+                ),
+                errorElement: <ErrorPage />,
+            },
+            {
+                path: "/dashboard/workouts/:workoutDay",
+                element: (
+                    <ProtectedRoute>
+                        <WorkoutList />
+                    </ProtectedRoute>
+                ),
+                errorElement: <ErrorPage />,
+            },
         ],
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "/ninja",
-        element: <WorkoutList />,
         errorElement: <ErrorPage />,
     },
     {

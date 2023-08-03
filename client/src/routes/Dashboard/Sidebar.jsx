@@ -27,7 +27,7 @@ const sidebarData = [
         icon: <FontAwesomeIcon icon={faCalendarDays} className="w-[20px] h-[20px]" />,
     },
     {
-        title: "Meal Tracker",
+        title: "Nutrition",
         link: "/dashboard/nutrition",
         icon: <FontAwesomeIcon icon={faChartPie} className="w-[20px] h-[20px]" />,
     },
