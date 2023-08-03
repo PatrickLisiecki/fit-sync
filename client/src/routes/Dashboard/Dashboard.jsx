@@ -5,12 +5,25 @@ import { AuthContext } from "../../contexts/AuthContext";
 export default function Dashboard() {
   const { currentUser, logout, setCurrentUser } = useContext(AuthContext);
   // const [workoutPlanURL, setWorkoutPlanURL] = useState("/user/workout");
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
   const handleLogout = (e) => {
     e.preventDefault();
     logout();
     setCurrentUser(null); // Set currentUser to null after logout
   };
+// Components
+import DashboardFooter from "./DashboardFooter";
+import DashboardNavbar from "./DashboardNavbar";
+import Sidebar from "./Sidebar";
+
+export default function Dashboard() {
+    const [isExpanded, setIsExpanded] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsExpanded(!isExpanded);
+    };
 
   useEffect(() => {
     // If the currentUser is null, it means the user is not logged in,
@@ -76,4 +89,18 @@ export default function Dashboard() {
       <div className="w-full h-screen bg-gray-200"></div>
     </div>
   );
+    return (
+        <div className="min-h-screen min-w-full flex flex-row">
+            <Sidebar isExpanded={isExpanded} />
+            <div className="w-full min-h-screen flex flex-col justify-between">
+                <DashboardNavbar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+                <div
+                    className={`${isExpanded ? "pl-[200px] lg:pl-[250px]" : "pl-0"} w-full h-full transition-all duration-500`}
+                >
+                    <Outlet />
+                </div>
+                <DashboardFooter isExpanded={isExpanded} />
+            </div>
+        </div>
+    );
 }
