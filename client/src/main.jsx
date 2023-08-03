@@ -11,7 +11,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
 
-import WorkoutList from "./routes/workoutlist";
+import WorkoutList from "./routes/Workouts/workoutList";
 
 const router = createBrowserRouter([
   {

@@ -12,7 +12,7 @@ export default function Auth() {
 
   // Redirect if user is already logged in
   if (currentUser) {
-    return <Navigate to={`/dashboard`} />;
+    return <Navigate to="/dashboard" />;
   }
 
   // Handle form submission for login

@@ -1,32 +1,32 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedMuscle, setSelectedMuscle] = useState('');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const [selectedMuscle, setSelectedMuscle] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
 
   const muscleGroups = [
-    'abdominals',
-    'abductors',
-    'adductors',
-    'biceps',
-    'calves',
-    'chest',
-    'forearms',
-    'glutes',
-    'hamstrings',
-    'lats',
-    'lower_back',
-    'middle_back',
-    'neck',
-    'quadriceps',
-    'traps',
-    'triceps',
+    "abdominals",
+    "abductors",
+    "adductors",
+    "biceps",
+    "calves",
+    "chest",
+    "forearms",
+    "glutes",
+    "hamstrings",
+    "lats",
+    "lower_back",
+    "middle_back",
+    "neck",
+    "quadriceps",
+    "traps",
+    "triceps",
   ];
 
-  const difficulties = ['beginner', 'intermediate', 'expert'];
+  const difficulties = ["beginner", "intermediate", "expert"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,9 +36,9 @@ const WorkoutList = () => {
   const fetchWorkouts = () => {
     setLoading(true);
     axios
-      .get('https://api.api-ninjas.com/v1/exercises', {
+      .get("https://api.api-ninjas.com/v1/exercises", {
         headers: {
-          'X-Api-Key': '8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t', 
+          "X-Api-Key": "8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t",
         },
         params: {
           muscle: selectedMuscle,
@@ -50,7 +50,7 @@ const WorkoutList = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching workout data:', error);
+        console.error("Error fetching workout data:", error);
         setLoading(false);
       });
   };
@@ -58,7 +58,7 @@ const WorkoutList = () => {
   const handleAddToMyWorkout = (workout) => {
     // Implement the logic to add the workout to "My Workout"
     // For example, you could store the selected workout in state or send it to the backend
-    console.log('Adding to My Workout:', workout.name);
+    console.log("Adding to My Workout:", workout.name);
   };
 
   return (
@@ -66,7 +66,10 @@ const WorkoutList = () => {
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Workout List</h1>
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex items-center mb-4">
-          <label htmlFor="muscleSelect" className="block font-semibold text-lg text-gray-700 mr-4">
+          <label
+            htmlFor="muscleSelect"
+            className="block font-semibold text-lg text-gray-700 mr-4"
+          >
             Select Muscle Group:
           </label>
           <select
@@ -84,7 +87,10 @@ const WorkoutList = () => {
           </select>
         </div>
         <div className="flex items-center mb-4">
-          <label htmlFor="difficultySelect" className="block font-semibold text-lg text-gray-700 mr-4">
+          <label
+            htmlFor="difficultySelect"
+            className="block font-semibold text-lg text-gray-700 mr-4"
+          >
             Select Difficulty:
           </label>
           <select
@@ -118,10 +124,20 @@ const WorkoutList = () => {
               className="bg-gray-800 p-6 rounded-lg shadow-md text-white"
             >
               <h2 className="text-xl font-semibold mb-2">{workout.name}</h2>
-              <p><span className="font-semibold">Type:</span> {workout.type}</p>
-              <p><span className="font-semibold">Muscle:</span> {workout.muscle}</p>
-              <p><span className="font-semibold">Equipment:</span> {workout.equipment}</p>
-              <p><span className="font-semibold">Difficulty:</span> {workout.difficulty}</p>
+              <p>
+                <span className="font-semibold">Type:</span> {workout.type}
+              </p>
+              <p>
+                <span className="font-semibold">Muscle:</span> {workout.muscle}
+              </p>
+              <p>
+                <span className="font-semibold">Equipment:</span>{" "}
+                {workout.equipment}
+              </p>
+              <p>
+                <span className="font-semibold">Difficulty:</span>{" "}
+                {workout.difficulty}
+              </p>
               <div>
                 <span className="font-semibold">Instructions:</span>
                 <div className="max-h-16 overflow-y-auto text-gray-300">
