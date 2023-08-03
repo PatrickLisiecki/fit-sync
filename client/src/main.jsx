@@ -34,18 +34,7 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Dashboard />
       </ProtectedRoute>
-    ),
-    children: [
-      {
-        path: "/dashboard/nutrition",
-        element: (
-          <ProtectedRoute>
-            <NutritionPage />
-          </ProtectedRoute>
-        ),
-      },
-    ],
-    errorElement: <ErrorPage />,
+    )
   },
   {
     path: "/dashboard/workouts",
@@ -85,6 +74,11 @@ const router = createBrowserRouter([
     element: <PrivacyPolicy />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/dashboard/nutrition",
+    element: <NutritionPage />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
