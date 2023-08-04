@@ -102,10 +102,7 @@ const WorkoutList = () => {
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Workout List</h1>
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex items-center mb-4">
-          <label
-            htmlFor="muscleSelect"
-            className="block font-semibold text-lg text-gray-700 mr-4"
-          >
+          <label htmlFor="muscleSelect" className="block font-semibold text-lg text-gray-700 mr-4">
             Select Muscle Group:
           </label>
           <select
@@ -155,10 +152,7 @@ const WorkoutList = () => {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workouts.map((workout, index) => (
-            <div
-              key={index}
-              className="bg-gray-800 p-6 rounded-lg shadow-md text-white"
-            >
+            <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-md text-white">
               <h2 className="text-xl font-semibold mb-2">{workout.name}</h2>
               <p>
                 <span className="font-semibold">Type:</span> {workout.type}
@@ -167,18 +161,14 @@ const WorkoutList = () => {
                 <span className="font-semibold">Muscle:</span> {workout.muscle}
               </p>
               <p>
-                <span className="font-semibold">Equipment:</span>{" "}
-                {workout.equipment}
+                <span className="font-semibold">Equipment:</span> {workout.equipment}
               </p>
               <p>
-                <span className="font-semibold">Difficulty:</span>{" "}
-                {workout.difficulty}
+                <span className="font-semibold">Difficulty:</span> {workout.difficulty}
               </p>
               <div>
                 <span className="font-semibold">Instructions:</span>
-                <div className="max-h-16 overflow-y-auto text-gray-300">
-                  {workout.instructions}
-                </div>
+                <div className="max-h-16 overflow-y-auto text-gray-300">{workout.instructions}</div>
               </div>
               <button
                 onClick={() => handleAddToMyWorkout(workout)}
