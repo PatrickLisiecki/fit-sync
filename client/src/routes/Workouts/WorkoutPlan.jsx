@@ -5,15 +5,18 @@ import { AuthContext } from "../../contexts/AuthContext";
 const WorkoutPlan = () => {
   const { currentUser } = useContext(AuthContext);
 
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="w-full max-h-[65px] p-4 pl-8 mb-4">
+        {/* Username */}
         <span className="h3 text-[24px] sm:text-[30px] text-center capitalize">
           {currentUser.username}&apos;s Workout Plan
         </span>
       </div>
+
+      {/* Links for days of the week */}
       <div className="w-full flex flex-col justify-center items-center gap-5">
         {daysOfWeek.map((day, index) => (
           <div

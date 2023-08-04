@@ -22,7 +22,7 @@ const UserExercisesList = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">User Exercises</h1>
+      <span className="text-2xl font-bold mb-4 capitalize">{day}&apos;s Workout</span>
       {exercises.length > 0 &&
         exercises.map((exercise) => (
           <div key={exercise.id} className="bg-white p-4 shadow rounded mb-4">

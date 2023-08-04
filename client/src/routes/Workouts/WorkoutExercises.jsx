@@ -1,12 +1,12 @@
 import UserExercisesList from "./userExerciseList";
-import WorkoutList from "./workoutList"; // You should import the actual WorkoutList component file here
+import ExercisesList from "./ExercisesList"; // You should import the actual WorkoutList component file here
 
 const UserExercises = () => {
   return (
-    <div>
+    <>
       <UserExercisesList />
-      <WorkoutList />
-    </div>
+      <ExercisesList />
+    </>
   );
 };
 
