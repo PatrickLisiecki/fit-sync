@@ -15,13 +15,19 @@ module.exports = (sequelize, DataTypes) => {
   Exercise.init(
     {
       workoutId: DataTypes.INTEGER, // Add the workoutId field
-      name: DataTypes.TEXT,
       type: DataTypes.STRING,
+      name: DataTypes.STRING,
       muscle: DataTypes.STRING,
       equipment: DataTypes.STRING,
       difficulty: DataTypes.STRING,
       day: DataTypes.STRING,
-      instructions: DataTypes.TEXT,
+      instructions: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          len: [0, 5000],
+        },
+      },
     },
     {
       sequelize,

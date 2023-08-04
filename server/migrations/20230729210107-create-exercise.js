@@ -47,7 +47,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       instructions: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,

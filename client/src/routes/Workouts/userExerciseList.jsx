@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
-const UserExercisesList = () => {
+const UserExercisesList = ({ updated }) => {
   const { currentUser } = useContext(AuthContext);
   const { day } = useParams();
   const [exercises, setExercises] = useState([]);
@@ -18,7 +18,7 @@ const UserExercisesList = () => {
         .then((data) => setExercises(data))
         .catch((error) => console.log(error));
     }
-  }, [currentUser, day]);
+  }, [currentUser, day, updated]);
 
   return (
     <div className="p-4">
