@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const WorkoutList = ({ onExerciseAdd }) => {
   const { currentUser } = useContext(AuthContext); // Access 'currentUser' from AuthContext
-  const { day } = useParams();
+  const { workoutId, day } = useParams();
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedMuscle, setSelectedMuscle] = useState("");
@@ -36,6 +36,7 @@ const WorkoutList = ({ onExerciseAdd }) => {
     e.preventDefault();
     fetchWorkouts();
     console.log(workouts);
+    console.log(currentUser);
   };
 
   const fetchWorkouts = () => {
@@ -63,9 +64,9 @@ const WorkoutList = ({ onExerciseAdd }) => {
   const fetchExercises = () => {
     setLoading(true);
     axios
-      .get(`/api/exercises/user/${currentUser.id}/workout/day/${day}/exercises`) // Replace 'day_name_here' with the actual day name
+      .get(`/api/exercises/user/${currentUser.id}/workout/day/${day}/exercises`)
       .then((response) => {
-        setWorkouts(response.data);
+        setWorkouts(response.data); // Update workouts state with the updated list
         setLoading(false);
       })
       .catch((error) => {
@@ -75,35 +76,22 @@ const WorkoutList = ({ onExerciseAdd }) => {
   };
 
   const handleAddToMyWorkout = (workout) => {
-    const dayToWorkoutIdMap = {
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
-      Sunday: 7,
-    };
-
-    const workoutId = dayToWorkoutIdMap[day];
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
       .post("http://localhost:4000/api/exercises/exercises", {
-        userId: currentUser.id, // Pass the user ID as part of the request body
-        day: day, // Replace "day_name_here" with the actual day name (e.g., "Monday")
+        userId: currentUser.id,
+        day: day,
         name: workout.name,
         type: workout.type,
         muscle: workout.muscle,
         equipment: workout.equipment,
         difficulty: workout.difficulty,
         instructions: workout.instructions,
-        workoutId: workoutId, // Pass the workout ID as part of the request body
+        workoutId: workoutId,
       })
       .then((response) => {
         console.log("Workout added to My Workout:", response.data);
-        // Assuming you want to update the exercises list after adding the workout
-        // You can fetch the updated exercises list from the server again
-
+        // Call the callback function to inform UserExercisesList that it needs to update
         onExerciseAdd();
       })
       .catch((error) => {

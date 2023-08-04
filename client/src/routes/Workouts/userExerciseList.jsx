@@ -4,21 +4,25 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const UserExercisesList = ({ updated }) => {
   const { currentUser } = useContext(AuthContext);
-  const { day } = useParams();
+  const { workoutId, day } = useParams(); // Access the workoutId from URL parameter
   const [exercises, setExercises] = useState([]);
+  console.log(workoutId);
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
-    if (currentUser && day) {
+    if (currentUser) {
+      // Check if workoutId exists before making the request
       const userId = currentUser.id;
 
-      // Fetch exercises data from the server for the specified user and day
-      fetch(`/api/exercises/user/${userId}/workout/day/${day}/exercises`)
+      // Fetch exercises data from the server for the specified user, workout, and day
+      fetch(
+        `/api/workout/user/${userId}/workouts/${workoutId}/exercises/${day}`
+      )
         .then((response) => response.json())
         .then((data) => setExercises(data))
         .catch((error) => console.log(error));
     }
-  }, [currentUser, day, updated]);
+  }, [currentUser, day, workoutId]);
 
   return (
     <div className="p-4">
