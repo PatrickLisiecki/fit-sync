@@ -30,7 +30,7 @@ export default function Dashboard() {
                 <div
                     className={`${
                         isExpanded ? "pl-[200px] lg:pl-[250px]" : "pl-0"
-                    } w-full h-full transition-all duration-500`}
+                    } w-full h-full transition-all duration-500 bg-gray-200`}
                 >
                     <Outlet />
                 </div>

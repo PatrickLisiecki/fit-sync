@@ -19,7 +19,7 @@ const About = () => {
 
                     <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
                     <p className="mb-4">
-                        FlexFusion was founded in 2023 by 4 college students - Patrick Lisiecki,
+                        Flex Fusion was founded in 2023 by 4 college students - Patrick Lisiecki,
                         Andro Rezkalla, John Santiago, and Nicolas Talledo. While pursuing computer
                         science degrees, these 4 fitness enthusiasts saw an opportunity to combine
                         their passions.

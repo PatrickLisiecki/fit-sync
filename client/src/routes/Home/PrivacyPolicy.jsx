@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
             <div className="container mx-auto pt-28">
                 <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
                 <p className="mb-8">
-                    Your privacy is important to us at FlexFusion. This policy outlines the
+                    Your privacy is important to us at Flex Fusion. This policy outlines the
                     information we collect and how we use it.
                 </p>
                 <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
