@@ -35,8 +35,6 @@ const WorkoutList = ({ onExerciseAdd }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchWorkouts();
-    console.log(workouts);
-    console.log(currentUser);
   };
 
   const fetchWorkouts = () => {

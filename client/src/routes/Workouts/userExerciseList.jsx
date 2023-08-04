@@ -10,7 +10,7 @@ const UserExercisesList = ({ updated }) => {
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
-    if (currentUser) {
+    if (currentUser && workoutId) {
       // Check if workoutId exists before making the request
       const userId = currentUser.id;
 
@@ -22,7 +22,7 @@ const UserExercisesList = ({ updated }) => {
         .then((data) => setExercises(data))
         .catch((error) => console.log(error));
     }
-  }, [currentUser, day, workoutId]);
+  }, [currentUser, day, workoutId, updated]);
 
   return (
     <div className="p-4">

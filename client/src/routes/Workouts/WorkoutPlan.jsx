@@ -38,26 +38,17 @@ const WorkoutPlan = () => {
     // Do something when a day is clicked, e.g., navigate to the exercises for that day
     // You can use the 'day' parameter to determine which day was clicked
     console.log(`Clicked on ${day}`);
-    if (selectedWorkout) {
-      console.log(selectedWorkout.id); // This should now give the correct workoutId
-    }
   };
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold mb-4">Workout</h1>
-      {workouts.map((workout) => (
-        <div
-          key={workout.id}
-          className="bg-white p-4 shadow rounded mb-4"
-          onClick={() => handleWorkoutClick(workout)}
-        >
-          <h2 className="text-xl font-bold mb-2">{workout.name}</h2>
-        </div>
-      ))}
-
-      {selectedWorkout && (
+      {selectedWorkout ? (
+        // Display the selected workout and the days of the week
         <div className="grid grid-cols-3 gap-4">
+          <div className="col-span-3 p-4 bg-white shadow rounded mb-4">
+            <h2 className="text-xl font-bold mb-2">{selectedWorkout.name}</h2>
+          </div>
           {daysOfWeek.map((day, index) => (
             <div
               key={index}
@@ -70,6 +61,19 @@ const WorkoutPlan = () => {
                   <h2>{day}</h2>
                 </Link>
               )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        // Display the list of workouts
+        <div className="grid grid-cols-3 gap-4">
+          {workouts.map((workout) => (
+            <div
+              key={workout.id}
+              className="bg-white p-4 shadow rounded mb-4"
+              onClick={() => handleWorkoutClick(workout)}
+            >
+              <h2 className="text-xl font-bold mb-2">{workout.name}</h2>
             </div>
           ))}
         </div>
