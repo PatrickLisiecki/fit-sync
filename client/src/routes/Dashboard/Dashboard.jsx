@@ -23,17 +23,25 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen min-w-full flex flex-row">
-      <Sidebar isExpanded={isExpanded} />
-      <div className="w-full min-h-screen flex flex-col justify-between">
+    <div className="relative min-h-screen min-w-full flex flex-row">
+      {/* Sidebar navigation */}
+      <Sidebar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+
+      {/* Main screen */}
+      <div className="w-full min-h-screen flex flex-col justify-between overflow-hidden">
+        {/* Navbar */}
         <DashboardNavbar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+
+        {/* Dynamic content based on path */}
         <div
           className={`${
-            isExpanded ? "pl-[200px] lg:pl-[250px]" : "pl-0"
+            isExpanded ? "pl-0 md:pl-[250px]" : "pl-0"
           } w-full h-full transition-all duration-500 bg-gray-200`}
         >
           <Outlet />
         </div>
+
+        {/* Footer with specific styling for dashboard */}
         <DashboardFooter isExpanded={isExpanded} />
       </div>
     </div>
