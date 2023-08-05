@@ -15,7 +15,7 @@ const UserExercisesList = ({ updated }) => {
       const userId = currentUser.id;
 
       // Fetch exercises data from the server for the specified user, workout, and day
-      fetch(`/api/exercises/${userId}/${workoutId}/${week}/${day}/exercises`)
+      fetch(`/api/exercises/${userId}/${workoutId}/${week}/${day}`)
         .then((response) => response.json())
         .then((data) => {
           // Update the exercises array in the ExerciseContext using the setExercises function

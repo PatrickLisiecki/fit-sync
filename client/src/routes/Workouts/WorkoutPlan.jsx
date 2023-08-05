@@ -28,7 +28,7 @@ const WorkoutPlan = () => {
       const userId = currentUser.id;
 
       // Fetch workouts data from the server for the specified user
-      fetch(`/api/workout/${userId}/workouts`)
+      fetch(`/api/workouts/${userId}`)
         .then((response) => response.json())
         .then((data) => setWorkouts(data))
         .catch((error) => console.log(error));
@@ -41,9 +41,7 @@ const WorkoutPlan = () => {
       const userId = currentUser.id;
 
       // Fetch exercises data from the server for the specified user, week, and day
-      fetch(
-        `/api/exercises/user/${userId}/week/${selectedWeek}/day/${selectedDay}/exercises`
-      )
+      fetch(`/api/exercises/${userId}/${selectedWeek}/${selectedDay}`)
         .then((response) => response.json())
         .then((data) => setExercises(data))
         .catch((error) => console.log(error));
@@ -81,7 +79,7 @@ const WorkoutPlan = () => {
   const handleSaveNewWorkout = () => {
     if (newWorkoutName.trim() !== "") {
       // Assuming you have an API route to create a new workout
-      fetch(`/api/workout/${currentUser.id}`, {
+      fetch(`/api/workouts/${currentUser.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +142,7 @@ const WorkoutPlan = () => {
             {daysOfWeek.map((day, index) => (
               <Link
                 key={index}
-                to={`/dashboard/workouts/${selectedWorkout.id}/${selectedWeek}/${day}`}
+                to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
               >
                 <div
                   className={`p-4 text-white bg-gray-800 rounded-lg shadow-lg text-center ${
