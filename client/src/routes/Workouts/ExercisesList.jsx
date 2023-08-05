@@ -2,6 +2,9 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
+// Components
+import CollapsibleParagraph from "../../components/CollapsibleParagraph";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -110,8 +113,8 @@ export default function ExercisesList() {
   return (
     <div className="p-4">
       {/* Search for exercises form */}
-      <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-10">
-        <span className="text-xl font-bold">Search for Exercises</span>
+      <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-10 overflow-x-auto">
+        <span className="text-center sm:text-left text-xl font-bold mb-2">Search for Exercises</span>
 
         {/* Form with selections */}
         <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-y-4 gap-x-10">
@@ -131,7 +134,7 @@ export default function ExercisesList() {
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
                 <option key={muscle} value={muscle} className="capitalize hover:bg-accent">
-                  <span className="capitalize">{muscle}</span>
+                  {muscle}
                 </option>
               ))}
             </select>
@@ -141,20 +144,20 @@ export default function ExercisesList() {
           <div className="flex flex-col lg:flex-row items-center">
             <span className="block text-lg mb-0 font-light">Difficulty:</span>
 
-            <div className="ml-2 flex flex-row justify-start items-center gap-x-[20px]">
+            <div className="ml-2 flex flex-col sm:flex-row justify-center items-center gap-y-[10px] gap-x-[10px]">
               {difficulties.map((difficulty, index) => (
                 <div
                   key={index}
                   className={`${
                     activeButton === index
-                      ? "text-white border-accent bg-accent hover:bg-accent/90"
+                      ? "text-white border-blue-500 bg-blue-500 hover:bg-blue-500/90"
                       : "bg-none text-primary border-primary hover:bg-primary/10"
-                  } px-4 py-2 border transition-all duration-300 cursor-pointer`}
+                  } min-w-[135px] grid place-items-center py-2 border transition-all duration-200 cursor-pointer`}
                   onClick={() => {
                     handleDifficultySelect(difficulty, index);
                   }}
                 >
-                  <span className="capitalize">{difficulty}</span>
+                  <span className="capitalize text-[18px]">{difficulty}</span>
                 </div>
               ))}
             </div>
@@ -163,7 +166,7 @@ export default function ExercisesList() {
           {/* Submit */}
           <button
             type="submit"
-            className="text-lg py-2 px-4 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer rounded-lg"
+            className="min-w-[135px] py-2 text-lg text-white bg-green-500 hover:bg-green-500/90 cursor-pointer rounded-lg"
           >
             Search
           </button>
@@ -200,17 +203,14 @@ export default function ExercisesList() {
                   <span className="capitalize font-light text-secondary">{workout.difficulty}</span>
                 </span>
 
-                <span className="font-semibold">Instructions:</span>
-                <div className="max-h-16 overflow-y-auto p-2 border border-primary ">
-                  <p className="text-sm font-light text-secondary">{workout.instructions}</p>
-                </div>
+                <CollapsibleParagraph title={"Instructions"} content={workout.instructions} />
               </div>
 
               <button
                 onClick={() => handleAddToMyWorkout(workout)}
-                className="text-lg px-4 py-2 mt-2 flex items-center justify-center gap-x-2 rounded-lg text-white bg-accent hover:bg-accent/90 cursor-pointer"
+                className="min-w-[135px] py-2 mt-4 flex items-center justify-center gap-x-2 text-white bg-accent hover:bg-accent/90 cursor-pointer"
               >
-                <FontAwesomeIcon icon={faPlus} size="md" />
+                <FontAwesomeIcon icon={faPlus} />
                 <span className="font-semibold">Add</span>
               </button>
             </div>
