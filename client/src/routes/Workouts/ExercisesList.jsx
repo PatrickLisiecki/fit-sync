@@ -111,13 +111,15 @@ export default function ExercisesList() {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-6 sm:px-24 py-4">
       {/* Search for exercises form */}
       <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-10 overflow-x-auto">
-        <span className="text-center sm:text-left text-xl font-bold mb-2">Search for Exercises</span>
+        <span className="text-center sm:text-left text-xl font-bold mb-2">
+          Search for Exercises
+        </span>
 
         {/* Form with selections */}
-        <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-y-4 gap-x-10">
+        <form onSubmit={handleSubmit} className="flex flex-col xl:flex-row gap-y-4 gap-x-10">
           {/* Muscle group select */}
           <div className="flex flex-col lg:flex-row items-center">
             <label htmlFor="muscleSelect" className="block text-lg mb-0 font-light">
@@ -144,7 +146,7 @@ export default function ExercisesList() {
           <div className="flex flex-col lg:flex-row items-center">
             <span className="block text-lg mb-0 font-light">Difficulty:</span>
 
-            <div className="ml-2 flex flex-col sm:flex-row justify-center items-center gap-y-[10px] gap-x-[10px]">
+            <div className="ml-2 flex flex-col lg:flex-row justify-center items-center gap-y-[10px] gap-x-[10px]">
               {difficulties.map((difficulty, index) => (
                 <div
                   key={index}
@@ -177,7 +179,7 @@ export default function ExercisesList() {
         <p>Loading...</p>
       ) : (
         // grid gap-4 md:grid-cols-2 lg:grid-cols-3
-        <div className="flex flex-col gap-y-10">
+        <div className="flex flex-col gap-y-5 sm:gap-y-10">
           {workouts.map((workout, index) => (
             <div key={index} className="p-4 rounded-lg bg-white shadow-lg">
               {/* Exercise name */}
@@ -208,9 +210,9 @@ export default function ExercisesList() {
 
               <button
                 onClick={() => handleAddToMyWorkout(workout)}
-                className="min-w-[135px] py-2 mt-4 flex items-center justify-center gap-x-2 text-white bg-accent hover:bg-accent/90 cursor-pointer"
+                className="min-w-[135px] py-2 mt-4 flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
               >
-                <FontAwesomeIcon icon={faPlus} />
+                <FontAwesomeIcon icon={faPlus} size="sm" />
                 <span className="font-semibold">Add</span>
               </button>
             </div>

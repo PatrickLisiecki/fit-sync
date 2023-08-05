@@ -21,9 +21,9 @@ const UserExercisesList = () => {
   }, [currentUser, day]);
 
   return (
-    <div className="p-4">
+    <div className="px-6 sm:px-24 pt-4">
       <span className="text-2xl font-bold mb-4 capitalize">{day}&apos;s Workout</span>
-      {
+      {exercises.length > 0 &&
         exercises.map((exercise) => (
           <div key={exercise.id} className="bg-white p-4 shadow rounded mb-4">
             <h2 className="text-xl font-bold mb-2">{exercise.name}</h2>
