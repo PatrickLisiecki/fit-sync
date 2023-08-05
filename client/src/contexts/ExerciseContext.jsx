@@ -1,5 +1,5 @@
 // Create a new context file (ExerciseContext.js)
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const ExerciseContext = createContext();
 

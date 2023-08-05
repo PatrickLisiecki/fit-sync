@@ -12,26 +12,81 @@ const WorkoutPlan = () => {
   const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
-  const getCurrentDate = (separator = "/", offset) => {
-    let newDate = new Date();
-    let date = newDate.getDate() + offset;
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
-    return `${
-      month < 10 ? `0${month}` : `${month}`
-    }${separator}${date}${separator}${year}`;
+  useEffect(() => {
+    // Check if user is logged in and get the userId from the currentUser object
+    if (currentUser) {
+      const userId = currentUser.id;
+
+      // Fetch workouts data from the server for the specified user
+      fetch(`/api/workouts/${userId}`)
+        .then((response) => response.json())
+        .then((data) => setWorkouts(data))
+        .catch((error) => console.log(error));
+    }
+  }, [currentUser]);
+
+  const handleWorkoutClick = (workout) => {
+    setSelectedWorkout(workout);
   };
 
-  const daysOfWeek = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ];
+  const handlePrevWeek = () => {
+    setSelectedWeek((prevWeek) => prevWeek - 1);
+  };
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+  };
+
+  const handleThisWeek = () => {
+    setSelectedWeek(1);
+  };
+
+  const handleNextWeek = () => {
+    setSelectedWeek((prevWeek) => prevWeek + 1);
+  };
+
+  const handleCreateNewWorkout = () => {
+    setCreatingNewWorkout(true);
+  };
+
+  const handleNewWorkoutNameChange = (event) => {
+    setNewWorkoutName(event.target.value);
+  };
+
+  const handleSaveNewWorkout = () => {
+    if (newWorkoutName.trim() !== "") {
+      // Assuming you have an API route to create a new workout
+      fetch(`/api/workouts/${currentUser.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: newWorkoutName.trim(),
+          userId: currentUser.id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Add the new workout to the workouts state and select it
+          setSelectedWorkout(data);
+          setWorkouts((prevWorkouts) => [...prevWorkouts, data]);
+          setCreatingNewWorkout(false);
+          setNewWorkoutName("");
+        })
+        .catch((error) => console.log(error));
+    }
+  };
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center">
