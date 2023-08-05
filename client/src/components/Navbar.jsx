@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faBars, faRightToBracket, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 // Nav links
