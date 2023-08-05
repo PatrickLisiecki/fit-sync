@@ -22,6 +22,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
+      week: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
