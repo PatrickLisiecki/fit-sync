@@ -13,7 +13,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 // Home components
 import About from "./routes/Home/About";
 import Contact from "./routes/Home/Contact";
-import Home from "./routes/Home/Home";
+import { default as Home, default as Home } from "./routes/Home/Home";
+import LandingPage from "./routes/Home/LandingPage";
 import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 
 // Dashboard components
@@ -24,6 +25,7 @@ import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
 import WorkoutList from "./routes/Workouts/workoutList";
 
 import { ExerciseContextProvider } from "./contexts/ExerciseContext";
+import NutritionPage from "./routes/Nutrition/NutritionPage";
 
 const router = createBrowserRouter([
   {
@@ -90,9 +92,77 @@ const router = createBrowserRouter([
     element: <PrivacyPolicy />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/",
+    element: <Home />,
+    children: [
+      {
+        path: "/",
+        element: <LandingPage />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/policy",
+        element: <PrivacyPolicy />,
+      },
+    ],
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/auth",
+    element: <Auth />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/nutrition",
+        element: (
+          <ProtectedRoute>
+            <NutritionPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/workouts",
+        element: (
+          <ProtectedRoute>
+            <WorkoutPlan />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/workouts/:day",
+        element: (
+          <ProtectedRoute>
+            <WorkoutExercises />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>
   <React.StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />

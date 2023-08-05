@@ -1,32 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 
 export default function DashboardFooter({ isExpanded }) {
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
-    return (
-        <footer
-            className={`${
-                isExpanded ? "pl-[200px] lg:pl-[250px]" : "pl-0"
-            }  w-full max-h-[100px] bg-white shadow-bs p-2 sm:p-8 transition-all duration-500 overflow-hidden`}
-        >
-            <div className="w-full container mx-auto flex flex-row justify-between text-[10px] sm:text-[14px]">
-                <p className="">&copy; {currentYear} Flex Fusion. All rights reserved.</p>
-                <ul className="hidden xs:flex flex-row gap-x-2">
-                    <li>
-                        <Link to="/dashboard">Support</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard">Help Center</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard">Privacy</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard">Terms</Link>
-                    </li>
-                </ul>
-            </div>
-        </footer>
-    );
+  return (
+    <footer
+      className={`${
+        isExpanded ? "pl-0 md:pl-[250px]" : "pl-0"
+      } w-full max-h-[50px] p-4 bg-white shadow-bs transition-all duration-500 overflow-hidden`}
+    >
+      <div className="w-full h-full container mx-auto flex items-center justify-center">
+        <p className="text-[12px] sm:text-[16px]">
+          &copy; {currentYear} Flex Fusion. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
 }

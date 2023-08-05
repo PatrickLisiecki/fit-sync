@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserExercisesList from "./userExerciseList";
-import WorkoutList from "./workoutList";
+import ExercisesList from "./ExercisesList"; // You should import the actual WorkoutList component file here
 
 const UserExercises = () => {
   const [updated, setUpdated] = useState(false);
@@ -12,7 +12,7 @@ const UserExercises = () => {
   return (
     <div>
       <UserExercisesList updated={updated} />
-      <WorkoutList onExerciseAdd={handleExerciseUpdate} />
+      <ExercisesList onExerciseAdd={handleExerciseUpdate} />
     </div>
   );
 };

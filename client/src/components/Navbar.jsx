@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
-
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { redirect } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-  faBars,
-  faRightToBracket,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faRightToBracket, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 // Nav links
 const navData = [
@@ -23,29 +19,38 @@ const navData = [
     link: "/about",
   },
   {
-    title: "Features",
-    link: "#features",
-  },
-  {
     title: "Contact",
     link: "/contact",
+  },
+  {
+    title: "Dashboard",
+    link: "/dashboard",
   },
 ];
 
 export default function Navbar() {
+  const { currentUser, login, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logout();
+    redirect("/");
+  };
+
   return (
-    <nav className="w-full fixed z-[100] bg-white shadow-bs p-8">
-      <div className="container mx-auto flex flex-row justify-between items-center">
+    <nav className="w-full max-h-[100px] fixed z-[100] bg-white shadow-bs p-8">
+      <div className="lg:container lg:mx-auto flex flex-row justify-between items-center">
         {/* Name / Logo */}
-        <Link to="/" className="uppercase text-[28px] md:text-3xl">
-          <span className="text-primary">Flex</span>{" "}
-          <span className="text-accent">Fusion</span>
+        <Link to="/">
+          <div className="flex flex-row justify-center items-center gap-x-2 uppercase text-[28px] md:text-3xl">
+            <img src="/logo.png" alt="Logo" width={40} height={40} />
+            <span className="text-primary">Flex</span> <span className="text-accent">Fusion</span>
+          </div>
         </Link>
 
         {/* Nav links */}
@@ -54,22 +59,30 @@ export default function Navbar() {
             {navData.map((item, index) => {
               return (
                 <li key={index}>
-                  <a
-                    href={item.link}
+                  <Link
+                    to={item.link}
                     className="mx-4 hover:text-accent transition-all duration-300"
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
             <li>
-              <Link
-                to="/auth"
-                className="mx-4 hover:text-accent transition-all duration-300"
-              >
-                <FontAwesomeIcon icon={faRightToBracket} /> <span>Log In</span>
-              </Link>
+              {currentUser ? (
+                <button
+                  onClick={handleLogout}
+                  className="mx-4 hover:text-accent transition-all duration-300"
+                >
+                  <FontAwesomeIcon icon={faRightToBracket} flip="horizontal" />
+                  <span className="ml-2">Log Out</span>
+                </button>
+              ) : (
+                <Link to="/auth" className="mx-4 hover:text-accent transition-all duration-300">
+                  <FontAwesomeIcon icon={faRightToBracket} />
+                  <span className="ml-2">Log In</span>
+                </Link>
+              )}
             </li>
           </ul>
         </div>
@@ -102,11 +115,7 @@ export default function Navbar() {
         <ul className="min-w-[150px] flex flex-col gap-y-8">
           {navData.map((item, index) => {
             return (
-              <li
-                key={index}
-                onClick={toggleMenu}
-                className="flex justify-center items-center"
-              >
+              <li key={index} onClick={toggleMenu} className="flex justify-center items-center">
                 <a
                   href={item.link}
                   className="text-2xl font-semibold hover:text-accent transition-all duration-300"
@@ -117,12 +126,23 @@ export default function Navbar() {
             );
           })}
           <li onClick={toggleMenu} className="flex justify-center items-center">
-            <Link
-              to="/auth"
-              className="text-2xl font-semibold hover:text-accent transition-all duration-300"
-            >
-              <FontAwesomeIcon icon={faRightToBracket} /> <span>Log In</span>
-            </Link>
+            {currentUser ? (
+              <button
+                onClick={handleLogout}
+                className="text-2xl font-semibold mx-4 hover:text-accent transition-all duration-300"
+              >
+                <FontAwesomeIcon icon={faRightToBracket} flip="horizontal" />
+                <span className="ml-2">Log Out</span>
+              </button>
+            ) : (
+              <Link
+                to="/auth"
+                className="text-2xl font-semibold mx-4 hover:text-accent transition-all duration-300"
+              >
+                <FontAwesomeIcon icon={faRightToBracket} />
+                <span className="ml-2">Log In</span>
+              </Link>
+            )}
           </li>
         </ul>
       </div>
