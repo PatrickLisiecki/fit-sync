@@ -8,7 +8,7 @@ export default function DashboardFooter({ isExpanded }) {
     <footer
       className={`${
         isExpanded ? "pl-0 md:pl-[250px]" : "pl-0"
-      } w-full p-4 bg-white shadow-bs transition-all duration-500 overflow-hidden`}
+      } w-full max-h-[50px] p-4 bg-white shadow-bs transition-all duration-500 overflow-hidden`}
     >
       <div className="w-full h-full container mx-auto flex items-center justify-center">
         <p className="text-[12px] sm:text-[16px]">
