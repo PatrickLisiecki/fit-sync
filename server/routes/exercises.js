@@ -4,7 +4,7 @@ const { User } = require("../models");
 const { Exercise } = require("../models");
 
 // Read all exercises for a specific user and day
-router.get("/:userId/:workoutId/:week/:day/exercises", async (req, res) => {
+router.get("/:userId/:workoutId/:week/:day", async (req, res) => {
   try {
     const { userId, day, week, workoutId } = req.params;
 
@@ -22,22 +22,6 @@ router.get("/:userId/:workoutId/:week/:day/exercises", async (req, res) => {
     res.json(exercises);
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    // Handle the error, e.g., return an error response to the client
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-router.post("/exercises/bulk", async (req, res) => {
-  try {
-    const exercises = req.body;
-
-    // Create the exercises in the database
-    const createdExercises = await Exercise.bulkCreate(exercises);
-
-    // Return the newly created exercises as JSON response
-    res.status(201).json(createdExercises);
-  } catch (error) {
-    console.error("Error creating exercises:", error);
     // Handle the error, e.g., return an error response to the client
     res.status(500).json({ error: "Internal Server Error" });
   }

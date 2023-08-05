@@ -19,7 +19,7 @@ router.get("/current_user", async (req, res) => {
 });
 
 // Route handler for getting all workouts for a specific user
-router.get("/:userId/workouts", async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
 
@@ -38,7 +38,7 @@ router.get("/:userId/workouts", async (req, res) => {
 });
 
 // Route handler for creating a new workout
-router.post("/:userId/workouts", async (req, res) => {
+router.post("/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const { name } = req.body; // Assuming you have a name for the new workout
@@ -57,7 +57,7 @@ router.post("/:userId/workouts", async (req, res) => {
 });
 
 // Route handler for updating a workout
-router.put("/workouts/:workoutId", async (req, res) => {
+router.put("/:workoutId", async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
     const { name } = req.body; // Assuming you have a name for updating the workout
@@ -82,7 +82,7 @@ router.put("/workouts/:workoutId", async (req, res) => {
 });
 
 // Route handler for deleting a workout
-router.delete("/workouts/:workoutId", async (req, res) => {
+router.delete("/:workoutId", async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
 

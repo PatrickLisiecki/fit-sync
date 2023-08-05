@@ -27,9 +27,8 @@ app.use(
   })
 );
 app.use("/api/auth", authRouter);
-
 app.use("/api/exercises", exercisesRouter);
-app.use("/api/workout", workoutRouter);
+app.use("/api/workouts", workoutRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

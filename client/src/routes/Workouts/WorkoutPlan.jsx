@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -8,7 +8,7 @@ const WorkoutPlan = () => {
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState("");
-  const [exercises, setExercises] = useState([]);
+
   const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
@@ -34,19 +34,6 @@ const WorkoutPlan = () => {
         .catch((error) => console.log(error));
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    // Check if user is logged in and get the userId from the currentUser object
-    if (currentUser && selectedDay !== "") {
-      const userId = currentUser.id;
-
-      // Fetch exercises data from the server for the specified user, week, and day
-      fetch(`/api/exercises/${userId}/${selectedWeek}/${selectedDay}`)
-        .then((response) => response.json())
-        .then((data) => setExercises(data))
-        .catch((error) => console.log(error));
-    }
-  }, [currentUser, selectedWeek, selectedDay]);
 
   const handleWorkoutClick = (workout) => {
     setSelectedWorkout(workout);

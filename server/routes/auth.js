@@ -33,6 +33,7 @@ router.post("/signup", async (req, res) => {
     res.status(201).json({
       message: "User created!",
       user: {
+        id: user.id,
         username: user.username, // Update here to use 'username'
         email: user.email,
       },
