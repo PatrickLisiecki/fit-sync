@@ -2,14 +2,16 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ExerciseContext } from "../../contexts/ExerciseContext";
 
 const WorkoutList = ({ onExerciseAdd }) => {
   const { currentUser } = useContext(AuthContext); // Access 'currentUser' from AuthContext
-  const { workoutId, day } = useParams();
+  const { workoutId, week, day } = useParams();
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
+  const { setExercises } = useContext(ExerciseContext);
 
   const muscleGroups = [
     "abdominals",
@@ -59,20 +61,6 @@ const WorkoutList = ({ onExerciseAdd }) => {
       });
   };
 
-  const fetchExercises = () => {
-    setLoading(true);
-    axios
-      .get(`/api/exercises/user/${currentUser.id}/workout/day/${day}/exercises`)
-      .then((response) => {
-        setWorkouts(response.data); // Update workouts state with the updated list
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching exercises:", error);
-        setLoading(false);
-      });
-  };
-
   const handleAddToMyWorkout = (workout) => {
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
@@ -85,16 +73,19 @@ const WorkoutList = ({ onExerciseAdd }) => {
         equipment: workout.equipment,
         difficulty: workout.difficulty,
         instructions: workout.instructions,
+        week: week,
         workoutId: workoutId,
       })
       .then((response) => {
         console.log("Workout added to My Workout:", response.data);
+        // After adding a new exercise, update the exercises in the ExerciseContext
+        setExercises((prevExercises) => [...prevExercises, response.data]);
         // Call the callback function to inform UserExercisesList that it needs to update
         onExerciseAdd();
       })
       .catch((error) => {
         console.error("Error adding workout:", error);
-      });
+      }); // <-- Add the closing parenthesis here
   };
 
   return (

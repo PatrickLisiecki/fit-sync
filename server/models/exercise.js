@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       equipment: DataTypes.STRING,
       difficulty: DataTypes.STRING,
       day: DataTypes.STRING,
+      week: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       instructions: {
         type: DataTypes.TEXT,
         allowNull: false,

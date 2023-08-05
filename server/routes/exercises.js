@@ -4,15 +4,17 @@ const { User } = require("../models");
 const { Exercise } = require("../models");
 
 // Read all exercises for a specific user and day
-router.get("/user/:userId/workout/day/:day/exercises", async (req, res) => {
+router.get("/:userId/:workoutId/:week/:day/exercises", async (req, res) => {
   try {
-    const { userId, day } = req.params;
+    const { userId, day, week, workoutId } = req.params;
 
     // Fetch exercises data from the database based on userId and day
     const exercises = await Exercise.findAll({
       where: {
         userId,
         day,
+        week,
+        workoutId,
       },
     });
 
@@ -54,6 +56,7 @@ router.post("/exercises", async (req, res) => {
       difficulty,
       instructions,
       workoutId,
+      week,
     } = req.body;
 
     // Create the exercise in the database
@@ -67,6 +70,7 @@ router.post("/exercises", async (req, res) => {
       difficulty,
       instructions,
       workoutId,
+      week,
     });
 
     // Return the newly created exercise as JSON response

@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ExerciseContext } from "../../contexts/ExerciseContext";
 
 const UserExercisesList = ({ updated }) => {
   const { currentUser } = useContext(AuthContext);
-  const { workoutId, day } = useParams(); // Access the workoutId from URL parameter
-  const [exercises, setExercises] = useState([]);
-  console.log(workoutId);
+  const { workoutId, day, week } = useParams();
+  const { exercises, setExercises } = useContext(ExerciseContext); // Access the exercises array and setExercises function from the ExerciseContext
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -15,14 +15,15 @@ const UserExercisesList = ({ updated }) => {
       const userId = currentUser.id;
 
       // Fetch exercises data from the server for the specified user, workout, and day
-      fetch(
-        `/api/workout/user/${userId}/workouts/${workoutId}/exercises/${day}`
-      )
+      fetch(`/api/exercises/${userId}/${workoutId}/${week}/${day}/exercises`)
         .then((response) => response.json())
-        .then((data) => setExercises(data))
+        .then((data) => {
+          // Update the exercises array in the ExerciseContext using the setExercises function
+          setExercises(data);
+        })
         .catch((error) => console.log(error));
     }
-  }, [currentUser, day, workoutId, updated]);
+  }, [currentUser, day, workoutId, week, updated, setExercises]);
 
   return (
     <div className="p-4">

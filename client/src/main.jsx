@@ -23,6 +23,8 @@ import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
 import WorkoutList from "./routes/Workouts/workoutList";
 
+import { ExerciseContextProvider } from "./contexts/ExerciseContext";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,10 +62,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/dashboard/workouts/:workoutId/:day",
+        path: "/dashboard/workouts/:workoutId/:week/:day",
         element: (
           <ProtectedRoute>
-            <WorkoutExercises />
+            <ExerciseContextProvider>
+              <WorkoutExercises />
+            </ExerciseContextProvider>
           </ProtectedRoute>
         ),
         errorElement: <ErrorPage />,

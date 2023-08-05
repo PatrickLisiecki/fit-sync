@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       name: DataTypes.STRING,
-      week: DataTypes.INTEGER,
       // e.g., 'Monday', 'Tuesday', etc.
     },
     {

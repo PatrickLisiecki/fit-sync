@@ -18,51 +18,8 @@ router.get("/current_user", async (req, res) => {
   }
 });
 
-// Route handler for /user/:userId/workout
-router.get("/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-
-    // Fetch the workout plan data from the database based on the userId
-    const workoutPlan = await Workout.findAll({
-      where: {
-        userId: userId,
-      },
-    });
-
-    // Check if the workout plan data was found
-    if (!workoutPlan || workoutPlan.length === 0) {
-      return res.status(404).json({ error: "Workout plan not found" });
-    }
-
-    // If the workout plan data was found, send it in the response
-    return res.json(workoutPlan);
-  } catch (error) {
-    console.error("Error fetching workout plan:", error);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-});
-
-router.post("/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const { name } = req.body; // Assuming you have a name and description for the new workout
-
-    // Create the new workout in the database
-    const newWorkout = await Workout.create({
-      name: name,
-      userId: userId,
-    });
-
-    return res.status(201).json(newWorkout);
-  } catch (error) {
-    console.error("Error creating new workout:", error);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-});
-
-// Route handler for /user/:userId/workouts
-router.get("/user/:userId/workouts", async (req, res) => {
+// Route handler for getting all workouts for a specific user
+router.get("/:userId/workouts", async (req, res) => {
   try {
     const userId = req.params.userId;
 
@@ -80,30 +37,71 @@ router.get("/user/:userId/workouts", async (req, res) => {
   }
 });
 
-// Route handler for /user/:userId/workouts/:workoutId/exercises/:day
-router.get(
-  "/user/:userId/workouts/:workoutId/exercises/:day",
-  async (req, res) => {
-    try {
-      const userId = req.params.userId;
-      const workoutId = req.params.workoutId;
-      const day = req.params.day;
+// Route handler for creating a new workout
+router.post("/:userId/workouts", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { name } = req.body; // Assuming you have a name for the new workout
 
-      // Fetch exercises for a specific workout on a given day from the database
-      const exercises = await Exercise.findAll({
-        where: {
-          userId: userId,
-          workoutId: workoutId,
-          day: day,
-        },
-      });
+    // Create the new workout in the database
+    const newWorkout = await Workout.create({
+      name: name,
+      userId: userId,
+    });
 
-      return res.json(exercises);
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-      return res.status(500).json({ error: "Something went wrong" });
-    }
+    return res.status(201).json(newWorkout);
+  } catch (error) {
+    console.error("Error creating new workout:", error);
+    return res.status(500).json({ error: "Something went wrong" });
   }
-);
+});
+
+// Route handler for updating a workout
+router.put("/workouts/:workoutId", async (req, res) => {
+  try {
+    const workoutId = req.params.workoutId;
+    const { name } = req.body; // Assuming you have a name for updating the workout
+
+    // Find the workout in the database
+    const workout = await Workout.findByPk(workoutId);
+
+    // If the workout is not found, return an error
+    if (!workout) {
+      return res.status(404).json({ error: "Workout not found" });
+    }
+
+    // Update the workout's name and save it to the database
+    workout.name = name;
+    await workout.save();
+
+    return res.status(200).json(workout);
+  } catch (error) {
+    console.error("Error updating workout:", error);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+// Route handler for deleting a workout
+router.delete("/workouts/:workoutId", async (req, res) => {
+  try {
+    const workoutId = req.params.workoutId;
+
+    // Find the workout in the database
+    const workout = await Workout.findByPk(workoutId);
+
+    // If the workout is not found, return an error
+    if (!workout) {
+      return res.status(404).json({ error: "Workout not found" });
+    }
+
+    // Delete the workout from the database
+    await workout.destroy();
+
+    return res.status(200).json({ message: "Workout deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting workout:", error);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+});
 
 module.exports = router;
