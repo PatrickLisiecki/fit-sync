@@ -4,15 +4,17 @@ const { User } = require("../models");
 const { Exercise } = require("../models");
 
 // Read all exercises for a specific user and day
-router.get("/user/:userId/workout/day/:day/exercises", async (req, res) => {
+router.get("/:userId/:workoutId/:week/:day", async (req, res) => {
   try {
-    const { userId, day } = req.params;
+    const { userId, day, week, workoutId } = req.params;
 
     // Fetch exercises data from the database based on userId and day
     const exercises = await Exercise.findAll({
       where: {
         userId,
         day,
+        week,
+        workoutId,
       },
     });
 
@@ -20,22 +22,6 @@ router.get("/user/:userId/workout/day/:day/exercises", async (req, res) => {
     res.json(exercises);
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    // Handle the error, e.g., return an error response to the client
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-router.post("/exercises/bulk", async (req, res) => {
-  try {
-    const exercises = req.body;
-
-    // Create the exercises in the database
-    const createdExercises = await Exercise.bulkCreate(exercises);
-
-    // Return the newly created exercises as JSON response
-    res.status(201).json(createdExercises);
-  } catch (error) {
-    console.error("Error creating exercises:", error);
     // Handle the error, e.g., return an error response to the client
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -54,6 +40,7 @@ router.post("/exercises", async (req, res) => {
       difficulty,
       instructions,
       workoutId,
+      week,
     } = req.body;
 
     // Create the exercise in the database
@@ -67,6 +54,7 @@ router.post("/exercises", async (req, res) => {
       difficulty,
       instructions,
       workoutId,
+      week,
     });
 
     // Return the newly created exercise as JSON response

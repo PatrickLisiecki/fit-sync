@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <>
             <footer className="bg-white shadow-bs w-full p-8">
-                <div className="container mx-auto flex flex-row justify-between">
+                <div className="lg:container lg:mx-auto flex flex-row justify-between">
                     <p className="text-sm">
                         &copy; {currentYear} Flex Fusion. All rights reserved.
                     </p>
