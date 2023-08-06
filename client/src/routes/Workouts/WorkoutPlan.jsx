@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
 // Components
 import Modal from "../../components/Modal";
+
+// Material Tailwind
+import { ButtonGroup, Button } from "@material-tailwind/react";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -177,14 +179,14 @@ export default function WorkoutPlan() {
 
             {/* Edit workout name */}
             {isEdit ? (
-              <div className="">
+              <div className="flex flex-col sm:flex-row">
                 <input
                   type="text"
                   id="updatedName"
                   value={updatedName}
                   placeholder={selectedWorkout.name}
                   onChange={handleNameUpdate}
-                  className="min-w-[200px] px-2 py-1 mb-0 border border-secondary border-r-0 focus:outline-none"
+                  className="min-w-[100px] max-w-[150px] px-2 py-1 mb-0 border border-secondary border-r-1 sm:border-r-0 focus:outline-none"
                 />
                 <button
                   onClick={() => {
@@ -197,14 +199,14 @@ export default function WorkoutPlan() {
                 </button>
               </div>
             ) : (
-              <span className="h3 mb-0">{selectedWorkout.name}</span>
+              <span className="text-[18px] sm:text-[24px] mb-0">{selectedWorkout.name}</span>
             )}
 
             {/* Edit and delete options */}
             <div className="flex justify-center items-center gap-x-2">
               <button
                 onClick={() => setIsEdit(!isEdit)}
-                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-yellow-500 hover:text-white transition-all duration-200"
+                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-orange-300 hover:text-white transition-all duration-200"
               >
                 <FontAwesomeIcon icon={faPencil} />
               </button>
@@ -219,31 +221,31 @@ export default function WorkoutPlan() {
           </div>
 
           {/* Week navigation */}
-          <div className="flex flex-row justify-center items-center gap-x-4 sm:gap-x-10 my-6">
+          <ButtonGroup variant="text" size="lg" ripple={false} className="my-6 divide-secondary">
             {/* Previous week button */}
-            <button
-              className="max-w-[100px] flex justify-center items-center gap-x-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+            <Button
               onClick={handlePrevWeek}
+              className="flex justify-center items-center gap-x-2 bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
             >
               <FontAwesomeIcon icon={faChevronLeft} size="sm" />
               Prev
-            </button>
+            </Button>
 
             {/* Display current week */}
-            <span
+            <Button
               onClick={handleThisWeek}
-              className="max-w-[150px] px-4 py-2 rounded cursor-pointer bg-gray-300 hover:bg-gray-400"
-            >{`Week ${selectedWeek}`}</span>
+              className="bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
+            >{`Week ${selectedWeek}`}</Button>
 
             {/* Next week button */}
-            <button
-              className="max-w-[100px] flex justify-center items-center gap-x-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+            <Button
               onClick={handleNextWeek}
+              className="flex justify-center items-center gap-x-2 bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
             >
               Next
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            </button>
-          </div>
+            </Button>
+          </ButtonGroup>
 
           {/* List of days */}
           <div className="w-full flex flex-col justify-center items-center gap-y-[10px]">

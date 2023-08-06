@@ -1,24 +1,39 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
 
+// Components
+import Modal from "../../components/Modal";
+
+// Material Tailwind
+import { Chip, Button } from "@material-tailwind/react";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-
-// Components
-import CollapsibleParagraph from "../../components/CollapsibleParagraph";
+import { faXmark, faArrowLeftLong, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserExercisesList({ updated }) {
   // Access the exercises array and setExercises function from the ExerciseContext
   const { exercises, setExercises } = useContext(ExerciseContext);
   const { currentUser } = useContext(AuthContext);
-
   const { workoutId, day, week } = useParams();
+
+  // Modal state and controls
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const handleOpen = (exercise) => {
+    setSelectedExercise(exercise);
+    setIsModalVisible(!isModalVisible);
+  };
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -90,19 +105,48 @@ export default function UserExercisesList({ updated }) {
               </div>
 
               {/* Exercise info */}
-              <div className="flex flex-row flex-wrap items-center gap-x-4 my-2">
-                <span className="capitalize font-light text-secondary">{exercise.type}</span>
-
-                <span className="capitalize font-light text-secondary">{exercise.muscle}</span>
-
-                <span className="capitalize font-light text-secondary">{exercise.equipment}</span>
+              <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-4">
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
               </div>
 
-              {/* Collapsible instructions */}
-              <CollapsibleParagraph title={"Instructions"} content={exercise.instructions} />
+              {/* Button to open exercise modal */}
+              <Button
+                onClick={() => handleOpen(exercise)}
+                ripple={false}
+                variant="filled"
+                color="cyan"
+                className="flex justify-center items-center gap-x-2"
+              >
+                <span className="text-white">View Info</span>
+                <FontAwesomeIcon icon={faArrowRightLong} />
+              </Button>
             </div>
           ))}
       </div>
+
+      {/* Modal for exercise info */}
+      {selectedExercise && (
+        <Modal isVisible={isModalVisible} hideModal={hideModal}>
+          <div className="flex items-center shrink-0 p-4 border-b border-primary">
+            <span className="text-primary antialiased text-2xl font-semibold leading-snug">
+              {selectedExercise.name}
+            </span>
+          </div>
+          <div className="relative p-4 antialiased border-b border-primary">
+            <p className="text-secondary text-base font-light leading-relaxed">
+              {selectedExercise.instructions}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
+            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
+              Close
+            </Button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
