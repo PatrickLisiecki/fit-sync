@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
+
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import CollapsibleParagraph from "../../components/CollapsibleParagraph";
@@ -56,10 +57,21 @@ export default function UserExercisesList({ updated }) {
 
   return (
     <div className="px-6 sm:px-24 py-4">
-      {/* Week and day header */}
-      <span className="text-2xl font-bold mb-4 capitalize">
-        Week {week} - {day}&apos;s Workout
-      </span>
+      <div className="w-full flex flex-row justify-between items-center mb-2">
+        {/* Go back button */}
+        <Link
+          to="/dashboard/workouts"
+          className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
+        >
+          <FontAwesomeIcon icon={faArrowLeftLong} />
+          <span className="hidden sm:inline-block text-md font-light">Workouts</span>
+        </Link>
+
+        {/* Week and day header */}
+        <span className="text-[20px] sm:text-[24px] md:text-[28px] font-semibold mb-0 capitalize">
+          Week {week} - {day}&apos;s Workout
+        </span>
+      </div>
 
       {/* Exercises the user has for the day */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -71,7 +83,7 @@ export default function UserExercisesList({ updated }) {
                 <span className="text-xl font-bold">{exercise.name}</span>
                 <button
                   onClick={() => handleDeleteExercise(exercise)}
-                  className="w-[40px] h-[40px] p-4 flex items-center justify-center rounded-full cursor-pointer text-black hover:bg-red-500 hover:text-white transition-all duration-200"
+                  className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-red-500 hover:text-white transition-all duration-200"
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>

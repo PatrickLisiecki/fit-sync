@@ -180,7 +180,7 @@ export default function ExercisesList({ onExerciseAdd }) {
                 <span className="text-xl font-bold">{exercise.name}</span>
                 <button
                   onClick={() => handleAddToMyWorkout(exercise)}
-                  className="w-[40px] h-[40px] p-4 flex items-center justify-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
+                  className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
