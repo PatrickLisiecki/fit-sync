@@ -1,26 +1,23 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
-const WorkoutPlan = () => {
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
+export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
+
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState("");
-
   const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
-  const daysOfWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -40,7 +37,7 @@ const WorkoutPlan = () => {
   };
 
   const handlePrevWeek = () => {
-    setSelectedWeek((prevWeek) => prevWeek - 1);
+    setSelectedWeek((prevWeek) => (prevWeek === 1 ? 1 : prevWeek - 1));
   };
 
   const handleDayClick = (day) => {
@@ -89,57 +86,68 @@ const WorkoutPlan = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center">
       {/* Render the "Workout" heading only if no workout is selected */}
       {!selectedWorkout && (
-        <h1 className="text-2xl font-bold mb-4">Workouts</h1>
+        <div className="w-full p-4 text-center">
+          <span className="h2 font-bold">Your Workouts</span>
+        </div>
       )}
+
       {selectedWorkout ? (
         // Display only the selected workout
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-3 p-4 bg-white shadow rounded mb-4">
-            <h2 className="text-xl font-bold mb-2">{selectedWorkout.name}</h2>
+        <div className="w-full h-full flex flex-col items-center">
+          {/* Workout name header */}
+          <div className="min-w-[300px] text-center p-4 mt-6 bg-white shadow-bs rounded">
+            <span className="h3 font-bold">{selectedWorkout.name}</span>
           </div>
 
-          {/* Week Navigation */}
-          <div className="col-span-3 flex justify-center mb-4 space-x-4">
+          {/* Week navigation */}
+          <div className="flex flex-row justify-center items-center gap-x-10 my-6">
+            {/* Previous week button */}
             <button
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+              className="max-w-[100px] flex justify-center items-center gap-x-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
               onClick={handlePrevWeek}
             >
-              Prev Week
+              <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+              Prev
             </button>
-            <button
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+
+            {/* Display current week */}
+            <span
               onClick={handleThisWeek}
-            >
-              This Week
-            </button>
+              className="max-w-[150px] px-4 py-2 rounded cursor-pointer bg-gray-300 hover:bg-gray-400"
+            >{`Week ${selectedWeek}`}</span>
+
+            {/* Next week button */}
             <button
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+              className="max-w-[100px] flex justify-center items-center gap-x-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
               onClick={handleNextWeek}
             >
-              Next Week
+              Next
+              <FontAwesomeIcon icon={faChevronRight} size="sm" />
             </button>
-            <span className="px-4 py-2 bg-gray-300 rounded">{`Week ${selectedWeek}`}</span>
           </div>
 
-          {/* List of Days */}
-          <div className="col-span-3 flex justify-center">
+          {/* List of days */}
+          <div className="w-full flex flex-col justify-center items-center gap-y-[10px]">
             {daysOfWeek.map((day, index) => (
-              <Link
+              <div
                 key={index}
-                to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
+                className="w-[50%] min-w-[250px] h-[75px] rounded-lg cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
               >
-                <div
-                  className={`p-4 text-white bg-gray-800 rounded-lg shadow-lg text-center ${
-                    day === selectedDay ? "bg-blue-600" : ""
-                  } cursor-pointer hover:bg-blue-600`}
-                  onClick={() => handleDayClick(day)}
+                <Link
+                  to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
+                  className="w-full h-full flex flex-row justify-start items-center"
                 >
-                  <h2>{day}</h2>
-                </div>
-              </Link>
+                  <div
+                    className="w-[50px] h-[50px] flex justify-center items-center mx-4 border border-primary rounded-full"
+                    onClick={() => handleDayClick(day)}
+                  >
+                    <span className="text-lg capitalize font-bold">{day.slice(0, 3)}</span>
+                  </div>
+                </Link>
+              </div>
             ))}
           </div>
         </div>
@@ -148,40 +156,40 @@ const WorkoutPlan = () => {
         <div className="flex flex-col items-center">
           <input
             type="text"
-            className="p-2 border border-gray-300 rounded mb-4"
+            className="min-w-[300px] p-2 border border-secondary rounded mb-4 focus:outline-none"
             placeholder="Workout Name"
             value={newWorkoutName}
             onChange={handleNewWorkoutNameChange}
           />
           <button
-            className="px-4 py-2 bg-green-500 text-white rounded"
             onClick={handleSaveNewWorkout}
+            className="min-w-[135px] px-4 py-2 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
           >
-            Save Workout
+            <FontAwesomeIcon icon={faPlus} size="sm" />
+            <span className="font-semibold">Create Workout</span>
           </button>
         </div>
       ) : (
         // Display the list of workouts when no workout is selected
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <button
+            className="min-w-[250px] px-4 py-4 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer shadow-md"
+            onClick={handleCreateNewWorkout}
+          >
+            <FontAwesomeIcon icon={faPlus} size="sm" />
+            <span className="font-semibold">Add a Workout</span>
+          </button>
           {workouts.map((workout) => (
             <div
               key={workout.id}
-              className="bg-white p-4 shadow rounded mb-4 cursor-pointer hover:bg-gray-100"
+              className="h-[200px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
               onClick={() => handleWorkoutClick(workout)}
             >
-              <h2 className="text-xl font-bold mb-2">{workout.name}</h2>
+              <span className="text-xl font-bold">{workout.name}</span>
             </div>
           ))}
-          <button
-            className="bg-blue-500 text-white p-4 shadow rounded"
-            onClick={handleCreateNewWorkout}
-          >
-            Create New Workout
-          </button>
         </div>
       )}
     </div>
   );
-};
-
-export default WorkoutPlan;
+}

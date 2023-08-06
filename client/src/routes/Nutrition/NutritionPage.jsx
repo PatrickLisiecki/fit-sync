@@ -3,13 +3,7 @@ import axios from "axios";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHamburger,
-  faFire,
-  faUtensils,
-  faDrumstickBite,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFire, faUtensils, faDrumstickBite, faCircle } from "@fortawesome/free-solid-svg-icons";
 
 // Charts
 import {
@@ -63,71 +57,90 @@ const NutritionPage = () => {
   };
 
   return (
-    <div className="container mx-auto my-4 px-4">
-      <h1 className="text-4xl font-bold mb-4">Nutrition Facts</h1>
-      <div className="flex mb-4">
+    <div className="w-full h-full flex flex-col items-center">
+      {/* Nutrition page header */}
+      <div className="w-full p-4 text-center">
+        <span className="h2">Nutrition Facts</span>
+      </div>
+
+      {/* Search form */}
+      <div className="p-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
         <input
           type="text"
           value={query}
           onChange={handleQueryChange}
           onKeyPress={handleKeyPress}
           placeholder="Enter your meal here..."
-          className="w-full px-4 py-2 border rounded-md shadow-md mr-2 focus:outline-none focus:ring focus:border-blue-300"
+          className="w-[300px] md:w-[350px] lg:w-[450px] xl:w-[650px] p-4 text-md border rounded shadow-md focus:outline-none transition-all duration-500"
         />
         <button
           onClick={fetchNutritionFacts}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md shadow-md"
+          className="min-w-[135px] py-2 text-lg text-white bg-green-500 hover:bg-green-500/90 cursor-pointer rounded shadow-md"
         >
           Get Nutrition
         </button>
       </div>
+
+      {/* Nutrition info and charts */}
       {nutritionFacts && nutritionFacts.length > 0 && (
         <>
-          <div className="flex space-x-4">
+          <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {/* Nutrition Containers */}
             {nutritionFacts.map((nutritionFact, index) => (
-              <div key={index} className="border rounded-md p-6 bg-white shadow-md flex-grow">
-                <h2 className="text-2xl font-semibold mb-4">
-                  Nutrition Information - {nutritionFact.name}
-                </h2>
-                <ul>
+              <div
+                key={index}
+                className="rounded p-6 bg-white shadow-md hover:-translate-y-[2px] transition-all duration-300"
+              >
+                <span className="h3 capitalize">{nutritionFact.name}</span>
+                <ul className="flex flex-col justify-center items-start gap-y-2">
                   {/* List of nutrition facts */}
-                  <li className="mb-4 flex items-center">
+                  {/* <li className="mb-4 flex items-center">
                     <FontAwesomeIcon icon={faHamburger} className="text-3xl mr-4 text-red-600" />
                     <span className="font-semibold text-lg">Name: </span>
                     {nutritionFact.name}
-                  </li>
-                  <li className="mb-4 flex items-center">
+                  </li> */}
+                  {/* Calories */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-500" />
-                    <span className="font-semibold text-lg">Calories: </span>
+                    <span className="mr-2 font-semibold">Calories:</span>
                     {nutritionFact.calories}
                   </li>
-                  <li className="mb-4 flex items-center">
+
+                  {/* Serving size */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-green-500" />
-                    <span className="font-semibold text-lg">Serving Size: </span>
+                    <span className="mr-2 font-semibold text-lg">Serving Size: </span>
                     {nutritionFact.serving_size_g} g
                   </li>
-                  <li className="mb-4 flex items-center">
+
+                  {/* Fat content */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-600" />
-                    <span className="font-semibold text-lg">Total Fat: </span>
+                    <span className="mr-2 font-semibold text-lg">Total Fat: </span>
                     {nutritionFact.fat_total_g} g
                   </li>
-                  <li className="mb-4 flex items-center">
+
+                  {/* Saturated fat */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon icon={faCircle} className="text-3xl mr-4 text-yellow-600" />
-                    <span className="font-semibold text-lg">Saturated Fat: </span>
+                    <span className="mr-2 font-semibold text-lg">Saturated Fat: </span>
                     {nutritionFact.fat_saturated_g} g
                   </li>
-                  <li className="mb-4 flex items-center">
+
+                  {/* Protein */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faDrumstickBite}
                       className="text-3xl mr-4 text-green-600"
                     />
-                    <span className="font-semibold text-lg">Protein: </span>
+                    <span className="mr-2 font-semibold text-lg">Protein: </span>
                     {nutritionFact.protein_g} g
                   </li>
-                  <li className="mb-4 flex items-center">
+
+                  {/* Sodium */}
+                  <li className="flex items-center">
                     <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-blue-600" />
-                    <span className="font-semibold text-lg">Sodium: </span>
+                    <span className="mr-2 font-semibold text-lg">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
                   {/* Add more nutrition facts as needed */}
@@ -137,64 +150,52 @@ const NutritionPage = () => {
           </div>
 
           {/* Nutrition Visualization */}
-          <div className="border rounded-md p-6 bg-white shadow-md my-4">
-            <h2 className="text-2xl font-semibold mb-4">Nutrition Visualization</h2>
-            <div className="flex flex-col lg:flex-row gap-y-4 space-x-2">
-              <div className="w-full md:w-1/2 lg:w-1/4">
-                {/* Calories Bar Chart */}
-                <BarChart
-                  width={400}
-                  height={300}
-                  data={nutritionFacts}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="calories" fill="#8884d8" name="Calories" />
-                </BarChart>
-              </div>
+          <div className="border rounded p-6 my-4 bg-white shadow-md">
+            {/* Header */}
+            <div className="w-full text-center pb-4">
+              <span className="h3">Nutrition Visualization</span>
+            </div>
 
-              <div className="relative">
-                {/* Pie Chart for Total Calories and Proteins */}
-                <PieChart width={400} height={300}>
-                  <Pie
-                    data={[
-                      { name: "Calories", value: totalCalories },
-                      { name: "Proteins", value: totalProteins },
-                    ]}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    fill="#8884d8"
-                  >
-                    <Cell fill="#82ca9d" />
-                    <Cell fill="#8884d8" />
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </div>
+            <div className="flex flex-col lg:flex-row">
+              {/* Calories Bar Chart */}
+              <BarChart width={300} height={300} data={nutritionFacts}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="calories" fill="#8884d8" name="Calories" />
+              </BarChart>
 
-              <div className="w-full md:w-1/2 lg:w-1/3">
-                {/* Proteins Bar Chart */}
-                <BarChart
-                  width={400}
-                  height={300}
-                  data={nutritionFacts}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              {/* Pie Chart for Total Calories and Proteins */}
+              <PieChart width={300} height={300}>
+                <Pie
+                  data={[
+                    { name: "Calories", value: Math.ceil(totalCalories) },
+                    { name: "Proteins", value: Math.ceil(totalProteins) },
+                  ]}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="protein_g" fill="#82ca9d" name="Proteins (g)" />
-                </BarChart>
-              </div>
+                  <Cell fill="#82ca9d" />
+                  <Cell fill="#8884d8" />
+                </Pie>
+                <Tooltip />
+              </PieChart>
+
+              {/* Proteins Bar Chart */}
+              <BarChart width={300} height={300} data={nutritionFacts}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="protein_g" fill="#82ca9d" name="Proteins (g)" />
+              </BarChart>
             </div>
           </div>
         </>

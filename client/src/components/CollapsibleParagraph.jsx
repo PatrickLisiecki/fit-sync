@@ -18,9 +18,9 @@ export default function CollapsibleParagraph({ title, content }) {
   };
 
   return (
-    <div className="w-full">
+    <>
       <button
-        className="flex flex-row justify-center items-center px-4 py-2 bg-blue-500 text-white shadow-md"
+        className="flex flex-row justify-center items-center px-4 py-2 text-sm bg-blue-500 text-white shadow-md rounded"
         onClick={() => {
           toggleCollapse();
           handleRotate();
@@ -32,7 +32,7 @@ export default function CollapsibleParagraph({ title, content }) {
             isRotated ? "rotate-180" : "rotate-0"
           } p-2 flex justify-center items-center transition-all duration-500`}
         >
-          <FontAwesomeIcon icon={faChevronDown} />
+          <FontAwesomeIcon icon={faChevronDown} size="sm" />
         </div>
       </button>
 
@@ -41,6 +41,6 @@ export default function CollapsibleParagraph({ title, content }) {
           <p className="text-sm text-secondary">{content}</p>
         </div>
       )}
-    </div>
+    </>
   );
 }

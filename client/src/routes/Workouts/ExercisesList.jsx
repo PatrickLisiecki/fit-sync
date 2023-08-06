@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -8,17 +9,19 @@ import { ExerciseContext } from "../../contexts/ExerciseContext";
 import CollapsibleParagraph from "../../components/CollapsibleParagraph";
 
 // Icons
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
-  const { workoutId, week, day } = useParams(); // Access 'currentUser' from AuthContext
+  const { setExercises } = useContext(ExerciseContext);
+
+  const { workoutId, week, day } = useParams();
+
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const { setExercises } = useContext(ExerciseContext);
   const [activeButton, setActiveButton] = useState(-1);
 
   const muscleGroups = [
@@ -103,27 +106,22 @@ export default function ExercisesList({ onExerciseAdd }) {
       })
       .catch((error) => {
         console.error("Error adding workout:", error);
-      }); // <-- Add the closing parenthesis here
+      });
   };
+
   return (
     <div className="px-6 sm:px-24 py-4">
       {/* Search for exercises form */}
-      <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-10 overflow-x-auto">
+      <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-4 overflow-x-auto">
         <span className="text-center sm:text-left text-xl font-bold mb-2">
           Search for Exercises
         </span>
 
         {/* Form with selections */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col xl:flex-row gap-y-4 gap-x-10"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col xl:flex-row gap-y-4 gap-x-10">
           {/* Muscle group select */}
           <div className="flex flex-col lg:flex-row items-center">
-            <label
-              htmlFor="muscleSelect"
-              className="block text-lg mb-0 font-light"
-            >
+            <label htmlFor="muscleSelect" className="block text-lg mb-0 font-light">
               Target Muscle:
             </label>
 
@@ -136,11 +134,7 @@ export default function ExercisesList({ onExerciseAdd }) {
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
-                <option
-                  key={muscle}
-                  value={muscle}
-                  className="capitalize hover:bg-accent"
-                >
+                <option key={muscle} value={muscle} className="capitalize hover:bg-accent">
                   {muscle}
                 </option>
               ))}
@@ -157,7 +151,7 @@ export default function ExercisesList({ onExerciseAdd }) {
                   key={index}
                   className={`${
                     activeButton === index
-                      ? "text-white border-blue-500 bg-blue-500 hover:bg-blue-500/90"
+                      ? "text-white border-accent bg-accent hover:bg-accent/90"
                       : "bg-none text-primary border-primary hover:bg-primary/10"
                   } min-w-[135px] grid place-items-center py-2 border transition-all duration-200 cursor-pointer`}
                   onClick={() => {
@@ -183,55 +177,33 @@ export default function ExercisesList({ onExerciseAdd }) {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        // grid gap-4 md:grid-cols-2 lg:grid-cols-3
-        <div className="flex flex-col gap-y-5 sm:gap-y-10">
-          {workouts.map((workout, index) => (
-            <div key={index} className="p-4 rounded-lg bg-white shadow-lg">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {workouts.map((exercise, index) => (
+            <div key={index} className="p-4 rounded-lg bg-white">
               {/* Exercise name */}
-              <span className="text-xl font-bold">{workout.name}</span>
-              {/* Exercise info */}
-              <div className="flex flex-col text-lg">
-                <span className="font-semibold">
-                  Type:{" "}
-                  <span className="capitalize font-light text-secondary">
-                    {workout.type}
-                  </span>
-                </span>
-
-                <span className="font-semibold">
-                  Muscle:{" "}
-                  <span className="capitalize font-light text-secondary">
-                    {workout.muscle}
-                  </span>
-                </span>
-
-                <span className="font-semibold">
-                  Equipment:{" "}
-                  <span className="capitalize font-light text-secondary">
-                    {workout.equipment}
-                  </span>
-                </span>
-
-                <span className="font-semibold">
-                  Difficulty:{" "}
-                  <span className="capitalize font-light text-secondary">
-                    {workout.difficulty}
-                  </span>
-                </span>
-
-                <CollapsibleParagraph
-                  title={"Instructions"}
-                  content={workout.instructions}
-                />
+              <div className="w-full flex flex-row justify-between items-center">
+                <span className="text-xl font-bold">{exercise.name}</span>
+                <button
+                  onClick={() => handleAddToMyWorkout(exercise)}
+                  className="w-[40px] h-[40px] p-4 flex items-center justify-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
               </div>
 
-              <button
-                onClick={() => handleAddToMyWorkout(workout)}
-                className="min-w-[135px] py-2 mt-4 flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faPlus} size="sm" />
-                <span className="font-semibold">Add</span>
-              </button>
+              {/* Exercise info */}
+              <div className="flex flex-row flex-wrap items-center gap-x-4 my-2">
+                <span className="capitalize font-light text-secondary">{exercise.type}</span>
+
+                <span className="capitalize font-light text-secondary">{exercise.muscle}</span>
+
+                <span className="capitalize font-light text-secondary">{exercise.equipment}</span>
+
+                <span className="capitalize font-light text-secondary">{exercise.difficulty}</span>
+              </div>
+
+              {/* Collapsible instructions */}
+              <CollapsibleParagraph title={"Instructions"} content={exercise.instructions} />
             </div>
           ))}
         </div>
