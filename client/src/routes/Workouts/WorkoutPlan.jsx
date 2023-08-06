@@ -3,18 +3,36 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
+// Components
+import Modal from "../../components/Modal";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faChevronLeft,
+  faChevronRight,
+  faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
+
+  // Modal state and controls
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState("");
-  const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
   const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
@@ -52,10 +70,6 @@ export default function WorkoutPlan() {
     setSelectedWeek((prevWeek) => prevWeek + 1);
   };
 
-  const handleCreateNewWorkout = () => {
-    setCreatingNewWorkout(true);
-  };
-
   const handleNewWorkoutNameChange = (event) => {
     setNewWorkoutName(event.target.value);
   };
@@ -78,7 +92,6 @@ export default function WorkoutPlan() {
           // Add the new workout to the workouts state and select it
           setSelectedWorkout(data);
           setWorkouts((prevWorkouts) => [...prevWorkouts, data]);
-          setCreatingNewWorkout(false);
           setNewWorkoutName("");
         })
         .catch((error) => console.log(error));
@@ -96,7 +109,16 @@ export default function WorkoutPlan() {
 
       {selectedWorkout ? (
         // Display only the selected workout
-        <div className="w-full h-full flex flex-col items-center">
+        <div className="relative w-full h-full flex flex-col items-center">
+          {/* Go back button */}
+          <button
+            onClick={() => setSelectedWorkout(null)}
+            className="absolute top-[15px] left-[20px] p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
+          >
+            <FontAwesomeIcon icon={faArrowLeftLong} />
+            <span className="text-md font-light">Workouts</span>
+          </button>
+
           {/* Workout name header */}
           <div className="min-w-[300px] text-center p-4 mt-6 bg-white shadow-bs rounded">
             <span className="h3 font-bold">{selectedWorkout.name}</span>
@@ -151,30 +173,12 @@ export default function WorkoutPlan() {
             ))}
           </div>
         </div>
-      ) : creatingNewWorkout ? (
-        // Display the form to create a new workout
-        <div className="flex flex-col items-center">
-          <input
-            type="text"
-            className="min-w-[300px] p-2 border border-secondary rounded mb-4 focus:outline-none"
-            placeholder="Workout Name"
-            value={newWorkoutName}
-            onChange={handleNewWorkoutNameChange}
-          />
-          <button
-            onClick={handleSaveNewWorkout}
-            className="min-w-[135px] px-4 py-2 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
-          >
-            <FontAwesomeIcon icon={faPlus} size="sm" />
-            <span className="font-semibold">Create Workout</span>
-          </button>
-        </div>
       ) : (
         // Display the list of workouts when no workout is selected
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
             className="min-w-[250px] px-4 py-4 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer shadow-md"
-            onClick={handleCreateNewWorkout}
+            onClick={showModal}
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add a Workout</span>
@@ -190,6 +194,29 @@ export default function WorkoutPlan() {
           ))}
         </div>
       )}
+
+      {/* Create new workout form */}
+      <Modal isVisible={isModalVisible} hideModal={hideModal}>
+        <div className="flex flex-col items-center">
+          <input
+            type="text"
+            className="w-[75%] text-base p-3 border border-secondary rounded mb-4 focus:outline-none"
+            placeholder="Workout Name"
+            value={newWorkoutName}
+            onChange={handleNewWorkoutNameChange}
+          />
+          <button
+            onClick={() => {
+              handleSaveNewWorkout();
+              hideModal();
+            }}
+            className="min-w-[135px] px-4 py-2 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
+          >
+            <FontAwesomeIcon icon={faPlus} size="sm" />
+            <span className="font-semibold">Create Workout</span>
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
