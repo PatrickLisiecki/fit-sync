@@ -77,18 +77,23 @@ export default function ExercisesList({ onExerciseAdd }) {
   const handleAddToMyWorkout = (workout) => {
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
-      .post("http://localhost:4000/api/exercises/exercises", {
-        userId: currentUser.id,
-        day: day,
-        name: workout.name,
-        type: workout.type,
-        muscle: workout.muscle,
-        equipment: workout.equipment,
-        difficulty: workout.difficulty,
-        instructions: workout.instructions,
-        week: week,
-        workoutId: workoutId,
-      })
+      .post(
+        "http://localhost:4000/api/exercises/exercises",
+        {
+          userId: currentUser.id,
+          day: day,
+          name: workout.name,
+          type: workout.type,
+          muscle: workout.muscle,
+          equipment: workout.equipment,
+          difficulty: workout.difficulty,
+          instructions: workout.instructions,
+          week: week,
+          workoutId: workoutId,
+        },
+        { withCredentials: true }
+      )
+
       .then((response) => {
         console.log("Workout added to My Workout:", response.data);
         // After adding a new exercise, update the exercises in the ExerciseContext

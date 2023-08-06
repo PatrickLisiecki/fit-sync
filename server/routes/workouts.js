@@ -1,25 +1,41 @@
 const express = require("express");
 const router = express.Router();
+const { authenticateUser } = require("../middleware/authMiddleware");
+const { ForbiddenError, NotFoundError } = require("../errors");
 const { User, Exercise, Workout } = require("../models");
-const workout = require("../models/workout");
 
-router.get("/current_user", async (req, res) => {
-  if (req.session.userId) {
-    const user = await User.findByPk(req.session.userId);
-    return res.status(200).json({
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      },
-    });
-  } else {
-    return res.status(401).json({ user: null });
+const getWorkout = async (id) => {
+  const workout = await Workout.findByPk(parseInt(id, 10));
+  if (!workout) {
+    throw new NotFoundError("Workout not found");
   }
-});
+  return workout;
+};
+
+const authorizeEdit = (session, workout) => {
+  if (parseInt(session.userId, 10) !== workout.UserId) {
+    throw new ForbiddenError("You are not authorized to edit this workout");
+  }
+};
+
+const authorizeDelete = (session, workout) => {
+  if (parseInt(session.userId, 10) !== workout.UserId) {
+    throw new ForbiddenError("You are not authorized to delete this job");
+  }
+};
+
+const handleErrors = (err, res) => {
+  console.error(err);
+  if (err.name === "SequelizeValidationError") {
+    return res
+      .status(422)
+      .json({ errors: err.errors.map((e) => e.message).join(", ") });
+  }
+  res.status(500).send({ errors: err.message });
+};
 
 // Route handler for getting all workouts for a specific user
-router.get("/:userId", async (req, res) => {
+router.get("/:userId", authenticateUser, async (req, res) => {
   try {
     const userId = req.params.userId;
 
@@ -38,7 +54,7 @@ router.get("/:userId", async (req, res) => {
 });
 
 // Route handler for creating a new workout
-router.post("/:userId", async (req, res) => {
+router.post("/:userId", authenticateUser, async (req, res) => {
   try {
     const userId = req.params.userId;
     const { name } = req.body; // Assuming you have a name for the new workout
@@ -57,7 +73,7 @@ router.post("/:userId", async (req, res) => {
 });
 
 // Route handler for updating a workout
-router.put("/:workoutId", async (req, res) => {
+router.put("/:workoutId", authenticateUser, async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
     const { name } = req.body; // Assuming you have a name for updating the workout
@@ -82,7 +98,7 @@ router.put("/:workoutId", async (req, res) => {
 });
 
 // Route handler for deleting a workout
-router.delete("/:workoutId", async (req, res) => {
+router.delete("/:workoutId", authenticateUser, async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
 
