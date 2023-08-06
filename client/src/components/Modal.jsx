@@ -25,11 +25,11 @@ export default function Modal({ isVisible, hideModal, children }) {
   return (
     <div
       onClick={hideModal}
-      className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-[999]"
+      className="fixed inset-0 w-screen h-screen grid place-items-center bg-black bg-opacity-60 backdrop-blur-sm z-[9999]"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[300px] sm:w-[500px] md:w-[600px] mx-auto flex flex-col bg-white rounded-lg shadow-lg transition-all duration-500"
+        className="relative bg-white m-4 rounded-lg shadow-2xl antialiased text-base font-light leading-relaxed w-full md:w-3/4 lg:w-3/5 2xl:w-2/5 min-w-[90%] md:min-w-[75%] lg:min-w-[60%] 2xl:min-w-[40%] max-w-[90%] md:max-w-[75%] lg:max-w-[60%] 2xl:max-w-[40%]"
       >
         <div className="flex flex-row justify-end bg-transparent p-4">
           <button
