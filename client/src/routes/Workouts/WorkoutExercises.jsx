@@ -10,10 +10,10 @@ const UserExercises = () => {
   };
 
   return (
-    <div>
+    <>
       <UserExercisesList updated={updated} />
       <ExercisesList onExerciseAdd={handleExerciseUpdate} />
-    </div>
+    </>
   );
 };
 

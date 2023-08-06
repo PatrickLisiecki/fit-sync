@@ -7,13 +7,13 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const WorkoutPlan = () => {
+export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
+
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState("");
-
   const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
@@ -37,7 +37,7 @@ const WorkoutPlan = () => {
   };
 
   const handlePrevWeek = () => {
-    setSelectedWeek((prevWeek) => (prevWeek === 0 ? 0 : prevWeek - 1));
+    setSelectedWeek((prevWeek) => (prevWeek === 1 ? 1 : prevWeek - 1));
   };
 
   const handleDayClick = (day) => {
@@ -171,7 +171,7 @@ const WorkoutPlan = () => {
         </div>
       ) : (
         // Display the list of workouts when no workout is selected
-        <div className="flex flex-col items-center gap-y-[10px]">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
             className="min-w-[250px] px-4 py-4 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer shadow-md"
             onClick={handleCreateNewWorkout}
@@ -182,7 +182,7 @@ const WorkoutPlan = () => {
           {workouts.map((workout) => (
             <div
               key={workout.id}
-              className="w-[50%] min-w-[250px] h-[75px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
+              className="h-[200px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
               onClick={() => handleWorkoutClick(workout)}
             >
               <span className="text-xl font-bold">{workout.name}</span>
@@ -192,6 +192,4 @@ const WorkoutPlan = () => {
       )}
     </div>
   );
-};
-
-export default WorkoutPlan;
+}
