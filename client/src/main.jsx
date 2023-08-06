@@ -18,7 +18,7 @@ import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 
 // Dashboard components
 import Dashboard from "./routes/Dashboard/Dashboard";
-import DashboardHome from "./routes/Dashboard Home/DashboardHome";
+import DashboardHome from "./routes/DashboardHome/DashboardHome";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
