@@ -94,11 +94,6 @@ const NutritionPage = () => {
                 <span className="h3 capitalize">{nutritionFact.name}</span>
                 <ul className="flex flex-col justify-center items-start gap-y-2">
                   {/* List of nutrition facts */}
-                  {/* <li className="mb-4 flex items-center">
-                    <FontAwesomeIcon icon={faHamburger} className="text-3xl mr-4 text-red-600" />
-                    <span className="font-semibold text-lg">Name: </span>
-                    {nutritionFact.name}
-                  </li> */}
                   {/* Calories */}
                   <li className="flex items-center">
                     <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-500" />
