@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
 // Icons
+import {
+  faChevronLeft,
+  faChevronRight,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
@@ -17,7 +21,15 @@ export default function WorkoutPlan() {
   const [creatingNewWorkout, setCreatingNewWorkout] = useState(false);
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
-  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -144,7 +156,9 @@ export default function WorkoutPlan() {
                     className="w-[50px] h-[50px] flex justify-center items-center mx-4 border border-primary rounded-full"
                     onClick={() => handleDayClick(day)}
                   >
-                    <span className="text-lg capitalize font-bold">{day.slice(0, 3)}</span>
+                    <span className="text-lg capitalize font-bold">
+                      {day.slice(0, 3)}
+                    </span>
                   </div>
                 </Link>
               </div>
