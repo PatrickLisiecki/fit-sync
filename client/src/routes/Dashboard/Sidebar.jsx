@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Form, redirect } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
@@ -20,33 +20,40 @@ const sidebarData = [
   {
     title: "Dashboard",
     link: "/dashboard",
+    childPath: "",
     icon: <FontAwesomeIcon icon={faChalkboardUser} className="w-[20px] h-[20px]" />,
   },
   {
     title: "Workout Plan",
     link: "/dashboard/workouts",
+    childPath: "/workouts",
     icon: <FontAwesomeIcon icon={faCalendarDays} className="w-[20px] h-[20px]" />,
   },
   {
     title: "Nutrition",
     link: "/dashboard/nutrition",
+    childPath: "/nutrition",
     icon: <FontAwesomeIcon icon={faChartPie} className="w-[20px] h-[20px]" />,
   },
   {
     title: "AI Workout",
     link: "/dashboard/ai",
+    childPath: "/ai",
     icon: <FontAwesomeIcon icon={faRobot} className="w-[20px] h-[20px]" />,
   },
 ];
 
-export default function Sidebar({ toggleSidebar, isExpanded }) {
+export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
   const { currentUser, logout } = useContext(AuthContext);
-  const [activeLink, setActiveLink] = useState(-1);
 
   const handleLogout = (e) => {
     e.preventDefault();
     logout();
     redirect("/auth");
+  };
+
+  const isLinkActive = (linkPath) => {
+    return currentPath === linkPath;
   };
 
   return (
@@ -64,24 +71,24 @@ export default function Sidebar({ toggleSidebar, isExpanded }) {
       </div>
 
       {/* Nav links for sidebar */}
-      <ul className="flex flex-col">
+      <div className="flex flex-col">
         {/* Nav link */}
         {sidebarData.map((item, index) => {
           return (
-            <li
+            <Link
               key={index}
+              to={item.link}
               className={`${
-                activeLink === index
+                isLinkActive(`/dashboard${item.childPath}`)
                   ? "bg-accent hover:bg-accent/90"
                   : "bg-none hover:bg-secondary hover:border-l-[5px] hover:border-l-accent"
               } w-full min-h-[60px] p-4 flex items-center text-white cursor-pointer`}
-              onClick={() => setActiveLink(index)}
             >
-              <Link to={item.link} className="w-full h-full ml-4">
+              <div className="w-full h-full ml-4">
                 {item.icon}
                 <span className="inline-block ml-4">{item.title}</span>
-              </Link>
-            </li>
+              </div>
+            </Link>
           );
         })}
 
@@ -96,7 +103,7 @@ export default function Sidebar({ toggleSidebar, isExpanded }) {
             </Form>
           )}
         </li>
-      </ul>
+      </div>
 
       {/* Toggle sidebar */}
       <div

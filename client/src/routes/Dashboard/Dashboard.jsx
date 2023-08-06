@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+
+// Components
 import DashboardFooter from "./DashboardFooter";
 import DashboardNavbar from "./DashboardNavbar";
 import Sidebar from "./Sidebar";
 
 export default function Dashboard() {
   const [isExpanded, setIsExpanded] = useState(true);
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -16,7 +18,7 @@ export default function Dashboard() {
   return (
     <div className="relative min-h-screen min-w-full flex flex-row">
       {/* Sidebar navigation */}
-      <Sidebar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+      <Sidebar toggleSidebar={toggleSidebar} isExpanded={isExpanded} currentPath={location.pathname} />
 
       {/* Main screen */}
       <div className="w-full min-h-screen flex flex-col justify-between overflow-hidden">
