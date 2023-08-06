@@ -18,32 +18,4 @@
   .h3 {
     @apply font-poppins font-semibold text-[26px] mb-6 leading-[46px];
   }
-  .btn {
-    @apply rounded-full font-poppins text-white font-medium;
-  }
-  .btn-sm {
-    @apply h-[48px] px-6 text-sm;
-  }
-  .btn-lg {
-    @apply h-[56px] px-10 text-base;
-  }
-  .btn-link {
-    @apply text-base;
-  }
-  .input {
-    @apply h-[52px];
-  }
-  .input {
-    @apply w-full h-[52px] rounded-lg pl-6 capitalize;
-  }
-  .input,
-  .textarea {
-    @apply bg-transparent outline-none focus:border-accent border border-secondary placeholder:text-secondary placeholder:font-light;
-  }
-  .textarea {
-    @apply w-full h-[180px] p-6 capitalize rounded-lg resize-none;
-  }
-  .section {
-    @apply py-28 lg:py-24 lg:h-screen flex items-center;
-  }
 }
