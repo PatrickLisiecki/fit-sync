@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
+
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -13,6 +15,8 @@ import {
   faChevronLeft,
   faChevronRight,
   faArrowLeftLong,
+  faPencil,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function WorkoutPlan() {
@@ -34,6 +38,10 @@ export default function WorkoutPlan() {
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [selectedDay, setSelectedDay] = useState("");
   const [newWorkoutName, setNewWorkoutName] = useState("");
+
+  // For editing a workout
+  const [isEdit, setIsEdit] = useState(false);
+  const [updatedName, setUpdatedName] = useState("");
 
   const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
@@ -74,27 +82,70 @@ export default function WorkoutPlan() {
     setNewWorkoutName(event.target.value);
   };
 
-  const handleSaveNewWorkout = () => {
+  const handleNameUpdate = (event) => {
+    setUpdatedName(event.target.value);
+  };
+
+  // Creating a new workout
+  const handleSaveNewWorkout = async () => {
     if (newWorkoutName.trim() !== "") {
-      // Assuming you have an API route to create a new workout
-      fetch(`/api/workouts/${currentUser.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      try {
+        // Send POST request to server
+        const response = await axios.post(`/api/workouts/${currentUser.id}`, {
           name: newWorkoutName.trim(),
           userId: currentUser.id,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Add the new workout to the workouts state and select it
-          setSelectedWorkout(data);
-          setWorkouts((prevWorkouts) => [...prevWorkouts, data]);
-          setNewWorkoutName("");
-        })
-        .catch((error) => console.log(error));
+        });
+
+        // Extract the data from the response
+        const data = response.data;
+
+        // Add the new workout to the workouts state and select it
+        setSelectedWorkout(data);
+        setWorkouts((prevWorkouts) => [...prevWorkouts, data]);
+        setNewWorkoutName("");
+      } catch (error) {
+        console.log("Error saving new workout:", error);
+      }
+    }
+  };
+
+  // Updating an existing workout
+  const handleUpdateWorkout = async (workout) => {
+    const targetId = workout.id;
+    try {
+      const response = await axios.put(`/api/workouts/${targetId}`, {
+        name: updatedName,
+      });
+
+      // Update the states
+      const updatedWorkouts = workouts.map((workout) =>
+        workout.id === targetId ? { ...workout, name: updatedName } : workout
+      );
+      setWorkouts(updatedWorkouts);
+
+      setSelectedWorkout(response.data);
+      setUpdatedName("");
+
+      console.log("Updated workout:", response.data);
+    } catch (error) {
+      console.error("Error updating workout:", error);
+    }
+  };
+
+  // Deleting an existing workout
+  const handleDeleteWorkout = async (workout) => {
+    // Make a DELETE request to the backend API to delete the workout
+    const targetId = workout.id;
+    try {
+      const response = await axios.delete(`/api/workouts/${targetId}`);
+
+      // After deleting a workout, update the state
+      setWorkouts(workouts.filter((element) => element.id !== targetId));
+      setSelectedWorkout(null);
+
+      console.log("Workout deleted:", response.data);
+    } catch (error) {
+      console.error("Error deleting workout:", error);
     }
   };
 
@@ -109,23 +160,66 @@ export default function WorkoutPlan() {
 
       {selectedWorkout ? (
         // Display only the selected workout
-        <div className="relative w-full h-full flex flex-col items-center">
-          {/* Go back button */}
-          <button
-            onClick={() => setSelectedWorkout(null)}
-            className="absolute top-[15px] left-[20px] p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
-          >
-            <FontAwesomeIcon icon={faArrowLeftLong} />
-            <span className="text-md font-light">Workouts</span>
-          </button>
+        <div className="w-full h-full flex flex-col items-center px-6 sm:px-24 py-4">
+          {/* Workout header */}
+          <div className="w-full sm:w-[75%] flex flex-row justify-between items-center p-4 mt-6 bg-white shadow-md rounded">
+            {/* Go back button */}
+            <button
+              onClick={() => {
+                setSelectedWorkout(null);
+                setIsEdit(false);
+              }}
+              className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
+            >
+              <FontAwesomeIcon icon={faArrowLeftLong} />
+              <span className="hidden sm:inline-block text-md font-light">Workouts</span>
+            </button>
 
-          {/* Workout name header */}
-          <div className="min-w-[300px] text-center p-4 mt-6 bg-white shadow-bs rounded">
-            <span className="h3 font-bold">{selectedWorkout.name}</span>
+            {/* Edit workout name */}
+            {isEdit ? (
+              <div className="">
+                <input
+                  type="text"
+                  id="updatedName"
+                  value={updatedName}
+                  placeholder={selectedWorkout.name}
+                  onChange={handleNameUpdate}
+                  className="min-w-[200px] px-2 py-1 mb-0 border border-secondary border-r-0 focus:outline-none"
+                />
+                <button
+                  onClick={() => {
+                    handleUpdateWorkout(selectedWorkout);
+                    setIsEdit(false);
+                  }}
+                  className="px-2 py-1 bg-blue-500 border border-secondary text-white hover:bg-blue-500/90"
+                >
+                  Update
+                </button>
+              </div>
+            ) : (
+              <span className="h3 mb-0">{selectedWorkout.name}</span>
+            )}
+
+            {/* Edit and delete options */}
+            <div className="flex justify-center items-center gap-x-2">
+              <button
+                onClick={() => setIsEdit(!isEdit)}
+                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-yellow-500 hover:text-white transition-all duration-200"
+              >
+                <FontAwesomeIcon icon={faPencil} />
+              </button>
+
+              <button
+                onClick={() => handleDeleteWorkout(selectedWorkout)}
+                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-red-500 hover:text-white transition-all duration-200"
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </div>
           </div>
 
           {/* Week navigation */}
-          <div className="flex flex-row justify-center items-center gap-x-10 my-6">
+          <div className="flex flex-row justify-center items-center gap-x-4 sm:gap-x-10 my-6">
             {/* Previous week button */}
             <button
               className="max-w-[100px] flex justify-center items-center gap-x-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
