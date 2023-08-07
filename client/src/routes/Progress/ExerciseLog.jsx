@@ -7,16 +7,23 @@ import { Chip } from "@material-tailwind/react";
 
 export default function ExerciseLog() {
   const { exerciseId } = useParams();
-  const [data, setData] = useState([]);
+  const [logData, setLogData] = useState(null);
+
+  const fetchSets = () => {
+    axios
+      .get(`/api/sets/${exerciseId}`)
+      .then((response) => {
+        console.log(response.data);
+        setLogData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching sets:", error);
+      });
+  };
 
   useEffect(() => {
-    // Fetch exercises data from the server for the specified user
-    axios.get(`/api/sets/${exerciseId}`).then((response) => {
-      const data = response.data;
-      setData(data);
-      console.log(data);
-    });
-  }, [exerciseId]);
+    fetchSets();
+  }, []);
 
   return (
     <div className="flex h-full w-full flex-col items-center">
@@ -24,9 +31,9 @@ export default function ExerciseLog() {
         <span className="h2">Progress Tracker</span>
       </div>
       <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.length > 0 &&
-          data.map((set) => (
-            <div key={set.id} className="rounded-lg bg-white p-4 shadow-lg">
+        {logData ? (
+          logData.map((set, index) => (
+            <div key={index} className="rounded-lg bg-white p-4 shadow-lg">
               {/* Exercise info */}
               <div className="my-4 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
                 <Chip variant="ghost" size="sm" color="cyan" value={set.reps} />
@@ -39,7 +46,10 @@ export default function ExerciseLog() {
                 <Chip variant="ghost" size="sm" color="cyan" value={set.date} />
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <span className="h3">No records found...</span>
+        )}
       </div>
     </div>
   );
