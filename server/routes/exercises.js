@@ -45,6 +45,23 @@ router.get("/:userId", authenticateUser, async (req, res) => {
   }
 });
 
+// Read all exercises for a specific user
+router.get("/exercise/:exerciseId", authenticateUser, async (req, res) => {
+  try {
+    const { exerciseId } = req.params;
+
+    // Find the exercise in the database
+    const exercise = await Exercise.findByPk(exerciseId);
+
+    // Return the exercise data as JSON response
+    res.json(exercise);
+  } catch (error) {
+    console.error("Error fetching exercise:", error);
+    // Handle the error, e.g., return an error response to the client
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Read all exercises for a specific user and day
 router.get("/:userId/:workoutId/:week/:day", authenticateUser, async (req, res) => {
   try {

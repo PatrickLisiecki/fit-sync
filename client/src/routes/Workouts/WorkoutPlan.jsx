@@ -293,7 +293,7 @@ export default function WorkoutPlan() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
             onClick={showModal}
-            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md hover:bg-accent/90"
+            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md hover:bg-accent/90 hover:shadow-xl"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add a Workout</span>
