@@ -6,11 +6,14 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
 
 // Components
-import CollapsibleParagraph from "../../components/CollapsibleParagraph";
+import Modal from "../../components/Modal";
+
+// Material Tailwind
+import { Chip, Button } from "@material-tailwind/react";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
@@ -23,6 +26,19 @@ export default function ExercisesList({ onExerciseAdd }) {
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [activeButton, setActiveButton] = useState(-1);
+
+  // Modal state and controls
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const handleOpen = (exercise) => {
+    setSelectedExercise(exercise);
+    setIsModalVisible(!isModalVisible);
+  };
 
   const muscleGroups = [
     "abdominals",
@@ -151,9 +167,9 @@ export default function ExercisesList({ onExerciseAdd }) {
                   key={index}
                   className={`${
                     activeButton === index
-                      ? "text-white border-accent bg-accent hover:bg-accent/90"
+                      ? "text-white border-blue-500 bg-blue-500 hover:bg-blue-500/90"
                       : "bg-none text-primary border-primary hover:bg-primary/10"
-                  } min-w-[135px] grid place-items-center py-2 border transition-all duration-200 cursor-pointer`}
+                  } min-w-[135px] grid place-items-center py-2 border cursor-pointer`}
                   onClick={() => {
                     handleDifficultySelect(difficulty, index);
                   }}
@@ -175,38 +191,84 @@ export default function ExercisesList({ onExerciseAdd }) {
       </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <div className="w-full min-h-[150px] grid place-items-center">
+          <svg
+            aria-hidden="true"
+            className="inline w-[50px] h-[50px] text-gray-400 animate-spin dark:text-gray-600 fill-accent"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            />
+          </svg>
+          <span className="sr-only">Loading...</span>
+        </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workouts.map((exercise, index) => (
             <div key={index} className="p-4 rounded-lg bg-white">
               {/* Exercise name */}
-              <div className="w-full flex flex-row justify-between items-center">
+              <div className="w-full flex flex-row justify-between items-center gap-x-2">
                 <span className="text-xl font-bold">{exercise.name}</span>
                 <button
                   onClick={() => handleAddToMyWorkout(exercise)}
-                  className="w-[40px] h-[40px] p-4 flex items-center justify-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
+                  className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
 
               {/* Exercise info */}
-              <div className="flex flex-row flex-wrap items-center gap-x-4 my-2">
-                <span className="capitalize font-light text-secondary">{exercise.type}</span>
-
-                <span className="capitalize font-light text-secondary">{exercise.muscle}</span>
-
-                <span className="capitalize font-light text-secondary">{exercise.equipment}</span>
-
-                <span className="capitalize font-light text-secondary">{exercise.difficulty}</span>
+              <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-3">
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.difficulty} />
               </div>
 
-              {/* Collapsible instructions */}
-              <CollapsibleParagraph title={"Instructions"} content={exercise.instructions} />
+              {/* Button to open exercise modal */}
+              <Button
+                onClick={() => handleOpen(exercise)}
+                ripple={false}
+                variant="gradient"
+                color="orange"
+                className="flex justify-center items-center gap-x-2"
+              >
+                <span className="text-white">View Info</span>
+                <FontAwesomeIcon icon={faArrowRightLong} size="sm" />
+              </Button>
             </div>
           ))}
         </div>
+      )}
+
+      {/* Modal for exercise info */}
+      {selectedExercise && (
+        <Modal isVisible={isModalVisible} hideModal={hideModal}>
+          <div className="flex items-center shrink-0 p-4 border-b border-primary">
+            <span className="text-primary antialiased text-2xl font-semibold leading-snug">
+              {selectedExercise.name}
+            </span>
+          </div>
+          <div className="relative p-4 antialiased border-b border-primary">
+            <p className="text-secondary text-base font-light leading-relaxed">
+              {selectedExercise.instructions}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
+            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
+              Close
+            </Button>
+          </div>
+        </Modal>
       )}
     </div>
   );

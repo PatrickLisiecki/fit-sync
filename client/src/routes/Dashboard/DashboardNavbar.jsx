@@ -3,6 +3,9 @@
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
+// Material Tailwind
+import { Tooltip } from "@material-tailwind/react";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -44,15 +47,14 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
     >
       <div className="w-full h-full px-0 sm:px-[24px] flex flex-row justify-between items-center">
         {/* Toggle sidebar button */}
-        <button
-          className="relative p-3 grid place-items-center rounded-full hover:bg-gray-200 hover:text-accent transition-all duration-300 group"
-          onClick={toggleSidebar}
-        >
-          <FontAwesomeIcon icon={faBars} />
-          <span className="absolute z-[9999] top-14 px-2 py-1 bg-secondary text-white text-sm rounded opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            Menu
-          </span>
-        </button>
+        <Tooltip content="Menu" placement="bottom" className="bg-secondary text-sm text-white">
+          <button
+            className="w-[50px] h-[50px] grid place-items-center rounded-full hover:bg-gray-200 hover:text-accent transition-all duration-300"
+            onClick={toggleSidebar}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        </Tooltip>
 
         {/* Nav links */}
 
@@ -60,13 +62,16 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
           {/* Nav link */}
           {navData.map((item, index) => {
             return (
-              <a
+              <Tooltip
                 key={index}
-                href={item.link}
-                className="relative mx-4 hover:text-accent transition-all duration-300 group"
+                content={item.title}
+                placement="bottom"
+                className="bg-secondary text-sm text-white"
               >
-                {item.icon}
-              </a>
+                <a href={item.link} className="mx-4 hover:text-accent transition-all duration-300">
+                  {item.icon}
+                </a>
+              </Tooltip>
             );
           })}
 
