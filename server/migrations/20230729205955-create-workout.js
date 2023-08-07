@@ -22,9 +22,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      day: {
-        type: Sequelize.STRING, // Store the day of the week (e.g., "Monday", "Tuesday")
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

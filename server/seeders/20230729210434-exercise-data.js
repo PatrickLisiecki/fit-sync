@@ -7,6 +7,7 @@ module.exports = {
       {
         workoutId: 1, // Add the workoutId for the first exercise
         userId: 1,
+        week: 1,
         day: "Monday",
         name: "Push-up",
         type: "Strength",
@@ -19,7 +20,8 @@ module.exports = {
       },
       {
         workoutId: 1,
-        userId: 1, // Add the workoutId for the second exercise
+        userId: 1,
+        week: 2, // Add the workoutId for the second exercise
         name: "Squat",
         day: "Monday",
         type: "Strength",

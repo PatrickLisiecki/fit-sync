@@ -208,7 +208,7 @@ export default function Auth() {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   id="password"
                   placeholder="Password"

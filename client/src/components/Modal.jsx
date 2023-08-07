@@ -1,6 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 
-function Modal({ isVisible, hideModal, children }) {
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+export default function Modal({ isVisible, hideModal, children }) {
   useEffect(() => {
     if (isVisible) {
       document.body.style.overflow = "hidden";
@@ -12,6 +17,7 @@ function Modal({ isVisible, hideModal, children }) {
       document.body.style.overflow = "auto";
     };
   }, [isVisible]);
+
   if (!isVisible) {
     return null;
   }
@@ -19,22 +25,22 @@ function Modal({ isVisible, hideModal, children }) {
   return (
     <div
       onClick={hideModal}
-      className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-items-center items-center z-[110]"
+      className="fixed inset-0 w-screen h-screen grid place-items-center bg-black bg-opacity-60 backdrop-blur-sm z-[9999]"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-w-2xl md:max-w-lg w-5/6 md:w-3/4  mx-auto flex flex-col bg-white text-gray-800 rounded-lg shadow-lg"
+        className="relative bg-white m-4 rounded-lg shadow-2xl antialiased text-base font-light leading-relaxed w-full md:w-3/4 lg:w-3/5 2xl:w-2/5 min-w-[90%] md:min-w-[75%] lg:min-w-[60%] 2xl:min-w-[40%] max-w-[90%] md:max-w-[75%] lg:max-w-[60%] 2xl:max-w-[40%]"
       >
-        <button
-          onClick={hideModal}
-          className="text-black text-xl place-self-end bg-transparent p-2 rounded"
-        >
-          Close
-        </button>
-        <div className="p-8">{children}</div>
+        <div className="flex flex-row justify-end bg-transparent p-4">
+          <button
+            onClick={hideModal}
+            className="w-[50px] h-[50px] p-3 rounded-full grid place-items-center hover:bg-gray-200 hover:text-accent transition-all duration-300"
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
+        <div className="p-4">{children}</div>
       </div>
     </div>
   );
 }
-
-export default Modal;

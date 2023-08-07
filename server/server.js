@@ -1,21 +1,40 @@
 const express = require("express");
+const app = express();
+const port = 4000;
 const session = require("express-session");
+require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
 const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
 const workoutRouter = require("./routes/workouts");
-const { Workout, User, Exercise } = require("./models"); // Import the User model
+const {
+  forbiddenErrorHandler,
+  notFoundErrorHandler,
+} = require("./middleware/errorHandlers");
 
-const { authenticateUser } = require("./middleware/authMiddleware");
-const port = 4000;
-
-const app = express();
-
-app.use(express.json());
-app.use(cors()); // Add this line
 app.use(cookieParser());
 
+const corsOptions = {
+  origin: "http://localhost:5173",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  credentials: true, // Allow cookies and authentication headers to be sent with the request
+};
+
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  console.log(`Request: ${req.method} ${req.originalUrl}`);
+  res.on("finish", () => {
+    // the 'finish' event will be emitted when the response is handed over to the OS
+    console.log(`Response Status: ${res.statusCode}`);
+  });
+  next();
+});
+
+app.use(express.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -26,10 +45,13 @@ app.use(
     },
   })
 );
-app.use("/api/auth", authRouter);
 
+app.use(forbiddenErrorHandler);
+app.use(notFoundErrorHandler);
+
+app.use("/api/auth", authRouter);
 app.use("/api/exercises", exercisesRouter);
-app.use("/api/workout", workoutRouter);
+app.use("/api/workouts", workoutRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
