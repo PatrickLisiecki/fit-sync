@@ -35,5 +35,5 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [],
+  plugins: ["prettier-plugin-tailwindcss"],
 });
