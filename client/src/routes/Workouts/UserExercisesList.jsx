@@ -2,7 +2,7 @@
 import axios from "axios";
 
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
 
@@ -10,11 +10,15 @@ import { ExerciseContext } from "../../contexts/ExerciseContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Chip, Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
+import {
+  faArrowLeftLong,
+  faArrowRightLong,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faArrowLeftLong, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserExercisesList({ updated }) {
   // Access the exercises array and setExercises function from the ExerciseContext
@@ -57,9 +61,16 @@ export default function UserExercisesList({ updated }) {
   }
   const handleDeleteExercise = (exercise) => {
     const targetId = exercise.id;
-    // Make a DELETE request to the backend API to delete the exercise from the user's workout
+    const authToken = currentUser.token; // Assuming you have a 'token' property in the currentUser object
+
+    // Make a DELETE request to the backend API with the authorization header and withCredentials option
     axios
-      .delete(`http://localhost:4000/api/exercises/exercises/${targetId}`)
+      .delete(`http://localhost:4000/api/exercises/exercises/${targetId}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        withCredentials: true, // Add this line
+      })
       .then((response) => {
         console.log("Exercise deleted:", response.data);
         // After deleting an exercise, update the exercises in the ExerciseContext
@@ -79,7 +90,9 @@ export default function UserExercisesList({ updated }) {
           className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
         >
           <FontAwesomeIcon icon={faArrowLeftLong} />
-          <span className="hidden sm:inline-block text-md font-light">Workouts</span>
+          <span className="hidden sm:inline-block text-md font-light">
+            Workouts
+          </span>
         </Link>
 
         {/* Week and day header */}
@@ -92,7 +105,10 @@ export default function UserExercisesList({ updated }) {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {exercises.length > 0 &&
           exercises.map((exercise) => (
-            <div key={exercise.id} className="p-4 rounded-lg bg-white shadow-lg">
+            <div
+              key={exercise.id}
+              className="p-4 rounded-lg bg-white shadow-lg"
+            >
               {/* Exercise name and delete button */}
               <div className="w-full flex flex-row justify-between items-center">
                 <span className="text-xl font-bold">{exercise.name}</span>
@@ -106,9 +122,24 @@ export default function UserExercisesList({ updated }) {
 
               {/* Exercise info */}
               <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-4">
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.type}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.muscle}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.equipment}
+                />
               </div>
 
               {/* Button to open exercise modal */}
@@ -141,7 +172,12 @@ export default function UserExercisesList({ updated }) {
           </div>
 
           <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
-            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
+            <Button
+              variant="text"
+              color="red"
+              ripple={false}
+              onClick={() => handleOpen(null)}
+            >
               Close
             </Button>
           </div>

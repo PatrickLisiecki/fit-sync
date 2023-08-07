@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,18 +7,18 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { ButtonGroup, Button } from "@material-tailwind/react";
+import { Button, ButtonGroup } from "@material-tailwind/react";
 
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlus,
+  faArrowLeftLong,
   faChevronLeft,
   faChevronRight,
-  faArrowLeftLong,
   faPencil,
+  faPlus,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
@@ -45,7 +44,15 @@ export default function WorkoutPlan() {
   const [isEdit, setIsEdit] = useState(false);
   const [updatedName, setUpdatedName] = useState("");
 
-  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -174,7 +181,9 @@ export default function WorkoutPlan() {
               className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
             >
               <FontAwesomeIcon icon={faArrowLeftLong} />
-              <span className="hidden sm:inline-block text-md font-light">Workouts</span>
+              <span className="hidden sm:inline-block text-md font-light">
+                Workouts
+              </span>
             </button>
 
             {/* Edit workout name */}
@@ -199,7 +208,9 @@ export default function WorkoutPlan() {
                 </button>
               </div>
             ) : (
-              <span className="text-[18px] sm:text-[24px] mb-0">{selectedWorkout.name}</span>
+              <span className="text-[18px] sm:text-[24px] mb-0">
+                {selectedWorkout.name}
+              </span>
             )}
 
             {/* Edit and delete options */}
@@ -221,7 +232,12 @@ export default function WorkoutPlan() {
           </div>
 
           {/* Week navigation */}
-          <ButtonGroup variant="text" size="lg" ripple={false} className="my-6 divide-secondary">
+          <ButtonGroup
+            variant="text"
+            size="lg"
+            ripple={false}
+            className="my-6 divide-secondary"
+          >
             {/* Previous week button */}
             <Button
               onClick={handlePrevWeek}
@@ -262,7 +278,9 @@ export default function WorkoutPlan() {
                     className="w-[50px] h-[50px] flex justify-center items-center mx-4 border border-primary rounded-full"
                     onClick={() => handleDayClick(day)}
                   >
-                    <span className="text-lg capitalize font-bold">{day.slice(0, 3)}</span>
+                    <span className="text-lg capitalize font-bold">
+                      {day.slice(0, 3)}
+                    </span>
                   </div>
                 </Link>
               </div>

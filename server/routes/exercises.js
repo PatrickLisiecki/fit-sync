@@ -1,34 +1,59 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../models");
-const { Exercise } = require("../models");
+const { authenticateUser } = require("../middleware/authMiddleware");
+const { ForbiddenError, NotFoundError } = require("../errors");
+const { User, Exercise } = require("../models");
+
+const getExercise = async (id) => {
+  const Exercise = await Exercise.findByPk(parseInt(id, 10));
+  if (!Exercise) {
+    throw new NotFoundError("Exercise not found");
+  }
+  return Exercise;
+};
+
+const authorizeEdit = (session, Exercise) => {
+  if (parseInt(session.userId, 10) !== Exercise.UserId) {
+    throw new ForbiddenError("You are not authorized to edit this Exercise");
+  }
+};
+
+const authorizeDelete = (session, Exercise) => {
+  if (parseInt(session.userId, 10) !== Exercise.UserId) {
+    throw new ForbiddenError("You are not authorized to delete this job");
+  }
+};
 
 // Read all exercises for a specific user and day
-router.get("/:userId/:workoutId/:week/:day", async (req, res) => {
-  try {
-    const { userId, day, week, workoutId } = req.params;
+router.get(
+  "/:userId/:workoutId/:week/:day",
+  authenticateUser,
+  async (req, res) => {
+    try {
+      const { userId, day, week, workoutId } = req.params;
 
-    // Fetch exercises data from the database based on userId and day
-    const exercises = await Exercise.findAll({
-      where: {
-        userId,
-        day,
-        week,
-        workoutId,
-      },
-    });
+      // Fetch exercises data from the database based on userId and day
+      const exercises = await Exercise.findAll({
+        where: {
+          userId,
+          day,
+          week,
+          workoutId,
+        },
+      });
 
-    // Return the exercises data as JSON response
-    res.json(exercises);
-  } catch (error) {
-    console.error("Error fetching exercises:", error);
-    // Handle the error, e.g., return an error response to the client
-    res.status(500).json({ error: "Internal Server Error" });
+      // Return the exercises data as JSON response
+      res.json(exercises);
+    } catch (error) {
+      console.error("Error fetching exercises:", error);
+      // Handle the error, e.g., return an error response to the client
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
-});
+);
 
 // Create a new exercise
-router.post("/exercises", async (req, res) => {
+router.post("/exercises", authenticateUser, async (req, res) => {
   try {
     const {
       userId,
@@ -67,7 +92,7 @@ router.post("/exercises", async (req, res) => {
 });
 
 // Update an existing exercise
-router.put("/exercises/:exerciseId", async (req, res) => {
+router.put("/exercises/:exerciseId", authenticateUser, async (req, res) => {
   try {
     const { exerciseId } = req.params;
     const { name, type, muscle, equipment, difficulty, instructions } =
@@ -100,7 +125,7 @@ router.put("/exercises/:exerciseId", async (req, res) => {
 });
 
 // Delete an exercise
-router.delete("/exercises/:exerciseId", async (req, res) => {
+router.delete("/exercises/:exerciseId", authenticateUser, async (req, res) => {
   try {
     const { exerciseId } = req.params;
 
