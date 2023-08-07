@@ -56,16 +56,14 @@ export default function UserExercisesList({ updated }) {
     }
   }, [currentUser, day, workoutId, week, updated, setExercises]);
 
-  {
-    /* Deleting an exercise from the user's workout */
-  }
+  // Deleting an exercise from the user's workout
   const handleDeleteExercise = (exercise) => {
     const targetId = exercise.id;
     const authToken = currentUser.token; // Assuming you have a 'token' property in the currentUser object
 
     // Make a DELETE request to the backend API with the authorization header and withCredentials option
     axios
-      .delete(`http://localhost:4000/api/exercises/exercises/${targetId}`, {
+      .delete(`/api/exercises/${targetId}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

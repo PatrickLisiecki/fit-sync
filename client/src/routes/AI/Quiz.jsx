@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import openai from "openai";
 
@@ -88,7 +89,7 @@ const Quiz = () => {
     Generate a workout plan for me.
   `;
     const OPENAI_API_KEY =
-      "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";
+      "Bearer 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";
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/engines/davinci/completions",
@@ -115,7 +116,7 @@ const Quiz = () => {
 
   return (
     <div className="min-h-screen py-8 ">
-      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4 shadow-bs">
+      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4">
         <h1 className="text-4xl font-bold text-center pb-4">Workout Quiz</h1>
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">

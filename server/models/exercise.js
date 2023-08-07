@@ -10,9 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Workout, {
         foreignKey: "workoutId", // Specify the correct foreign key for the workout association
       });
+      this.hasMany(models.Sets, {
+        foreignKey: "exerciseId",
+      });
     }
-  } // Remove the extra closing curly brace
-
+  }
   Exercise.init(
     {
       workoutId: DataTypes.INTEGER, // Add the workoutId field
@@ -22,16 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       equipment: DataTypes.STRING,
       difficulty: DataTypes.STRING,
       day: DataTypes.STRING,
-      week: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      sets: DataTypes.INTEGER,
-      reps: DataTypes.INTEGER,
-      weight: DataTypes.FLOAT,
-      instructions: {
+      week: DataTypes.INTEGER,
+      details: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
         validate: {
           len: [0, 5000],
         },

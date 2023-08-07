@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Exercise, {
         foreignKey: "userId", // Specify the correct foreign key for the exercise association
       });
-      this.hasMany(models.WorkoutProgress, {
-        foreignKey: "userId", // Specify the correct foreign key for the exercise association
-      });
     }
   }
   User.init(

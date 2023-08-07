@@ -9,6 +9,8 @@ const cors = require("cors");
 const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
 const workoutRouter = require("./routes/workouts");
+const setsRouter = require("./routes/sets");
+
 const {
   forbiddenErrorHandler,
   notFoundErrorHandler,
@@ -52,6 +54,7 @@ app.use(notFoundErrorHandler);
 app.use("/api/auth", authRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/workouts", workoutRouter);
+app.use("/api/sets", setsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

@@ -9,11 +9,11 @@ import { ExerciseContext } from "../../contexts/ExerciseContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Chip, Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
+import { faArrowRightLong, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
@@ -97,7 +97,7 @@ export default function ExercisesList({ onExerciseAdd }) {
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
       .post(
-        "http://localhost:4000/api/exercises/exercises",
+        "/api/exercises/",
         {
           userId: currentUser.id,
           day: day,
@@ -134,10 +134,16 @@ export default function ExercisesList({ onExerciseAdd }) {
         </span>
 
         {/* Form with selections */}
-        <form onSubmit={handleSubmit} className="flex flex-col xl:flex-row gap-y-4 gap-x-10">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col xl:flex-row gap-y-4 gap-x-10"
+        >
           {/* Muscle group select */}
           <div className="flex flex-col lg:flex-row items-center">
-            <label htmlFor="muscleSelect" className="block text-lg mb-0 font-light">
+            <label
+              htmlFor="muscleSelect"
+              className="block text-lg mb-0 font-light"
+            >
               Target Muscle:
             </label>
 
@@ -150,7 +156,11 @@ export default function ExercisesList({ onExerciseAdd }) {
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
-                <option key={muscle} value={muscle} className="capitalize hover:bg-accent">
+                <option
+                  key={muscle}
+                  value={muscle}
+                  className="capitalize hover:bg-accent"
+                >
                   {muscle}
                 </option>
               ))}
@@ -227,10 +237,30 @@ export default function ExercisesList({ onExerciseAdd }) {
 
               {/* Exercise info */}
               <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-3">
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.difficulty} />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.type}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.muscle}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.equipment}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.difficulty}
+                />
               </div>
 
               {/* Button to open exercise modal */}
@@ -264,7 +294,12 @@ export default function ExercisesList({ onExerciseAdd }) {
           </div>
 
           <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
-            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
+            <Button
+              variant="text"
+              color="red"
+              ripple={false}
+              onClick={() => handleOpen(null)}
+            >
               Close
             </Button>
           </div>

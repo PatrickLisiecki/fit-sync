@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -44,15 +45,7 @@ export default function WorkoutPlan() {
   const [isEdit, setIsEdit] = useState(false);
   const [updatedName, setUpdatedName] = useState("");
 
-  const daysOfWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   useEffect(() => {
     // Check if user is logged in and get the userId from the currentUser object
@@ -181,9 +174,7 @@ export default function WorkoutPlan() {
               className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
             >
               <FontAwesomeIcon icon={faArrowLeftLong} />
-              <span className="hidden sm:inline-block text-md font-light">
-                Workouts
-              </span>
+              <span className="hidden sm:inline-block text-md font-light">Workouts</span>
             </button>
 
             {/* Edit workout name */}
@@ -208,9 +199,7 @@ export default function WorkoutPlan() {
                 </button>
               </div>
             ) : (
-              <span className="text-[18px] sm:text-[24px] mb-0">
-                {selectedWorkout.name}
-              </span>
+              <span className="text-[18px] sm:text-[24px] mb-0">{selectedWorkout.name}</span>
             )}
 
             {/* Edit and delete options */}
@@ -232,12 +221,7 @@ export default function WorkoutPlan() {
           </div>
 
           {/* Week navigation */}
-          <ButtonGroup
-            variant="text"
-            size="lg"
-            ripple={false}
-            className="my-6 divide-secondary"
-          >
+          <ButtonGroup variant="text" size="lg" ripple={false} className="my-6 divide-secondary">
             {/* Previous week button */}
             <Button
               onClick={handlePrevWeek}
@@ -278,9 +262,7 @@ export default function WorkoutPlan() {
                     className="w-[50px] h-[50px] flex justify-center items-center mx-4 border border-primary rounded-full"
                     onClick={() => handleDayClick(day)}
                   >
-                    <span className="text-lg capitalize font-bold">
-                      {day.slice(0, 3)}
-                    </span>
+                    <span className="text-lg capitalize font-bold">{day.slice(0, 3)}</span>
                   </div>
                 </Link>
               </div>
@@ -297,15 +279,16 @@ export default function WorkoutPlan() {
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add a Workout</span>
           </button>
-          {workouts.map((workout) => (
-            <div
-              key={workout.id}
-              className="h-[200px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
-              onClick={() => handleWorkoutClick(workout)}
-            >
-              <span className="text-xl font-bold">{workout.name}</span>
-            </div>
-          ))}
+          {workouts.length > 0 &&
+            workouts.map((workout) => (
+              <div
+                key={workout.id}
+                className="h-[200px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
+                onClick={() => handleWorkoutClick(workout)}
+              >
+                <span className="text-xl font-bold">{workout.name}</span>
+              </div>
+            ))}
         </div>
       )}
 
