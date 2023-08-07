@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "workoutId", // Specify the correct foreign key for the workout association
       });
     }
-  }
+  } // Remove the extra closing curly brace
+
   Exercise.init(
     {
       workoutId: DataTypes.INTEGER, // Add the workoutId field
@@ -25,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      sets: DataTypes.INTEGER,
+      reps: DataTypes.INTEGER,
+      weight: DataTypes.FLOAT,
       instructions: {
         type: DataTypes.TEXT,
         allowNull: false,

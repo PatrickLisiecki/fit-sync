@@ -88,7 +88,7 @@ const Quiz = () => {
     Generate a workout plan for me.
   `;
     const OPENAI_API_KEY =
-      "Bearer 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";
+      "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";
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/engines/davinci/completions",
