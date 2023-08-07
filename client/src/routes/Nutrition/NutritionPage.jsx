@@ -86,7 +86,7 @@ const NutritionPage = () => {
         />
         <button
           onClick={fetchNutritionFacts}
-          className="min-w-[135px] cursor-pointer rounded bg-green-500 py-2 text-lg text-white shadow-md hover:bg-green-500/90"
+          className="min-w-[135px] cursor-pointer rounded bg-accent py-2 text-lg text-white shadow-md hover:bg-accent/90"
         >
           Get Nutrition
         </button>

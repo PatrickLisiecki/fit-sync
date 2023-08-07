@@ -10,7 +10,7 @@ import {
   faChalkboardUser,
   faCalendarDays,
   faChartLine,
-  faChartPie,
+  faAppleWhole,
   faRobot,
   faPowerOff,
   faArrowLeftLong,
@@ -44,7 +44,7 @@ const sidebarData = [
     title: "Nutrition",
     link: "/dashboard/nutrition",
     childPath: "/nutrition",
-    icon: <FontAwesomeIcon icon={faChartPie} className="h-[20px] w-[20px]" />,
+    icon: <FontAwesomeIcon icon={faAppleWhole} className="h-[20px] w-[20px]" />,
   },
   {
     title: "AI Workout",

@@ -43,25 +43,28 @@ export default function Progress() {
         </div>
       </div>
 
-      {/* Add an exercise form*/}
+      {/* Add an exercise form */}
       <Modal isVisible={isModalVisible} hideModal={hideModal}>
         <div className="flex flex-col items-center gap-y-4 px-12">
+          {/* Exercise name input */}
           <Input
-            size="md"
             color="orange"
             label="Name"
             value={exerciseName}
             onChange={(e) => setExerciseName(e.target.value)}
             className="font-poppins text-base text-secondary"
           />
+
+          {/* Exercise description input */}
           <Textarea
-            size="md"
             color="orange"
             label="Details"
             value={exerciseDetails}
             onChange={(e) => setExerciseDetails(e.target.value)}
             className="font-poppins text-base text-secondary"
           />
+
+          {/* Submit button */}
           <button
             onClick={() => {
               hideModal();

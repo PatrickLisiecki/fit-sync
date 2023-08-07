@@ -193,7 +193,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           {/* Submit */}
           <button
             type="submit"
-            className="min-w-[135px] cursor-pointer rounded-lg bg-green-500 py-2 text-lg text-white hover:bg-green-500/90"
+            className="min-w-[135px] cursor-pointer rounded-lg bg-accent py-2 text-lg text-white hover:bg-accent/90"
           >
             Search
           </button>
