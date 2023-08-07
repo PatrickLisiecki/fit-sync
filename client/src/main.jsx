@@ -23,6 +23,7 @@ import Progress from "./routes/Progress/Progress";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
+import Quiz from "./routes/AI/Quiz";
 
 import { ExerciseContextProvider } from "./contexts/ExerciseContext";
 
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/dashboard/ai",
+        element: (
+          <ProtectedRoute>
+            <Quiz />
+          </ProtectedRoute>
+        ),
+      },
     ],
     errorElement: <ErrorPage />,
   },
@@ -117,3 +126,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </React.StrictMode>
 );
+

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "axios": "^1.4.0",
+    "openai": "^3.3.0",
+    "recharts": "^2.7.2"
+  }
+}
