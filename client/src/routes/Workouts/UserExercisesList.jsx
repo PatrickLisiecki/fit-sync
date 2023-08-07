@@ -13,17 +13,12 @@ import Modal from "../../components/Modal";
 import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeftLong,
+  faArrowRightLong,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function UserExercisesList({ updated }) {
   // Access the exercises array and setExercises function from the ExerciseContext
@@ -170,7 +165,7 @@ export default function UserExercisesList({ updated }) {
           </div>
           <div className="relative border-b border-primary p-4 antialiased">
             <p className="text-base font-light leading-relaxed text-secondary">
-              {selectedExercise.instructions}
+              {selectedExercise.details}
             </p>
           </div>
 

@@ -106,7 +106,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           muscle: workout.muscle,
           equipment: workout.equipment,
           difficulty: workout.difficulty,
-          instructions: workout.instructions,
+          details: workout.instructions,
           week: week,
           workoutId: workoutId,
         },
@@ -156,11 +156,6 @@ export default function ExercisesList({ onExerciseAdd }) {
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
-                <option
-                  key={muscle}
-                  value={muscle}
-                  className="capitalize hover:bg-accent"
-                >
                 <option
                   key={muscle}
                   value={muscle}
