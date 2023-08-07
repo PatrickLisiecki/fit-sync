@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Button, ButtonGroup } from "@material-tailwind/react";
+import { Button, ButtonGroup, Input } from "@material-tailwind/react";
 
 // Icons
 import {
@@ -85,7 +85,7 @@ export default function WorkoutPlan() {
   };
 
   const handleNextWeek = () => {
-    setSelectedWeek((prevWeek) => prevWeek + 1);
+    setSelectedWeek((prevWeek) => (prevWeek === 4 ? 4 : prevWeek + 1));
   };
 
   const handleNewWorkoutNameChange = (event) => {
@@ -293,7 +293,7 @@ export default function WorkoutPlan() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
             onClick={showModal}
-            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-green-500 px-4 py-4 text-white shadow-md hover:bg-green-500/90"
+            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add a Workout</span>
@@ -313,20 +313,25 @@ export default function WorkoutPlan() {
 
       {/* Create new workout form */}
       <Modal isVisible={isModalVisible} hideModal={hideModal}>
-        <div className="flex flex-col items-center">
-          <input
-            type="text"
-            className="mb-4 w-[75%] rounded border border-secondary p-3 text-base focus:outline-none"
-            placeholder="Workout Name"
-            value={newWorkoutName}
-            onChange={handleNewWorkoutNameChange}
-          />
+        <div className="flex flex-col items-center gap-y-2 sm:gap-y-4">
+          {/* Workout name input */}
+          <div className="w-[75%]">
+            <Input
+              color="orange"
+              label="Workout Name"
+              value={newWorkoutName}
+              onChange={handleNewWorkoutNameChange}
+              className="font-poppins text-base text-secondary"
+            />
+          </div>
+
+          {/* Create the workout */}
           <button
             onClick={() => {
               handleSaveNewWorkout();
               hideModal();
             }}
-            className="flex min-w-[135px] cursor-pointer items-center justify-center gap-x-2 rounded bg-green-500 px-4 py-2 text-white hover:bg-green-500/90"
+            className="flex w-[75%] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Create Workout</span>
