@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Button, ButtonGroup } from "@material-tailwind/react";
+import { Button, ButtonGroup, Input } from "@material-tailwind/react";
 
 // Icons
 import {
@@ -84,7 +85,7 @@ export default function WorkoutPlan() {
   };
 
   const handleNextWeek = () => {
-    setSelectedWeek((prevWeek) => prevWeek + 1);
+    setSelectedWeek((prevWeek) => (prevWeek === 4 ? 4 : prevWeek + 1));
   };
 
   const handleNewWorkoutNameChange = (event) => {
@@ -128,7 +129,7 @@ export default function WorkoutPlan() {
 
       // Update the states
       const updatedWorkouts = workouts.map((workout) =>
-        workout.id === targetId ? { ...workout, name: updatedName } : workout
+        workout.id === targetId ? { ...workout, name: updatedName } : workout,
       );
       setWorkouts(updatedWorkouts);
 
@@ -159,7 +160,7 @@ export default function WorkoutPlan() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="flex h-full w-full flex-col items-center">
       {/* Render the "Workout" heading only if no workout is selected */}
       {!selectedWorkout && (
         <div className="w-full p-4 text-center">
@@ -169,19 +170,19 @@ export default function WorkoutPlan() {
 
       {selectedWorkout ? (
         // Display only the selected workout
-        <div className="w-full h-full flex flex-col items-center px-6 sm:px-24 py-4">
+        <div className="flex h-full w-full flex-col items-center px-6 py-4 sm:px-24">
           {/* Workout header */}
-          <div className="w-full sm:w-[75%] flex flex-row justify-between items-center p-4 mt-6 bg-white shadow-md rounded">
+          <div className="mt-6 flex w-full flex-row items-center justify-between rounded bg-white p-4 shadow-md sm:w-[75%]">
             {/* Go back button */}
             <button
               onClick={() => {
                 setSelectedWorkout(null);
                 setIsEdit(false);
               }}
-              className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
+              className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300"
             >
               <FontAwesomeIcon icon={faArrowLeftLong} />
-              <span className="hidden sm:inline-block text-md font-light">
+              <span className="text-md hidden font-light sm:inline-block">
                 Workouts
               </span>
             </button>
@@ -195,36 +196,36 @@ export default function WorkoutPlan() {
                   value={updatedName}
                   placeholder={selectedWorkout.name}
                   onChange={handleNameUpdate}
-                  className="min-w-[100px] max-w-[150px] px-2 py-1 mb-0 border border-secondary border-r-1 sm:border-r-0 focus:outline-none"
+                  className="border-r-1 mb-0 min-w-[100px] max-w-[150px] border border-secondary px-2 py-1 focus:outline-none sm:border-r-0"
                 />
                 <button
                   onClick={() => {
                     handleUpdateWorkout(selectedWorkout);
                     setIsEdit(false);
                   }}
-                  className="px-2 py-1 bg-blue-500 border border-secondary text-white hover:bg-blue-500/90"
+                  className="border border-secondary bg-blue-500 px-2 py-1 text-white hover:bg-blue-500/90"
                 >
                   Update
                 </button>
               </div>
             ) : (
-              <span className="text-[18px] sm:text-[24px] mb-0">
+              <span className="mb-0 text-[18px] sm:text-[24px]">
                 {selectedWorkout.name}
               </span>
             )}
 
             {/* Edit and delete options */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div className="flex items-center justify-center gap-x-2">
               <button
                 onClick={() => setIsEdit(!isEdit)}
-                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-orange-300 hover:text-white transition-all duration-200"
+                className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-orange-300 hover:text-white"
               >
                 <FontAwesomeIcon icon={faPencil} />
               </button>
 
               <button
                 onClick={() => handleDeleteWorkout(selectedWorkout)}
-                className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-red-500 hover:text-white transition-all duration-200"
+                className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
               >
                 <FontAwesomeIcon icon={faXmark} />
               </button>
@@ -241,7 +242,7 @@ export default function WorkoutPlan() {
             {/* Previous week button */}
             <Button
               onClick={handlePrevWeek}
-              className="flex justify-center items-center gap-x-2 bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
+              className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
             >
               <FontAwesomeIcon icon={faChevronLeft} size="sm" />
               Prev
@@ -250,13 +251,13 @@ export default function WorkoutPlan() {
             {/* Display current week */}
             <Button
               onClick={handleThisWeek}
-              className="bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
+              className="bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
             >{`Week ${selectedWeek}`}</Button>
 
             {/* Next week button */}
             <Button
               onClick={handleNextWeek}
-              className="flex justify-center items-center gap-x-2 bg-gray-300 hover:bg-gray-400 text-primary active:bg-accent/60"
+              className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
             >
               Next
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
@@ -264,21 +265,21 @@ export default function WorkoutPlan() {
           </ButtonGroup>
 
           {/* List of days */}
-          <div className="w-full flex flex-col justify-center items-center gap-y-[10px]">
+          <div className="flex w-full flex-col items-center justify-center gap-y-[10px]">
             {daysOfWeek.map((day, index) => (
               <div
                 key={index}
-                className="w-[50%] min-w-[250px] h-[75px] rounded-lg cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
+                className="h-[75px] w-[50%] min-w-[250px] cursor-pointer rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
               >
                 <Link
                   to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
-                  className="w-full h-full flex flex-row justify-start items-center"
+                  className="flex h-full w-full flex-row items-center justify-start"
                 >
                   <div
-                    className="w-[50px] h-[50px] flex justify-center items-center mx-4 border border-primary rounded-full"
+                    className="mx-4 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-primary"
                     onClick={() => handleDayClick(day)}
                   >
-                    <span className="text-lg capitalize font-bold">
+                    <span className="text-lg font-bold capitalize">
                       {day.slice(0, 3)}
                     </span>
                   </div>
@@ -291,40 +292,46 @@ export default function WorkoutPlan() {
         // Display the list of workouts when no workout is selected
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
-            className="min-w-[250px] px-4 py-4 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer shadow-md"
             onClick={showModal}
+            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add a Workout</span>
           </button>
-          {workouts.map((workout) => (
-            <div
-              key={workout.id}
-              className="h-[200px] grid place-items-center rounded cursor-pointer bg-white shadow-md hover:shadow-xl transition-all duration-300"
-              onClick={() => handleWorkoutClick(workout)}
-            >
-              <span className="text-xl font-bold">{workout.name}</span>
-            </div>
-          ))}
+          {workouts.length > 0 &&
+            workouts.map((workout) => (
+              <div
+                key={workout.id}
+                className="grid h-[200px] cursor-pointer place-items-center rounded bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+                onClick={() => handleWorkoutClick(workout)}
+              >
+                <span className="text-xl font-bold">{workout.name}</span>
+              </div>
+            ))}
         </div>
       )}
 
       {/* Create new workout form */}
       <Modal isVisible={isModalVisible} hideModal={hideModal}>
-        <div className="flex flex-col items-center">
-          <input
-            type="text"
-            className="w-[75%] text-base p-3 border border-secondary rounded mb-4 focus:outline-none"
-            placeholder="Workout Name"
-            value={newWorkoutName}
-            onChange={handleNewWorkoutNameChange}
-          />
+        <div className="flex flex-col items-center gap-y-2 sm:gap-y-4">
+          {/* Workout name input */}
+          <div className="w-[75%]">
+            <Input
+              color="orange"
+              label="Workout Name"
+              value={newWorkoutName}
+              onChange={handleNewWorkoutNameChange}
+              className="font-poppins text-base text-secondary"
+            />
+          </div>
+
+          {/* Create the workout */}
           <button
             onClick={() => {
               handleSaveNewWorkout();
               hideModal();
             }}
-            className="min-w-[135px] px-4 py-2 rounded flex items-center justify-center gap-x-2 text-white bg-green-500 hover:bg-green-500/90 cursor-pointer"
+            className="flex w-[75%] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Create Workout</span>

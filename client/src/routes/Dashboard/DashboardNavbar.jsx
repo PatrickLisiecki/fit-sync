@@ -43,13 +43,17 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
     <nav
       className={`${
         isExpanded ? "pl-0 md:pl-[250px]" : ""
-      } w-full min-h-[60px] max-h-[100px] bg-white shadow-bs p-[8px] sm:p-4 transition-all duration-500`}
+      } max-h-[100px] min-h-[60px] w-full bg-white p-[8px] shadow-bs transition-all duration-500 sm:p-4`}
     >
-      <div className="w-full h-full px-0 sm:px-[24px] flex flex-row justify-between items-center">
+      <div className="flex h-full w-full flex-row items-center justify-between px-0 sm:px-[24px]">
         {/* Toggle sidebar button */}
-        <Tooltip content="Menu" placement="bottom" className="bg-secondary text-sm text-white">
+        <Tooltip
+          content="Menu"
+          placement="bottom"
+          className="bg-secondary text-sm text-white"
+        >
           <button
-            className="w-[50px] h-[50px] grid place-items-center rounded-full hover:bg-gray-200 hover:text-accent transition-all duration-300"
+            className="grid h-[50px] w-[50px] place-items-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent"
             onClick={toggleSidebar}
           >
             <FontAwesomeIcon icon={faBars} />
@@ -58,7 +62,7 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
 
         {/* Nav links */}
 
-        <div className="flex flex-row justify-center items-center">
+        <div className="flex flex-row items-center justify-center">
           {/* Nav link */}
           {navData.map((item, index) => {
             return (
@@ -68,7 +72,10 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
                 placement="bottom"
                 className="bg-secondary text-sm text-white"
               >
-                <a href={item.link} className="mx-4 hover:text-accent transition-all duration-300">
+                <a
+                  href={item.link}
+                  className="mx-4 transition-all duration-300 hover:text-accent"
+                >
                   {item.icon}
                 </a>
               </Tooltip>
@@ -76,12 +83,15 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
           })}
 
           {/* User greeting */}
-          <div className="flex flex-row items-center justify-center p-[8px] cursor-pointer hover:text-accent transition-all duration-300">
+          <div className="flex cursor-pointer flex-row items-center justify-center p-[8px] transition-all duration-300 hover:text-accent">
             <FontAwesomeIcon icon={faCircleUser} />
-            <span className="text-center text-[16px] px-2">
+            <span className="px-2 text-center text-[16px]">
               Hi, <span className="font-semibold">{currentUser.username}</span>
             </span>
-            <FontAwesomeIcon icon={faChevronDown} className="w-[15px] h-[15px]" />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className="h-[15px] w-[15px]"
+            />
           </div>
         </div>
       </div>

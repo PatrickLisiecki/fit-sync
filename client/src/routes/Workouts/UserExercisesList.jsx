@@ -18,6 +18,11 @@ import {
   faArrowRightLong,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeftLong,
+  faArrowRightLong,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserExercisesList({ updated }) {
@@ -56,16 +61,14 @@ export default function UserExercisesList({ updated }) {
     }
   }, [currentUser, day, workoutId, week, updated, setExercises]);
 
-  {
-    /* Deleting an exercise from the user's workout */
-  }
+  // Deleting an exercise from the user's workout
   const handleDeleteExercise = (exercise) => {
     const targetId = exercise.id;
     const authToken = currentUser.token; // Assuming you have a 'token' property in the currentUser object
 
     // Make a DELETE request to the backend API with the authorization header and withCredentials option
     axios
-      .delete(`http://localhost:4000/api/exercises/exercises/${targetId}`, {
+      .delete(`/api/exercises/${targetId}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -82,21 +85,21 @@ export default function UserExercisesList({ updated }) {
   };
 
   return (
-    <div className="px-6 sm:px-24 py-4">
-      <div className="w-full flex flex-row justify-between items-center mb-2">
+    <div className="px-6 py-4 sm:px-24">
+      <div className="mb-2 flex w-full flex-row items-center justify-between">
         {/* Go back button */}
         <Link
           to="/dashboard/workouts"
-          className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
+          className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300"
         >
           <FontAwesomeIcon icon={faArrowLeftLong} />
-          <span className="hidden sm:inline-block text-md font-light">
+          <span className="text-md hidden font-light sm:inline-block">
             Workouts
           </span>
         </Link>
 
         {/* Week and day header */}
-        <span className="text-[20px] sm:text-[24px] md:text-[28px] font-semibold mb-0 capitalize">
+        <span className="mb-0 text-[20px] font-semibold capitalize sm:text-[24px] md:text-[28px]">
           Week {week} - {day}&apos;s Workout
         </span>
       </div>
@@ -107,21 +110,21 @@ export default function UserExercisesList({ updated }) {
           exercises.map((exercise) => (
             <div
               key={exercise.id}
-              className="p-4 rounded-lg bg-white shadow-lg"
+              className="rounded-lg bg-white p-4 shadow-lg"
             >
               {/* Exercise name and delete button */}
-              <div className="w-full flex flex-row justify-between items-center">
+              <div className="flex w-full flex-row items-center justify-between">
                 <span className="text-xl font-bold">{exercise.name}</span>
                 <button
                   onClick={() => handleDeleteExercise(exercise)}
-                  className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-red-500 hover:text-white transition-all duration-200"
+                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
               </div>
 
               {/* Exercise info */}
-              <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-4">
+              <div className="my-4 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
                 <Chip
                   variant="ghost"
                   size="sm"
@@ -148,7 +151,7 @@ export default function UserExercisesList({ updated }) {
                 ripple={false}
                 variant="filled"
                 color="cyan"
-                className="flex justify-center items-center gap-x-2"
+                className="flex items-center justify-center gap-x-2"
               >
                 <span className="text-white">View Info</span>
                 <FontAwesomeIcon icon={faArrowRightLong} />
@@ -160,18 +163,18 @@ export default function UserExercisesList({ updated }) {
       {/* Modal for exercise info */}
       {selectedExercise && (
         <Modal isVisible={isModalVisible} hideModal={hideModal}>
-          <div className="flex items-center shrink-0 p-4 border-b border-primary">
-            <span className="text-primary antialiased text-2xl font-semibold leading-snug">
+          <div className="flex shrink-0 items-center border-b border-primary p-4">
+            <span className="text-2xl font-semibold leading-snug text-primary antialiased">
               {selectedExercise.name}
             </span>
           </div>
-          <div className="relative p-4 antialiased border-b border-primary">
-            <p className="text-secondary text-base font-light leading-relaxed">
+          <div className="relative border-b border-primary p-4 antialiased">
+            <p className="text-base font-light leading-relaxed text-secondary">
               {selectedExercise.instructions}
             </p>
           </div>
 
-          <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
+          <div className="flex shrink-0 flex-wrap items-center justify-end p-4">
             <Button
               variant="text"
               color="red"

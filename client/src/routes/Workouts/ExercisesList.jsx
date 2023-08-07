@@ -9,11 +9,11 @@ import { ExerciseContext } from "../../contexts/ExerciseContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Chip, Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
+import { faArrowRightLong, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
@@ -97,7 +97,7 @@ export default function ExercisesList({ onExerciseAdd }) {
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
       .post(
-        "http://localhost:4000/api/exercises/exercises",
+        "/api/exercises/",
         {
           userId: currentUser.id,
           day: day,
@@ -110,7 +110,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           week: week,
           workoutId: workoutId,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       )
 
       .then((response) => {
@@ -126,31 +126,46 @@ export default function ExercisesList({ onExerciseAdd }) {
   };
 
   return (
-    <div className="px-6 sm:px-24 py-4">
+    <div className="px-6 py-4 sm:px-24">
       {/* Search for exercises form */}
-      <div className="p-4 flex flex-col bg-white shadow-lg rounded-lg mb-4 overflow-x-auto">
-        <span className="text-center sm:text-left text-xl font-bold mb-2">
+      <div className="mb-4 flex flex-col overflow-x-auto rounded-lg bg-white p-4 shadow-lg">
+        <span className="mb-2 text-center text-xl font-bold sm:text-left">
           Search for Exercises
         </span>
 
         {/* Form with selections */}
-        <form onSubmit={handleSubmit} className="flex flex-col xl:flex-row gap-y-4 gap-x-10">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-x-10 gap-y-4 xl:flex-row"
+        >
           {/* Muscle group select */}
-          <div className="flex flex-col lg:flex-row items-center">
-            <label htmlFor="muscleSelect" className="block text-lg mb-0 font-light">
+          <div className="flex flex-col items-center lg:flex-row">
+            <label
+              htmlFor="muscleSelect"
+              className="mb-0 block text-lg font-light"
+            >
               Target Muscle:
             </label>
 
             {/* Menu */}
             <select
               id="muscleSelect"
-              className="ml-2 p-2 cursor-pointer rounded-lg border-primary focus:outline-none bg-gray-200"
+              className="ml-2 cursor-pointer rounded-lg border-primary bg-gray-200 p-2 focus:outline-none"
               value={selectedMuscle}
               onChange={(e) => setSelectedMuscle(e.target.value)}
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
-                <option key={muscle} value={muscle} className="capitalize hover:bg-accent">
+                <option
+                  key={muscle}
+                  value={muscle}
+                  className="capitalize hover:bg-accent"
+                >
+                <option
+                  key={muscle}
+                  value={muscle}
+                  className="capitalize hover:bg-accent"
+                >
                   {muscle}
                 </option>
               ))}
@@ -158,23 +173,23 @@ export default function ExercisesList({ onExerciseAdd }) {
           </div>
 
           {/* Difficulty select */}
-          <div className="flex flex-col lg:flex-row items-center">
-            <span className="block text-lg mb-0 font-light">Difficulty:</span>
+          <div className="flex flex-col items-center lg:flex-row">
+            <span className="mb-0 block text-lg font-light">Difficulty:</span>
 
-            <div className="ml-2 flex flex-col lg:flex-row justify-center items-center gap-y-[10px] gap-x-[10px]">
+            <div className="ml-2 flex flex-col items-center justify-center gap-x-[10px] gap-y-[10px] lg:flex-row">
               {difficulties.map((difficulty, index) => (
                 <div
                   key={index}
                   className={`${
                     activeButton === index
-                      ? "text-white border-blue-500 bg-blue-500 hover:bg-blue-500/90"
-                      : "bg-none text-primary border-primary hover:bg-primary/10"
-                  } min-w-[135px] grid place-items-center py-2 border cursor-pointer`}
+                      ? "border-blue-500 bg-blue-500 text-white hover:bg-blue-500/90"
+                      : "border-primary bg-none text-primary hover:bg-primary/10"
+                  } grid min-w-[135px] cursor-pointer place-items-center border py-2`}
                   onClick={() => {
                     handleDifficultySelect(difficulty, index);
                   }}
                 >
-                  <span className="capitalize text-[18px]">{difficulty}</span>
+                  <span className="text-[18px] capitalize">{difficulty}</span>
                 </div>
               ))}
             </div>
@@ -183,7 +198,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           {/* Submit */}
           <button
             type="submit"
-            className="min-w-[135px] py-2 text-lg text-white bg-green-500 hover:bg-green-500/90 cursor-pointer rounded-lg"
+            className="min-w-[135px] cursor-pointer rounded-lg bg-accent py-2 text-lg text-white hover:bg-accent/90"
           >
             Search
           </button>
@@ -191,10 +206,10 @@ export default function ExercisesList({ onExerciseAdd }) {
       </div>
 
       {loading ? (
-        <div className="w-full min-h-[150px] grid place-items-center">
+        <div className="grid min-h-[150px] w-full place-items-center">
           <svg
             aria-hidden="true"
-            className="inline w-[50px] h-[50px] text-gray-400 animate-spin dark:text-gray-600 fill-accent"
+            className="inline h-[50px] w-[50px] animate-spin fill-accent text-gray-400 dark:text-gray-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -213,24 +228,44 @@ export default function ExercisesList({ onExerciseAdd }) {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workouts.map((exercise, index) => (
-            <div key={index} className="p-4 rounded-lg bg-white">
+            <div key={index} className="rounded-lg bg-white p-4">
               {/* Exercise name */}
-              <div className="w-full flex flex-row justify-between items-center gap-x-2">
+              <div className="flex w-full flex-row items-center justify-between gap-x-2">
                 <span className="text-xl font-bold">{exercise.name}</span>
                 <button
                   onClick={() => handleAddToMyWorkout(exercise)}
-                  className="w-[40px] h-[40px] grid place-items-center rounded-full cursor-pointer text-black hover:bg-green-500 hover:text-white transition-all duration-200"
+                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-green-500 hover:text-white"
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
 
               {/* Exercise info */}
-              <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-3">
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
-                <Chip variant="ghost" size="sm" color="cyan" value={exercise.difficulty} />
+              <div className="my-3 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.type}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.muscle}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.equipment}
+                />
+                <Chip
+                  variant="ghost"
+                  size="sm"
+                  color="cyan"
+                  value={exercise.difficulty}
+                />
               </div>
 
               {/* Button to open exercise modal */}
@@ -239,7 +274,7 @@ export default function ExercisesList({ onExerciseAdd }) {
                 ripple={false}
                 variant="gradient"
                 color="orange"
-                className="flex justify-center items-center gap-x-2"
+                className="flex items-center justify-center gap-x-2"
               >
                 <span className="text-white">View Info</span>
                 <FontAwesomeIcon icon={faArrowRightLong} size="sm" />
@@ -252,19 +287,24 @@ export default function ExercisesList({ onExerciseAdd }) {
       {/* Modal for exercise info */}
       {selectedExercise && (
         <Modal isVisible={isModalVisible} hideModal={hideModal}>
-          <div className="flex items-center shrink-0 p-4 border-b border-primary">
-            <span className="text-primary antialiased text-2xl font-semibold leading-snug">
+          <div className="flex shrink-0 items-center border-b border-primary p-4">
+            <span className="text-2xl font-semibold leading-snug text-primary antialiased">
               {selectedExercise.name}
             </span>
           </div>
-          <div className="relative p-4 antialiased border-b border-primary">
-            <p className="text-secondary text-base font-light leading-relaxed">
+          <div className="relative border-b border-primary p-4 antialiased">
+            <p className="text-base font-light leading-relaxed text-secondary">
               {selectedExercise.instructions}
             </p>
           </div>
 
-          <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
-            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
+          <div className="flex shrink-0 flex-wrap items-center justify-end p-4">
+            <Button
+              variant="text"
+              color="red"
+              ripple={false}
+              onClick={() => handleOpen(null)}
+            >
               Close
             </Button>
           </div>

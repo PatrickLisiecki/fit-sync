@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Configuration, OpenAIApi } from 'openai';
 
@@ -98,11 +99,11 @@ const Quiz = () => {
 
   return (
     <div className="min-h-screen py-8 ">
-      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4 shadow-bs">
-        <h1 className="text-4xl font-bold text-center pb-4">Workout Quiz</h1>
+      <div className="mx-auto max-w-2xl rounded-lg bg-white px-4 py-4 shadow-md">
+        <h1 className="pb-4 text-center text-4xl font-bold">Workout Quiz</h1>
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
-            <h3 className="text-xl font-semibold mb-3">{option.question}</h3>
+            <h3 className="mb-3 text-xl font-semibold">{option.question}</h3>
             <ul className="flex justify-center">
               {option.options.map((choice, optionIndex) => (
                 <li key={optionIndex} className="mx-2">
@@ -110,7 +111,7 @@ const Quiz = () => {
                     onClick={() =>
                       handleAnswerSelection(questionIndex, optionIndex)
                     }
-                    className={`w-full px-4 py-2 rounded-lg ${
+                    className={`w-full rounded-lg px-4 py-2 ${
                       answers[option.field] === choice
                         ? 'bg-orange-400 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-300'
@@ -126,7 +127,7 @@ const Quiz = () => {
         <button
           id="generate-btn"
           onClick={generateWorkoutPlan}
-          className={`block mx-auto px-6 py-3 rounded-lg ${
+          className={`mx-auto block rounded-lg px-6 py-3 ${
             Object.values(answers).every((answer) => answer !== null)
               ? 'bg-orange-500 text-white hover:bg-orange-600'
               : 'bg-gray-400 text-gray-600 cursor-not-allowed'

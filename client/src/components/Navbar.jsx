@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faRightToBracket, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faRightToBracket,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Nav links
 const navData = [
@@ -43,13 +47,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full max-h-[100px] fixed z-[100] bg-white shadow-bs p-8">
-      <div className="lg:container lg:mx-auto flex flex-row justify-between items-center">
+    <nav className="fixed z-[100] max-h-[100px] w-full bg-white p-8 shadow-bs">
+      <div className="flex flex-row items-center justify-between lg:container lg:mx-auto">
         {/* Name / Logo */}
         <Link to="/">
-          <div className="flex flex-row justify-center items-center gap-x-2 uppercase text-[28px] md:text-3xl">
+          <div className="flex flex-row items-center justify-center gap-x-2 text-[28px] uppercase md:text-3xl">
             <img src="/logo.png" alt="Logo" width={40} height={40} />
-            <span className="text-primary">Flex</span> <span className="text-accent">Fusion</span>
+            <span className="text-primary">Flex</span>{" "}
+            <span className="text-accent">Fusion</span>
           </div>
         </Link>
 
@@ -61,7 +66,7 @@ export default function Navbar() {
                 <li key={index}>
                   <Link
                     to={item.link}
-                    className="mx-4 hover:text-accent transition-all duration-300"
+                    className="mx-4 transition-all duration-300 hover:text-accent"
                   >
                     {item.title}
                   </Link>
@@ -72,13 +77,16 @@ export default function Navbar() {
               {currentUser ? (
                 <button
                   onClick={handleLogout}
-                  className="mx-4 hover:text-accent transition-all duration-300"
+                  className="mx-4 transition-all duration-300 hover:text-accent"
                 >
                   <FontAwesomeIcon icon={faRightToBracket} flip="horizontal" />
                   <span className="ml-2">Log Out</span>
                 </button>
               ) : (
-                <Link to="/auth" className="mx-4 hover:text-accent transition-all duration-300">
+                <Link
+                  to="/auth"
+                  className="mx-4 transition-all duration-300 hover:text-accent"
+                >
                   <FontAwesomeIcon icon={faRightToBracket} />
                   <span className="ml-2">Log In</span>
                 </Link>
@@ -91,9 +99,9 @@ export default function Navbar() {
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="flex justify-center items-center text-primary hover:text-accent transition-all duration-300"
+            className="flex items-center justify-center text-primary transition-all duration-300 hover:text-accent"
           >
-            <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
+            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
           </button>
         </div>
       </div>
@@ -102,34 +110,38 @@ export default function Navbar() {
       <div
         className={`${
           isOpen ? "left-0 w-full" : "-left-32 w-0"
-        } lg:hidden h-screen fixed top-0 z-[999] flex justify-center items-center bg-white duration-500`}
+        } fixed top-0 z-[999] flex h-screen items-center justify-center bg-white duration-500 lg:hidden`}
       >
         <button
           onClick={toggleMenu}
-          className="absolute top-[2rem] right-[4rem] cursor-pointer z-[999] text-primary hover:text-accent transition-all duration-300"
+          className="absolute right-[4rem] top-[2rem] z-[999] cursor-pointer text-primary transition-all duration-300 hover:text-accent"
         >
-          <FontAwesomeIcon icon={faXmark} className="w-8 h-8" />
+          <FontAwesomeIcon icon={faXmark} className="h-8 w-8" />
         </button>
 
         {/* Links for mobile menu */}
-        <ul className="min-w-[150px] flex flex-col gap-y-8">
+        <ul className="flex min-w-[150px] flex-col gap-y-8">
           {navData.map((item, index) => {
             return (
-              <li key={index} onClick={toggleMenu} className="flex justify-center items-center">
+              <li
+                key={index}
+                onClick={toggleMenu}
+                className="flex items-center justify-center"
+              >
                 <a
                   href={item.link}
-                  className="text-2xl font-semibold hover:text-accent transition-all duration-300"
+                  className="text-2xl font-semibold transition-all duration-300 hover:text-accent"
                 >
                   {item.title}
                 </a>
               </li>
             );
           })}
-          <li onClick={toggleMenu} className="flex justify-center items-center">
+          <li onClick={toggleMenu} className="flex items-center justify-center">
             {currentUser ? (
               <button
                 onClick={handleLogout}
-                className="text-2xl font-semibold mx-4 hover:text-accent transition-all duration-300"
+                className="mx-4 text-2xl font-semibold transition-all duration-300 hover:text-accent"
               >
                 <FontAwesomeIcon icon={faRightToBracket} flip="horizontal" />
                 <span className="ml-2">Log Out</span>
@@ -137,7 +149,7 @@ export default function Navbar() {
             ) : (
               <Link
                 to="/auth"
-                className="text-2xl font-semibold mx-4 hover:text-accent transition-all duration-300"
+                className="mx-4 text-2xl font-semibold transition-all duration-300 hover:text-accent"
               >
                 <FontAwesomeIcon icon={faRightToBracket} />
                 <span className="ml-2">Log In</span>

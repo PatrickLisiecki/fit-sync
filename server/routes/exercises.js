@@ -53,7 +53,7 @@ router.get(
 );
 
 // Create a new exercise
-router.post("/exercises", authenticateUser, async (req, res) => {
+router.post("/", authenticateUser, async (req, res) => {
   try {
     const {
       userId,
@@ -92,7 +92,7 @@ router.post("/exercises", authenticateUser, async (req, res) => {
 });
 
 // Update an existing exercise
-router.put("/exercises/:exerciseId", authenticateUser, async (req, res) => {
+router.put("/:exerciseId", authenticateUser, async (req, res) => {
   try {
     const { exerciseId } = req.params;
     const { name, type, muscle, equipment, difficulty, instructions } =
@@ -125,7 +125,7 @@ router.put("/exercises/:exerciseId", authenticateUser, async (req, res) => {
 });
 
 // Delete an exercise
-router.delete("/exercises/:exerciseId", authenticateUser, async (req, res) => {
+router.delete("/:exerciseId", authenticateUser, async (req, res) => {
   try {
     const { exerciseId } = req.params;
 

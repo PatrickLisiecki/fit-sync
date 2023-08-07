@@ -18,7 +18,8 @@ import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 
 // Dashboard components
 import Dashboard from "./routes/Dashboard/Dashboard";
-import DashboardHome from "./routes/DashboardHome/DashboardHome";
+import DashboardHome from "./routes/Dashboard/DashboardHome";
+import Progress from "./routes/Progress/Progress";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
@@ -80,6 +81,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/progress",
+        element: (
+          <ProtectedRoute>
+            <Progress />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/dashboard/nutrition",
         element: (
           <ProtectedRoute>
@@ -115,6 +124,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
-
