@@ -18,7 +18,7 @@ import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 
 // Dashboard components
 import Dashboard from "./routes/Dashboard/Dashboard";
-import DashboardHome from "./routes/DashboardHome/DashboardHome";
+import DashboardHome from "./routes/Dashboard/DashboardHome";
 import Progress from "./routes/Progress/Progress";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
@@ -126,4 +126,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </React.StrictMode>
 );
-
