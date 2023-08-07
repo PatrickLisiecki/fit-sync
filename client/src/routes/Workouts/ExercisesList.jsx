@@ -9,11 +9,11 @@ import { ExerciseContext } from "../../contexts/ExerciseContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Chip, Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
+import { faArrowRightLong, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
@@ -97,7 +97,7 @@ export default function ExercisesList({ onExerciseAdd }) {
     // Make a POST request to the backend API to add the workout to the user's exercises
     axios
       .post(
-        "http://localhost:4000/api/exercises/exercises",
+        "/api/exercises/",
         {
           userId: currentUser.id,
           day: day,
@@ -156,6 +156,11 @@ export default function ExercisesList({ onExerciseAdd }) {
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
+                <option
+                  key={muscle}
+                  value={muscle}
+                  className="capitalize hover:bg-accent"
+                >
                 <option
                   key={muscle}
                   value={muscle}

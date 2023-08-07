@@ -18,6 +18,11 @@ import {
   faArrowRightLong,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeftLong,
+  faArrowRightLong,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserExercisesList({ updated }) {
@@ -63,7 +68,7 @@ export default function UserExercisesList({ updated }) {
 
     // Make a DELETE request to the backend API with the authorization header and withCredentials option
     axios
-      .delete(`/api/exercises/exercises/${targetId}`, {
+      .delete(`/api/exercises/${targetId}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

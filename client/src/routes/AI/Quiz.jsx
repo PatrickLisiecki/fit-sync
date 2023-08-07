@@ -75,6 +75,8 @@ const Quiz = () => {
       ...answers,
       [workoutOptions[questionIndex].field]:
         workoutOptions[questionIndex].options[optionIndex],
+      [workoutOptions[questionIndex].field]:
+        workoutOptions[questionIndex].options[optionIndex],
     });
   };
 

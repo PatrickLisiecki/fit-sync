@@ -31,25 +31,33 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       type: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       muscle: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       equipment: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       difficulty: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
-      instructions: {
+      details: {
+        allowNull: true,
         type: Sequelize.TEXT,
       },
       week: {
+        allowNull: true,
         type: Sequelize.INTEGER,
       },
       createdAt: {
