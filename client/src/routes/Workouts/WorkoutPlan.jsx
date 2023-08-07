@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,23 +7,18 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { ButtonGroup, Button } from "@material-tailwind/react";
+import { Button, ButtonGroup } from "@material-tailwind/react";
 
 // Icons
 import {
-  faChevronLeft,
-  faChevronRight,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faChevronLeft,
-  faChevronRight,
   faArrowLeftLong,
+  faChevronLeft,
+  faChevronRight,
   faPencil,
+  faPlus,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function WorkoutPlan() {
   const { currentUser } = useContext(AuthContext);
