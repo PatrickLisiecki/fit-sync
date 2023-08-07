@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import openai from "openai";
 
@@ -30,12 +31,7 @@ const Quiz = () => {
     {
       field: "fitnessGoal",
       question: "What are your fitness goals?",
-      options: [
-        "Build Muscle",
-        "Lose Weight",
-        "Improve Flexibility",
-        "Increase Endurance",
-      ],
+      options: ["Build Muscle", "Lose Weight", "Improve Flexibility", "Increase Endurance"],
     },
     {
       field: "fitnessLevel",
@@ -60,9 +56,7 @@ const Quiz = () => {
   });
 
   useEffect(() => {
-    const isAllAnswered = Object.values(answers).every(
-      (answer) => answer !== null
-    );
+    const isAllAnswered = Object.values(answers).every((answer) => answer !== null);
     const button = document.getElementById("generate-btn");
     if (button) {
       button.disabled = !isAllAnswered;
@@ -72,8 +66,7 @@ const Quiz = () => {
   const handleAnswerSelection = (questionIndex, optionIndex) => {
     setAnswers({
       ...answers,
-      [workoutOptions[questionIndex].field]:
-        workoutOptions[questionIndex].options[optionIndex],
+      [workoutOptions[questionIndex].field]: workoutOptions[questionIndex].options[optionIndex],
     });
   };
 
@@ -87,8 +80,7 @@ const Quiz = () => {
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.
   `;
-    const OPENAI_API_KEY =
-      "Bearer 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";
+    const OPENAI_API_KEY = "Bearer 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";
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/engines/davinci/completions",
@@ -99,7 +91,7 @@ const Quiz = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${OPENAI_API_KEY}`,
+            "Authorization": `${OPENAI_API_KEY}`,
           },
         }
       );
@@ -115,7 +107,7 @@ const Quiz = () => {
 
   return (
     <div className="min-h-screen py-8 ">
-      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4 shadow-bs">
+      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4">
         <h1 className="text-4xl font-bold text-center pb-4">Workout Quiz</h1>
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
@@ -124,9 +116,7 @@ const Quiz = () => {
               {option.options.map((choice, optionIndex) => (
                 <li key={optionIndex} className="mx-2">
                   <button
-                    onClick={() =>
-                      handleAnswerSelection(questionIndex, optionIndex)
-                    }
+                    onClick={() => handleAnswerSelection(questionIndex, optionIndex)}
                     className={`w-full px-4 py-2 rounded-lg ${
                       answers[option.field] === choice
                         ? "bg-orange-400 text-white"
@@ -153,9 +143,7 @@ const Quiz = () => {
         </button>
         {generatedWorkout && (
           <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-2">
-              Generated Workout Plan
-            </h3>
+            <h3 className="text-xl font-semibold mb-2">Generated Workout Plan</h3>
             <p className="bg-gray-100 p-4 rounded-lg">{generatedWorkout}</p>
           </div>
         )}
