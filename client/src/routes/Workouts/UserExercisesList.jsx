@@ -13,11 +13,7 @@ import Modal from "../../components/Modal";
 import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faArrowRightLong, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserExercisesList({ updated }) {
@@ -56,9 +52,7 @@ export default function UserExercisesList({ updated }) {
     }
   }, [currentUser, day, workoutId, week, updated, setExercises]);
 
-  {
-    /* Deleting an exercise from the user's workout */
-  }
+  // Deleting an exercise from the user's workout
   const handleDeleteExercise = (exercise) => {
     const targetId = exercise.id;
     const authToken = currentUser.token; // Assuming you have a 'token' property in the currentUser object
@@ -90,9 +84,7 @@ export default function UserExercisesList({ updated }) {
           className="p-3 rounded flex items-center justify-center gap-x-2 cursor-pointer hover:bg-gray-300"
         >
           <FontAwesomeIcon icon={faArrowLeftLong} />
-          <span className="hidden sm:inline-block text-md font-light">
-            Workouts
-          </span>
+          <span className="hidden sm:inline-block text-md font-light">Workouts</span>
         </Link>
 
         {/* Week and day header */}
@@ -105,10 +97,7 @@ export default function UserExercisesList({ updated }) {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {exercises.length > 0 &&
           exercises.map((exercise) => (
-            <div
-              key={exercise.id}
-              className="p-4 rounded-lg bg-white shadow-lg"
-            >
+            <div key={exercise.id} className="p-4 rounded-lg bg-white shadow-lg">
               {/* Exercise name and delete button */}
               <div className="w-full flex flex-row justify-between items-center">
                 <span className="text-xl font-bold">{exercise.name}</span>
@@ -122,24 +111,9 @@ export default function UserExercisesList({ updated }) {
 
               {/* Exercise info */}
               <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 my-4">
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.type}
-                />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.muscle}
-                />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.equipment}
-                />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.type} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.muscle} />
+                <Chip variant="ghost" size="sm" color="cyan" value={exercise.equipment} />
               </div>
 
               {/* Button to open exercise modal */}
@@ -172,12 +146,7 @@ export default function UserExercisesList({ updated }) {
           </div>
 
           <div className="flex items-center justify-end shrink-0 flex-wrap p-4">
-            <Button
-              variant="text"
-              color="red"
-              ripple={false}
-              onClick={() => handleOpen(null)}
-            >
+            <Button variant="text" color="red" ripple={false} onClick={() => handleOpen(null)}>
               Close
             </Button>
           </div>
