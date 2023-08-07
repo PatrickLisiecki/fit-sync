@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
   faCalendarDays,
+  faChartLine,
   faChartPie,
   faRobot,
   faPowerOff,
@@ -21,17 +22,19 @@ const sidebarData = [
     title: "Dashboard",
     link: "/dashboard",
     childPath: "",
-    icon: (
-      <FontAwesomeIcon icon={faChalkboardUser} className="w-[20px] h-[20px]" />
-    ),
+    icon: <FontAwesomeIcon icon={faChalkboardUser} className="w-[20px] h-[20px]" />,
   },
   {
     title: "Workout Plan",
     link: "/dashboard/workouts",
     childPath: "/workouts",
-    icon: (
-      <FontAwesomeIcon icon={faCalendarDays} className="w-[20px] h-[20px]" />
-    ),
+    icon: <FontAwesomeIcon icon={faCalendarDays} className="w-[20px] h-[20px]" />,
+  },
+  {
+    title: "Progress",
+    link: "/dashboard/progress",
+    childPath: "/progress",
+    icon: <FontAwesomeIcon icon={faChartLine} className="w-[20px] h-[20px]" />,
   },
   {
     title: "Nutrition",
@@ -68,10 +71,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
     >
       {/* Header */}
       <div className="flex flex-col justify-center items-center p-4">
-        <Link
-          to="/"
-          className="text-[24px] uppercase font-bold text-white mb-0"
-        >
+        <Link to="/" className="text-[24px] uppercase font-bold text-white mb-0">
           Flex <span className="text-accent">Fusion</span>
         </Link>
         <div className="w-full mt-2 border-b border-white"></div>
@@ -102,16 +102,9 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
         {/* Logout */}
         <li className="w-full min-h-[60px] p-4 flex items-center text-white cursor-pointer hover:bg-secondary hover:border-l-[5px] hover:border-l-accent">
           {currentUser && (
-            <Form
-              method="post"
-              onSubmit={handleLogout}
-              className="w-full h-full ml-4"
-            >
+            <Form method="post" onSubmit={handleLogout} className="w-full h-full ml-4">
               <button type="submit">
-                <FontAwesomeIcon
-                  icon={faPowerOff}
-                  className="w-[20px] h-[20px]"
-                />
+                <FontAwesomeIcon icon={faPowerOff} className="w-[20px] h-[20px]" />
                 <span className="inline-block ml-4">Logout</span>
               </button>
             </Form>
