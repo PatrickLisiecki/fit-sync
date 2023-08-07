@@ -3,6 +3,9 @@ import { useState } from "react";
 // Components
 import Modal from "../../components/Modal";
 
+// Material Tailwind
+import { Input, Textarea } from "@material-tailwind/react";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +13,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 export default function Progress() {
   // Exercise form state
   const [exerciseName, setExerciseName] = useState("");
+  const [exerciseDetails, setExerciseDetails] = useState("");
 
   // Modal state and controls
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -41,13 +45,22 @@ export default function Progress() {
 
       {/* Add an exercise form*/}
       <Modal isVisible={isModalVisible} hideModal={hideModal}>
-        <div className="flex flex-col items-center">
-          <input
-            type="text"
-            className="mb-4 w-[75%] rounded border border-secondary p-3 text-base focus:outline-none"
-            placeholder="Workout Name"
+        <div className="flex flex-col items-center gap-y-4 px-12">
+          <Input
+            size="md"
+            color="orange"
+            label="Name"
             value={exerciseName}
             onChange={(e) => setExerciseName(e.target.value)}
+            className="font-poppins text-base text-secondary"
+          />
+          <Textarea
+            size="md"
+            color="orange"
+            label="Details"
+            value={exerciseDetails}
+            onChange={(e) => setExerciseDetails(e.target.value)}
+            className="font-poppins text-base text-secondary"
           />
           <button
             onClick={() => {
@@ -56,7 +69,7 @@ export default function Progress() {
             className="flex min-w-[135px] cursor-pointer items-center justify-center gap-x-2 rounded bg-green-500 px-4 py-2 text-white hover:bg-green-500/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
-            <span className="font-semibold">Create Workout</span>
+            <span className="font-semibold">Add Exercise</span>
           </button>
         </div>
       </Modal>
