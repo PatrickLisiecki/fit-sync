@@ -40,27 +40,22 @@ export default function Auth() {
   };
 
   return (
-    <section className="w-full min-h-screen flex justify-center items-center bg-gray-200">
-      <div className="w-full container mx-auto flex flex-col items-center justify-center">
-        {/* Header */}
-        {/* <div className="text-[32px] font-semibold uppercase flex items-center mb-2 text-teal-400">
-                    Flex Fusion
-                </div> */}
-
+    <section className="flex min-h-screen w-full items-center justify-center bg-gray-200">
+      <div className="container mx-auto flex w-full flex-col items-center justify-center">
         {/* Login Form */}
         <div
           className={`${
             byLogin ? "block" : "hidden"
-          } min-w-[300px] md:min-w-[500px] bg-white rounded-lg p-10 shadow-bs`}
+          } min-w-[300px] rounded-lg bg-white p-10 shadow-bs md:min-w-[500px]`}
         >
           {/* Form Header */}
-          <div className="w-full text-left mb-4">
+          <div className="mb-4 w-full text-left">
             <span className="h3 uppercase  text-accent">Login</span>
           </div>
 
           {/* Form */}
           <Form
-            className="flex flex-col justify-center items-center gap-y-6"
+            className="flex flex-col items-center justify-center gap-y-6"
             method="post"
             onSubmit={handleLogin}
           >
@@ -79,10 +74,10 @@ export default function Auth() {
                   name="username"
                   id="username"
                   placeholder="Username"
-                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
                   required=""
                 />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
                   <FontAwesomeIcon icon={faUser} />
                 </span>
               </div>
@@ -102,10 +97,10 @@ export default function Auth() {
                   name="password"
                   id="password"
                   placeholder="Enter your password"
-                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
                   required=""
                 />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
                   <FontAwesomeIcon icon={faLock} />
                 </span>
               </div>
@@ -115,7 +110,7 @@ export default function Auth() {
             <fieldset className="w-full">
               <button
                 type="submit"
-                className="w-full rounded-md px-4 py-3 text-sm uppercase font-bold text-white bg-gray-700 hover:bg-gray-600"
+                className="w-full rounded-md bg-gray-700 px-4 py-3 text-sm font-bold uppercase text-white hover:bg-gray-600"
               >
                 Sign in
               </button>
@@ -125,7 +120,7 @@ export default function Auth() {
             <div className="text-sm font-semibold text-primary">
               Don’t have an account?{" "}
               <span
-                className="text-sm cursor-pointer text-blue-500 hover:underline"
+                className="cursor-pointer text-sm text-blue-500 hover:underline"
                 onClick={() => setByLogin(!byLogin)}
               >
                 Sign up
@@ -138,16 +133,16 @@ export default function Auth() {
         <div
           className={`${
             byLogin ? "hidden" : "block"
-          } min-w-[300px] md:min-w-[500px] bg-white rounded-lg p-10 shadow-bs`}
+          } min-w-[300px] rounded-lg bg-white p-10 shadow-bs md:min-w-[500px]`}
         >
           {/* Form Header */}
-          <div className="w-full text-left mb-4">
+          <div className="mb-4 w-full text-left">
             <span className="h3 uppercase  text-accent">Sign Up</span>
           </div>
 
           {/* Form */}
           <Form
-            className="flex flex-col justify-center items-center gap-y-6"
+            className="flex flex-col items-center justify-center gap-y-6"
             method="post"
             onSubmit={handleSignup}
           >
@@ -166,10 +161,10 @@ export default function Auth() {
                   name="username"
                   id="username"
                   placeholder="Username"
-                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
                   required=""
                 />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
                   <FontAwesomeIcon icon={faUser} />
                 </span>
               </div>
@@ -189,10 +184,10 @@ export default function Auth() {
                   name="email"
                   id="email"
                   placeholder="email@domain.com"
-                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
                   required=""
                 />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
               </div>
@@ -212,10 +207,10 @@ export default function Auth() {
                   name="password"
                   id="password"
                   placeholder="Password"
-                  className="block w-full rounded-md pl-10 pr-3 py-3 text-sm focus:outline-none bg-white border border-gray-200 text-primary"
+                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
                   required=""
                 />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
                   <FontAwesomeIcon icon={faLock} />
                 </span>
               </div>
@@ -225,7 +220,7 @@ export default function Auth() {
             <fieldset className="w-full">
               <button
                 type="submit"
-                className="w-full rounded-md px-4 py-3 text-sm uppercase font-bold text-white bg-gray-700 hover:bg-gray-600"
+                className="w-full rounded-md bg-gray-700 px-4 py-3 text-sm font-bold uppercase text-white hover:bg-gray-600"
               >
                 Sign up
               </button>

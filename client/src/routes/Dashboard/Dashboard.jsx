@@ -16,20 +16,27 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative min-h-screen min-w-full flex flex-row">
+    <div className="relative flex min-h-screen min-w-full flex-row">
       {/* Sidebar navigation */}
-      <Sidebar toggleSidebar={toggleSidebar} isExpanded={isExpanded} currentPath={location.pathname} />
+      <Sidebar
+        toggleSidebar={toggleSidebar}
+        isExpanded={isExpanded}
+        currentPath={location.pathname}
+      />
 
       {/* Main screen */}
-      <div className="w-full min-h-screen flex flex-col justify-between overflow-hidden">
+      <div className="flex min-h-screen w-full flex-col justify-between overflow-hidden">
         {/* Navbar */}
-        <DashboardNavbar toggleSidebar={toggleSidebar} isExpanded={isExpanded} />
+        <DashboardNavbar
+          toggleSidebar={toggleSidebar}
+          isExpanded={isExpanded}
+        />
 
         {/* Dynamic content based on path */}
         <div
           className={`${
             isExpanded ? "pl-0 lg:pl-[250px]" : "pl-0"
-          } w-full h-full transition-all duration-500 bg-gray-200`}
+          } h-full w-full bg-gray-200 transition-all duration-500`}
         >
           <Outlet />
         </div>

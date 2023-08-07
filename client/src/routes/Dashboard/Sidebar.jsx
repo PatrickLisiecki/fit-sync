@@ -22,31 +22,35 @@ const sidebarData = [
     title: "Dashboard",
     link: "/dashboard",
     childPath: "",
-    icon: <FontAwesomeIcon icon={faChalkboardUser} className="w-[20px] h-[20px]" />,
+    icon: (
+      <FontAwesomeIcon icon={faChalkboardUser} className="h-[20px] w-[20px]" />
+    ),
   },
   {
     title: "Workout Plan",
     link: "/dashboard/workouts",
     childPath: "/workouts",
-    icon: <FontAwesomeIcon icon={faCalendarDays} className="w-[20px] h-[20px]" />,
+    icon: (
+      <FontAwesomeIcon icon={faCalendarDays} className="h-[20px] w-[20px]" />
+    ),
   },
   {
     title: "Progress",
     link: "/dashboard/progress",
     childPath: "/progress",
-    icon: <FontAwesomeIcon icon={faChartLine} className="w-[20px] h-[20px]" />,
+    icon: <FontAwesomeIcon icon={faChartLine} className="h-[20px] w-[20px]" />,
   },
   {
     title: "Nutrition",
     link: "/dashboard/nutrition",
     childPath: "/nutrition",
-    icon: <FontAwesomeIcon icon={faChartPie} className="w-[20px] h-[20px]" />,
+    icon: <FontAwesomeIcon icon={faChartPie} className="h-[20px] w-[20px]" />,
   },
   {
     title: "AI Workout",
     link: "/dashboard/ai",
     childPath: "/ai",
-    icon: <FontAwesomeIcon icon={faRobot} className="w-[20px] h-[20px]" />,
+    icon: <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />,
   },
 ];
 
@@ -67,14 +71,17 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
     <nav
       className={`${
         isExpanded ? "left-0" : "-left-[250px]"
-      } fixed z-[999] w-[250px] h-screen bg-sidebar transition-all duration-500`}
+      } fixed z-[999] h-screen w-[250px] bg-sidebar transition-all duration-500`}
     >
       {/* Header */}
-      <div className="flex flex-col justify-center items-center p-4">
-        <Link to="/" className="text-[24px] uppercase font-bold text-white mb-0">
+      <div className="flex flex-col items-center justify-center p-4">
+        <Link
+          to="/"
+          className="mb-0 text-[24px] font-bold uppercase text-white"
+        >
           Flex <span className="text-accent">Fusion</span>
         </Link>
-        <div className="w-full mt-2 border-b border-white"></div>
+        <div className="mt-2 w-full border-b border-white"></div>
       </div>
 
       {/* Nav links for sidebar */}
@@ -88,24 +95,31 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
               className={`${
                 isLinkActive(`/dashboard${item.childPath}`)
                   ? "bg-accent hover:bg-accent/90"
-                  : "bg-none hover:bg-secondary hover:border-l-[5px] hover:border-l-accent"
-              } w-full min-h-[60px] p-4 flex items-center text-white cursor-pointer`}
+                  : "bg-none hover:border-l-[5px] hover:border-l-accent hover:bg-secondary"
+              } flex min-h-[60px] w-full cursor-pointer items-center p-4 text-white`}
             >
-              <div className="w-full h-full ml-4">
+              <div className="ml-4 h-full w-full">
                 {item.icon}
-                <span className="inline-block ml-4">{item.title}</span>
+                <span className="ml-4 inline-block">{item.title}</span>
               </div>
             </Link>
           );
         })}
 
         {/* Logout */}
-        <li className="w-full min-h-[60px] p-4 flex items-center text-white cursor-pointer hover:bg-secondary hover:border-l-[5px] hover:border-l-accent">
+        <li className="flex min-h-[60px] w-full cursor-pointer items-center p-4 text-white hover:border-l-[5px] hover:border-l-accent hover:bg-secondary">
           {currentUser && (
-            <Form method="post" onSubmit={handleLogout} className="w-full h-full ml-4">
+            <Form
+              method="post"
+              onSubmit={handleLogout}
+              className="ml-4 h-full w-full"
+            >
               <button type="submit">
-                <FontAwesomeIcon icon={faPowerOff} className="w-[20px] h-[20px]" />
-                <span className="inline-block ml-4">Logout</span>
+                <FontAwesomeIcon
+                  icon={faPowerOff}
+                  className="h-[20px] w-[20px]"
+                />
+                <span className="ml-4 inline-block">Logout</span>
               </button>
             </Form>
           )}
@@ -114,7 +128,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
 
       {/* Toggle sidebar */}
       <div
-        className="absolute bottom-0 w-full h-[50px] flex items-center justify-center cursor-pointer bg-accent text-white hover:bg-accent/90"
+        className="absolute bottom-0 flex h-[50px] w-full cursor-pointer items-center justify-center bg-accent text-white hover:bg-accent/90"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faArrowLeftLong} size="lg" />

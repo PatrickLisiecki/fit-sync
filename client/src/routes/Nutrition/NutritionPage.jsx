@@ -3,7 +3,12 @@ import axios from "axios";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFire, faUtensils, faDrumstickBite, faCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFire,
+  faUtensils,
+  faDrumstickBite,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Charts
 import {
@@ -40,9 +45,15 @@ const NutritionPage = () => {
       .then((response) => {
         setNutritionFacts(response.data.items);
         // Calculate total calories and proteins
-        const totalCalories = response.data.items.reduce((acc, item) => acc + item.calories, 0);
+        const totalCalories = response.data.items.reduce(
+          (acc, item) => acc + item.calories,
+          0,
+        );
         setTotalCalories(totalCalories);
-        const totalProteins = response.data.items.reduce((acc, item) => acc + item.protein_g, 0);
+        const totalProteins = response.data.items.reduce(
+          (acc, item) => acc + item.protein_g,
+          0,
+        );
         setTotalProteins(totalProteins);
       })
       .catch((error) => {
@@ -57,25 +68,25 @@ const NutritionPage = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="flex h-full w-full flex-col items-center">
       {/* Nutrition page header */}
       <div className="w-full p-4 text-center">
         <span className="h2">Nutrition Facts</span>
       </div>
 
       {/* Search form */}
-      <div className="p-4 flex flex-col lg:flex-row gap-x-4 gap-y-2">
+      <div className="flex flex-col gap-x-4 gap-y-2 p-4 lg:flex-row">
         <input
           type="text"
           value={query}
           onChange={handleQueryChange}
           onKeyPress={handleKeyPress}
           placeholder="Enter your meal here..."
-          className="w-[300px] md:w-[350px] lg:w-[450px] xl:w-[650px] p-4 text-md border rounded shadow-md focus:outline-none transition-all duration-500"
+          className="text-md w-[300px] rounded border p-4 shadow-md transition-all duration-500 focus:outline-none md:w-[350px] lg:w-[450px] xl:w-[650px]"
         />
         <button
           onClick={fetchNutritionFacts}
-          className="min-w-[135px] py-2 text-lg text-white bg-green-500 hover:bg-green-500/90 cursor-pointer rounded shadow-md"
+          className="min-w-[135px] cursor-pointer rounded bg-green-500 py-2 text-lg text-white shadow-md hover:bg-green-500/90"
         >
           Get Nutrition
         </button>
@@ -84,41 +95,59 @@ const NutritionPage = () => {
       {/* Nutrition info and charts */}
       {nutritionFacts && nutritionFacts.length > 0 && (
         <>
-          <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
             {/* Nutrition Containers */}
             {nutritionFacts.map((nutritionFact, index) => (
               <div
                 key={index}
-                className="rounded p-6 bg-white shadow-md hover:-translate-y-[2px] transition-all duration-300"
+                className="rounded bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-[2px]"
               >
                 <span className="h3 capitalize">{nutritionFact.name}</span>
-                <ul className="flex flex-col justify-center items-start gap-y-2">
+                <ul className="flex flex-col items-start justify-center gap-y-2">
                   {/* List of nutrition facts */}
                   {/* Calories */}
                   <li className="flex items-center">
-                    <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-500" />
+                    <FontAwesomeIcon
+                      icon={faFire}
+                      className="mr-4 text-3xl text-yellow-500"
+                    />
                     <span className="mr-2 font-semibold">Calories:</span>
                     {nutritionFact.calories}
                   </li>
 
                   {/* Serving size */}
                   <li className="flex items-center">
-                    <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-green-500" />
-                    <span className="mr-2 font-semibold text-lg">Serving Size: </span>
+                    <FontAwesomeIcon
+                      icon={faUtensils}
+                      className="mr-4 text-3xl text-green-500"
+                    />
+                    <span className="mr-2 text-lg font-semibold">
+                      Serving Size:{" "}
+                    </span>
                     {nutritionFact.serving_size_g} g
                   </li>
 
                   {/* Fat content */}
                   <li className="flex items-center">
-                    <FontAwesomeIcon icon={faFire} className="text-3xl mr-4 text-yellow-600" />
-                    <span className="mr-2 font-semibold text-lg">Total Fat: </span>
+                    <FontAwesomeIcon
+                      icon={faFire}
+                      className="mr-4 text-3xl text-yellow-600"
+                    />
+                    <span className="mr-2 text-lg font-semibold">
+                      Total Fat:{" "}
+                    </span>
                     {nutritionFact.fat_total_g} g
                   </li>
 
                   {/* Saturated fat */}
                   <li className="flex items-center">
-                    <FontAwesomeIcon icon={faCircle} className="text-3xl mr-4 text-yellow-600" />
-                    <span className="mr-2 font-semibold text-lg">Saturated Fat: </span>
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="mr-4 text-3xl text-yellow-600"
+                    />
+                    <span className="mr-2 text-lg font-semibold">
+                      Saturated Fat:{" "}
+                    </span>
                     {nutritionFact.fat_saturated_g} g
                   </li>
 
@@ -126,16 +155,21 @@ const NutritionPage = () => {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faDrumstickBite}
-                      className="text-3xl mr-4 text-green-600"
+                      className="mr-4 text-3xl text-green-600"
                     />
-                    <span className="mr-2 font-semibold text-lg">Protein: </span>
+                    <span className="mr-2 text-lg font-semibold">
+                      Protein:{" "}
+                    </span>
                     {nutritionFact.protein_g} g
                   </li>
 
                   {/* Sodium */}
                   <li className="flex items-center">
-                    <FontAwesomeIcon icon={faUtensils} className="text-3xl mr-4 text-blue-600" />
-                    <span className="mr-2 font-semibold text-lg">Sodium: </span>
+                    <FontAwesomeIcon
+                      icon={faUtensils}
+                      className="mr-4 text-3xl text-blue-600"
+                    />
+                    <span className="mr-2 text-lg font-semibold">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
                   {/* Add more nutrition facts as needed */}
@@ -145,9 +179,9 @@ const NutritionPage = () => {
           </div>
 
           {/* Nutrition Visualization */}
-          <div className="border rounded p-6 my-4 bg-white shadow-md">
+          <div className="my-4 rounded border bg-white p-6 shadow-md">
             {/* Header */}
-            <div className="w-full text-center pb-4">
+            <div className="w-full pb-4 text-center">
               <span className="h3">Nutrition Visualization</span>
             </div>
 

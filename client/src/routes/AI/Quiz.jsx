@@ -31,7 +31,12 @@ const Quiz = () => {
     {
       field: "fitnessGoal",
       question: "What are your fitness goals?",
-      options: ["Build Muscle", "Lose Weight", "Improve Flexibility", "Increase Endurance"],
+      options: [
+        "Build Muscle",
+        "Lose Weight",
+        "Improve Flexibility",
+        "Increase Endurance",
+      ],
     },
     {
       field: "fitnessLevel",
@@ -56,7 +61,9 @@ const Quiz = () => {
   });
 
   useEffect(() => {
-    const isAllAnswered = Object.values(answers).every((answer) => answer !== null);
+    const isAllAnswered = Object.values(answers).every(
+      (answer) => answer !== null,
+    );
     const button = document.getElementById("generate-btn");
     if (button) {
       button.disabled = !isAllAnswered;
@@ -66,7 +73,8 @@ const Quiz = () => {
   const handleAnswerSelection = (questionIndex, optionIndex) => {
     setAnswers({
       ...answers,
-      [workoutOptions[questionIndex].field]: workoutOptions[questionIndex].options[optionIndex],
+      [workoutOptions[questionIndex].field]:
+        workoutOptions[questionIndex].options[optionIndex],
     });
   };
 
@@ -80,7 +88,8 @@ const Quiz = () => {
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.
   `;
-    const OPENAI_API_KEY = "Bearer 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";
+    const OPENAI_API_KEY =
+      "Bearer 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";
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/engines/davinci/completions",
@@ -91,9 +100,9 @@ const Quiz = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `${OPENAI_API_KEY}`,
+            Authorization: `${OPENAI_API_KEY}`,
           },
-        }
+        },
       );
       //console.log("API Response:", response.data);
 
@@ -107,17 +116,19 @@ const Quiz = () => {
 
   return (
     <div className="min-h-screen py-8 ">
-      <div className="bg-white max-w-2xl mx-auto rounded-lg shadow-md px-4 py-4">
-        <h1 className="text-4xl font-bold text-center pb-4">Workout Quiz</h1>
+      <div className="mx-auto max-w-2xl rounded-lg bg-white px-4 py-4 shadow-md">
+        <h1 className="pb-4 text-center text-4xl font-bold">Workout Quiz</h1>
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
-            <h3 className="text-xl font-semibold mb-3">{option.question}</h3>
+            <h3 className="mb-3 text-xl font-semibold">{option.question}</h3>
             <ul className="flex justify-center">
               {option.options.map((choice, optionIndex) => (
                 <li key={optionIndex} className="mx-2">
                   <button
-                    onClick={() => handleAnswerSelection(questionIndex, optionIndex)}
-                    className={`w-full px-4 py-2 rounded-lg ${
+                    onClick={() =>
+                      handleAnswerSelection(questionIndex, optionIndex)
+                    }
+                    className={`w-full rounded-lg px-4 py-2 ${
                       answers[option.field] === choice
                         ? "bg-orange-400 text-white"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-300"
@@ -133,18 +144,20 @@ const Quiz = () => {
         <button
           id="generate-btn"
           onClick={generateWorkoutPlan}
-          className={`block mx-auto px-6 py-3 rounded-lg ${
+          className={`mx-auto block rounded-lg px-6 py-3 ${
             Object.values(answers).every((answer) => answer !== null)
               ? "bg-orange-500 text-white hover:bg-orange-600"
-              : "bg-gray-400 text-gray-600 cursor-not-allowed"
+              : "cursor-not-allowed bg-gray-400 text-gray-600"
           } font-semibold transition-colors duration-300 ease-in-out`}
         >
           Generate Workout Plan
         </button>
         {generatedWorkout && (
           <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-2">Generated Workout Plan</h3>
-            <p className="bg-gray-100 p-4 rounded-lg">{generatedWorkout}</p>
+            <h3 className="mb-2 text-xl font-semibold">
+              Generated Workout Plan
+            </h3>
+            <p className="rounded-lg bg-gray-100 p-4">{generatedWorkout}</p>
           </div>
         )}
       </div>
