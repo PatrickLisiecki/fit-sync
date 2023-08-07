@@ -20,6 +20,7 @@ import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 import Dashboard from "./routes/Dashboard/Dashboard";
 import DashboardHome from "./routes/Dashboard/DashboardHome";
 import Progress from "./routes/Progress/Progress";
+import ExerciseLog from "./routes/Progress/ExerciseLog";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
@@ -85,6 +86,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Progress />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/progress/:exerciseId",
+        element: (
+          <ProtectedRoute>
+            <ExerciseLog />
           </ProtectedRoute>
         ),
       },
