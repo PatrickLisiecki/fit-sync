@@ -19,6 +19,7 @@ import PrivacyPolicy from "./routes/Home/PrivacyPolicy";
 // Dashboard components
 import Dashboard from "./routes/Dashboard/Dashboard";
 import DashboardHome from "./routes/DashboardHome/DashboardHome";
+import Progress from "./routes/Progress/Progress";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <WorkoutPlan />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/progress",
+        element: (
+          <ProtectedRoute>
+            <Progress />
           </ProtectedRoute>
         ),
       },
