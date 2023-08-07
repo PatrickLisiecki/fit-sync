@@ -40,9 +40,8 @@ export default function ExerciseLog() {
   //Update Set
   const updateSet = (setId, updatedSetData) => {
     axios
-      .put(`/api/sets/${exerciseId}/${setId}`, updatedSetData)
+      .put(`/api/sets/${exerciseId}`, updatedSetData)
       .then((response) => {
-
         const updatedLogData = logData.map((set) =>
           set.id === setId ? response.data : set
         );
@@ -56,7 +55,7 @@ export default function ExerciseLog() {
   //Delete Set 
   const deleteSet = (setId) => {
     axios
-      .delete(`/api/sets/${exerciseId}/${setId}`)
+      .delete(`/api/sets/${exerciseId}`)
       .then(() => {
         const updatedLogData = logData.filter((set) => set.id !== setId);
         setLogData(updatedLogData);
@@ -79,14 +78,17 @@ export default function ExerciseLog() {
               {/* Exercise info */}
               <div className="my-4 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
                 <Chip variant="ghost" size="sm" color="cyan" value={set.reps} />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={set.weight}
-                />
+                <Chip variant="ghost" size="sm" color="cyan" value={set.weight} />
                 <Chip variant="ghost" size="sm" color="cyan" value={set.date} />
               </div>
+
+              {/* Delete button */}
+              <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => deleteSet(set.id)}
+              >
+                Delete
+              </button>
             </div>
           ))
         ) : (
