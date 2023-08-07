@@ -25,6 +25,48 @@ export default function ExerciseLog() {
     fetchSets();
   }, []);
 
+  //Create Set 
+  const createSet = (newSetData) => {
+    axios
+      .post(`/api/sets/${exerciseId}`, newSetData)
+      .then((response) => {
+        setLogData([...logData, response.data]);
+      })
+      .catch((error) => {
+        console.error("Error creating set:", error);
+      });
+  };
+
+  //Update Set
+  const updateSet = (setId, updatedSetData) => {
+    axios
+      .put(`/api/sets/${exerciseId}/${setId}`, updatedSetData)
+      .then((response) => {
+
+        const updatedLogData = logData.map((set) =>
+          set.id === setId ? response.data : set
+        );
+        setLogData(updatedLogData);
+      })
+      .catch((error) => {
+        console.error("Error updating set:", error);
+      });
+  };
+
+  //Delete Set 
+  const deleteSet = (setId) => {
+    axios
+      .delete(`/api/sets/${exerciseId}/${setId}`)
+      .then(() => {
+        const updatedLogData = logData.filter((set) => set.id !== setId);
+        setLogData(updatedLogData);
+      })
+      .catch((error) => {
+        console.error("Error deleting set:", error);
+      });
+  };
+  
+
   return (
     <div className="flex h-full w-full flex-col items-center">
       <div className="w-full p-4 text-center">
