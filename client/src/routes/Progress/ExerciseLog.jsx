@@ -7,12 +7,43 @@ import { Chip } from "@material-tailwind/react";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
+
+// Components
+import Modal from "../../components/Modal";
 
 export default function ExerciseLog() {
   const { exerciseId } = useParams();
   const [currentExercise, setCurrentExercise] = useState(null);
   const [logData, setLogData] = useState(null);
+
+  // Form for adding a set
+  const [newSetData, setNewSetData] = useState({
+    reps: 0,
+    weight: 0,
+    date: "",
+    exerciseId: exerciseId,
+  });
+
+  const handleInputChange = (e) => {
+    setNewSetData((newSetData) => {
+      return {
+        ...newSetData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  // Modal state and controls
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   // Editable state for each set
   const [editState, setEditState] = useState({});
@@ -63,11 +94,17 @@ export default function ExerciseLog() {
   }, []);
 
   // Create a Set
-  const handleCreateSet = (newSetData) => {
+  const handleCreateSet = () => {
     axios
       .post(`/api/sets/`, newSetData)
       .then((response) => {
         setLogData([...logData, response.data]);
+        setNewSetData({
+          reps: 0,
+          weight: 0,
+          date: "",
+          exerciseId: exerciseId,
+        });
       })
       .catch((error) => {
         console.error("Error creating set:", error);
@@ -116,8 +153,19 @@ export default function ExerciseLog() {
         </div>
       )}
 
+      {/* Add a set button */}
+      <div className="flex w-full items-center justify-center p-4">
+        <button
+          onClick={showModal}
+          className="flex items-center justify-center gap-x-2 rounded bg-accent px-2 py-1 text-white hover:bg-accent/90 sm:px-4 sm:py-3"
+        >
+          <FontAwesomeIcon icon={faPlus} />
+          <span className="text-lg font-semibold">Add a Set</span>
+        </button>
+      </div>
+
       {/* Sets for an exercise */}
-      <div className="flex w-full flex-col gap-x-4 px-6 py-4 sm:flex-row sm:px-24">
+      <div className="grid gap-4 px-6 py-4 sm:flex-row sm:px-24 md:grid-cols-2 lg:grid-cols-3">
         {logData ? (
           logData.map((set, index) => (
             <div key={index} className="rounded-lg bg-white p-4 shadow-lg">
@@ -126,9 +174,10 @@ export default function ExerciseLog() {
                 {/* Render editable fields or chips */}
                 {editState[set.id] ? (
                   <>
+                    {/* Edit reps */}
                     <input
                       type="number"
-                      className="rounded border px-2 py-1 focus:outline-none"
+                      className="max-w-[175px] rounded border px-2 py-1 focus:outline-none"
                       value={set.reps}
                       onChange={(e) =>
                         setLogData((prevData) => {
@@ -138,9 +187,11 @@ export default function ExerciseLog() {
                         })
                       }
                     />
+
+                    {/* Edit weight */}
                     <input
                       type="number"
-                      className="rounded border px-2 py-1 focus:outline-none"
+                      className="max-w-[175px] rounded border px-2 py-1 focus:outline-none"
                       value={set.weight}
                       onChange={(e) =>
                         setLogData((prevData) => {
@@ -150,9 +201,11 @@ export default function ExerciseLog() {
                         })
                       }
                     />
+
+                    {/* Edit date */}
                     <input
                       type="date"
-                      className="rounded border px-2 py-1 focus:outline-none"
+                      className="w-[175px] rounded border px-2 py-1 focus:outline-none"
                       value={set.date}
                       onChange={(e) =>
                         setLogData((prevData) => {
@@ -165,23 +218,24 @@ export default function ExerciseLog() {
                   </>
                 ) : (
                   <>
+                    {/* Set data */}
                     <Chip
                       variant="ghost"
-                      size="sm"
-                      color="cyan"
-                      value={set.reps}
+                      size="lg"
+                      color="orange"
+                      value={`Reps: ${set.reps}`}
                     />
                     <Chip
                       variant="ghost"
-                      size="sm"
-                      color="cyan"
-                      value={set.weight}
+                      size="lg"
+                      color="orange"
+                      value={`Weight: ${set.weight}`}
                     />
                     <Chip
                       variant="ghost"
-                      size="sm"
-                      color="cyan"
-                      value={set.date}
+                      size="lg"
+                      color="orange"
+                      value={`Date: ${set.date}`}
                     />
                   </>
                 )}
@@ -234,6 +288,52 @@ export default function ExerciseLog() {
           </div>
         )}
       </div>
+
+      {/* Create set form */}
+      <Modal isVisible={isModalVisible} hideModal={hideModal}>
+        <div className="flex flex-col items-center gap-y-4 px-12">
+          {/* Reps input */}
+          <input
+            type="number"
+            id="reps"
+            name="reps"
+            placeholder="Reps"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            onChange={handleInputChange}
+          />
+
+          {/* Weight input */}
+          <input
+            type="number"
+            id="weight"
+            name="weight"
+            placeholder="Weight"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            onChange={handleInputChange}
+          />
+
+          {/* Date input */}
+          <input
+            type="date"
+            id="date"
+            name="date"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            onChange={handleInputChange}
+          />
+
+          {/* Submit button */}
+          <button
+            onClick={() => {
+              handleCreateSet();
+              hideModal();
+            }}
+            className="flex min-w-[135px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
+          >
+            <FontAwesomeIcon icon={faPlus} size="sm" />
+            <span className="font-semibold">Add a Set</span>
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
