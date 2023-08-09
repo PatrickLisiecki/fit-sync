@@ -71,7 +71,7 @@ export default function Progress() {
         </div> */}
 
         {/* Display user's exercises */}
-        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3 px-6 py-4 sm:px-24">
           {exercises.length > 0 &&
             exercises.map((exercise) => (
               <Link

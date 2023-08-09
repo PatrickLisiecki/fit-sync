@@ -2,12 +2,15 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// Material Tailwind
-import { Chip } from "@material-tailwind/react";
-
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencil,
+  faPlus,
+  faBan,
+  faCheck,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import Modal from "../../components/Modal";
@@ -139,22 +142,20 @@ export default function ExerciseLog() {
       });
   };
 
+  const TABLE_HEAD = ["Reps", "Weight", "Date", "Edit", "Delete"];
+
   return (
     <div className="flex h-full w-full flex-col items-center">
       {/* Header */}
-      <div className="w-full p-4 text-center">
+      <div className="flex w-full flex-col items-center justify-center p-4">
         <span className="h2">Progress Tracker</span>
-      </div>
 
-      {/* Display the exercise name */}
-      {currentExercise && (
-        <div className="w-full p-4 text-center">
+        {/* Display the exercise name */}
+        {currentExercise && (
           <span className="h3">{currentExercise.name} Log</span>
-        </div>
-      )}
+        )}
 
-      {/* Add a set button */}
-      <div className="flex w-full items-center justify-center p-4">
+        {/* Add a set button */}
         <button
           onClick={showModal}
           className="flex items-center justify-center gap-x-2 rounded bg-accent px-2 py-1 text-white hover:bg-accent/90 sm:px-4 sm:py-3"
@@ -164,129 +165,150 @@ export default function ExerciseLog() {
         </button>
       </div>
 
-      {/* Sets for an exercise */}
-      <div className="grid gap-4 px-6 py-4 sm:flex-row sm:px-24 md:grid-cols-2 lg:grid-cols-3">
-        {logData ? (
-          logData.map((set, index) => (
-            <div key={index} className="rounded-lg bg-white p-4 shadow-lg">
-              {/* Exercise info */}
-              <div className="my-4 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
-                {/* Render editable fields or chips */}
-                {editState[set.id] ? (
-                  <>
-                    {/* Edit reps */}
-                    <input
-                      type="number"
-                      className="max-w-[175px] rounded border px-2 py-1 focus:outline-none"
-                      value={set.reps}
-                      onChange={(e) =>
-                        setLogData((prevData) => {
-                          const newData = [...prevData];
-                          newData[index].reps = e.target.value;
-                          return newData;
-                        })
-                      }
-                    />
-
-                    {/* Edit weight */}
-                    <input
-                      type="number"
-                      className="max-w-[175px] rounded border px-2 py-1 focus:outline-none"
-                      value={set.weight}
-                      onChange={(e) =>
-                        setLogData((prevData) => {
-                          const newData = [...prevData];
-                          newData[index].weight = e.target.value;
-                          return newData;
-                        })
-                      }
-                    />
-
-                    {/* Edit date */}
-                    <input
-                      type="date"
-                      className="w-[175px] rounded border px-2 py-1 focus:outline-none"
-                      value={set.date}
-                      onChange={(e) =>
-                        setLogData((prevData) => {
-                          const newData = [...prevData];
-                          newData[index].date = e.target.value;
-                          return newData;
-                        })
-                      }
-                    />
-                  </>
-                ) : (
-                  <>
-                    {/* Set data */}
-                    <Chip
-                      variant="ghost"
-                      size="lg"
-                      color="orange"
-                      value={`Reps: ${set.reps}`}
-                    />
-                    <Chip
-                      variant="ghost"
-                      size="lg"
-                      color="orange"
-                      value={`Weight: ${set.weight}`}
-                    />
-                    <Chip
-                      variant="ghost"
-                      size="lg"
-                      color="orange"
-                      value={`Date: ${set.date}`}
-                    />
-                  </>
-                )}
-              </div>
-
-              {/* Update and Delete buttons */}
-              <div className="flex flex-row gap-2">
-                {/* Toggle edit mode */}
-                <button
-                  className={`${
-                    editState[set.id]
-                      ? "bg-red-500 hover:bg-red-500/90"
-                      : "h-[40px] w-[40px] bg-orange-500 hover:bg-orange-500/90"
-                  } rounded px-3 py-1 text-white`}
-                  onClick={() => toggleEditState(set.id)}
+      <div className="grid w-full place-items-center px-6 py-4 sm:px-24">
+        <table className="w-full min-w-max table-auto rounded bg-gray-100 text-left shadow-md">
+          {/* Column names */}
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head, index) => (
+                <th
+                  key={index}
+                  className="border-b border-blue-gray-100 bg-gray-300 p-4"
                 >
-                  {editState[set.id] ? (
-                    "Cancel"
-                  ) : (
-                    <FontAwesomeIcon icon={faPencil} />
-                  )}
-                </button>
+                  <span className="leading-none text-primary opacity-70">
+                    {head}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-                {/* Save button */}
-                {editState[set.id] ? (
-                  // Save the edited set
-                  <button
-                    className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-500/90"
-                    onClick={() => saveSetData(set.id, set)}
-                  >
-                    Save
-                  </button>
-                ) : (
-                  <>
+          {/* Sets */}
+          <tbody>
+            {logData != null && logData.length > 0 ? (
+              logData.map((set, index) => {
+                const isLast = index === logData.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
+
+                return (
+                  <tr key={index}>
+                    {/* Reps column */}
+                    <td className={classes}>
+                      {/* Edit reps */}
+                      {editState[set.id] ? (
+                        <input
+                          type="number"
+                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                          value={set.reps}
+                          onChange={(e) =>
+                            setLogData((prevData) => {
+                              const newData = [...prevData];
+                              newData[index].reps = e.target.value;
+                              return newData;
+                            })
+                          }
+                        />
+                      ) : (
+                        <span className="text-secondary">{set.reps}</span>
+                      )}
+                    </td>
+
+                    {/* Weight column */}
+                    <td className={classes}>
+                      {/* Edit weight */}
+                      {editState[set.id] ? (
+                        <input
+                          type="number"
+                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                          value={set.weight}
+                          onChange={(e) =>
+                            setLogData((prevData) => {
+                              const newData = [...prevData];
+                              newData[index].weight = e.target.value;
+                              return newData;
+                            })
+                          }
+                        />
+                      ) : (
+                        <span className="text-secondary">{set.weight}</span>
+                      )}
+                    </td>
+
+                    {/* Date column */}
+                    <td className={classes}>
+                      {/* Edit date */}
+                      {editState[set.id] ? (
+                        <input
+                          type="date"
+                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                          value={set.date}
+                          onChange={(e) =>
+                            setLogData((prevData) => {
+                              const newData = [...prevData];
+                              newData[index].date = e.target.value;
+                              return newData;
+                            })
+                          }
+                        />
+                      ) : (
+                        <span className="text-secondary">{set.date}</span>
+                      )}
+                    </td>
+
+                    {/* Edit buttons */}
+                    <td className={classes}>
+                      {editState[set.id] ? (
+                        <div className="flex flex-row items-center justify-start gap-x-2">
+                          {/* Cancel edit button */}
+                          <button
+                            onClick={() => toggleEditState(set.id)}
+                            className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
+                          >
+                            <FontAwesomeIcon icon={faBan} />
+                          </button>
+
+                          {/* Confirm edit button */}
+                          <button
+                            onClick={() => saveSetData(set.id, set)}
+                            className="grid place-items-center rounded bg-green-500 p-3 text-white hover:bg-green-500/90"
+                          >
+                            <FontAwesomeIcon icon={faCheck} />
+                          </button>
+                        </div>
+                      ) : (
+                        // Begin editing button
+                        <button
+                          onClick={() => toggleEditState(set.id)}
+                          className="grid place-items-center rounded bg-orange-500 p-3 text-white hover:bg-orange-500/90"
+                        >
+                          <FontAwesomeIcon icon={faPencil} />
+                        </button>
+                      )}
+                    </td>
+
                     {/* Delete button */}
-                    <button
-                      onClick={() => handleDeleteSet(set.id)}
-                      className="h-[40px] w-[40px] rounded bg-red-500 px-3 py-1 text-white"
-                    >
-                      <FontAwesomeIcon icon={faXmark} />
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="flex w-full items-center justify-center p-4">
-            <span className="h3">No records found...</span>
-          </div>
-        )}
+                    <td className={classes}>
+                      <button
+                        onClick={() => handleDeleteSet(set.id)}
+                        className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td className="border-b border-blue-gray-50 p-4">
+                  <span className="text-secondary">No records found..</span>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* Create set form */}
