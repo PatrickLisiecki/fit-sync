@@ -1,9 +1,14 @@
 import { useContext, useState } from "react";
-import { Form, Navigate } from "react-router-dom";
+import { Form, Navigate, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
 // Icons
-import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faLock,
+  faUser,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Auth() {
@@ -40,205 +45,180 @@ export default function Auth() {
   };
 
   return (
-    <section className="flex min-h-screen w-full items-center justify-center bg-gray-200">
-      <div className="container mx-auto flex w-full flex-col items-center justify-center">
-        {/* Login Form */}
-        <div
-          className={`${
-            byLogin ? "block" : "hidden"
-          } min-w-[300px] rounded-lg bg-white p-10 shadow-bs md:min-w-[500px]`}
-        >
-          {/* Form Header */}
-          <div className="mb-4 w-full text-left">
-            <span className="h3 uppercase  text-accent">Login</span>
-          </div>
-
-          {/* Form */}
-          <Form
-            className="flex flex-col items-center justify-center gap-y-6"
-            method="post"
-            onSubmit={handleLogin}
+    <div className="min-h-screen w-full bg-[#333333]">
+      <div className="w-full px-6 sm:px-24">
+        {/* Header and close button */}
+        <div className="flex w-full items-center justify-between py-[20px]">
+          <Link to="/" className="h3 mb-0 uppercase text-white">
+            Flex <span className="text-accent">Fusion</span>
+          </Link>
+          <Link
+            to="/"
+            className="grid h-[50px] w-[50px] place-items-center rounded-full bg-none text-white transition-all duration-300 hover:bg-secondary hover:text-accent"
           >
-            {/* Username Field */}
-            <fieldset className="w-full">
-              {authError && <div className="text-red-500">{authError}</div>}
-              <label
-                htmlFor="username"
-                className="block text-sm font-semibold uppercase text-primary"
-              >
-                Username
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Username"
-                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
-                  required=""
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
-                  <FontAwesomeIcon icon={faUser} />
-                </span>
-              </div>
-            </fieldset>
-
-            {/* Password Field */}
-            <fieldset className="w-full">
-              <label
-                htmlFor="password"
-                className="block text-sm font-semibold uppercase text-primary"
-              >
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
-                  required=""
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
-                  <FontAwesomeIcon icon={faLock} />
-                </span>
-              </div>
-            </fieldset>
-
-            {/* Login Button */}
-            <fieldset className="w-full">
-              <button
-                type="submit"
-                className="w-full rounded-md bg-gray-700 px-4 py-3 text-sm font-bold uppercase text-white hover:bg-gray-600"
-              >
-                Sign in
-              </button>
-            </fieldset>
-
-            {/* Create Account Button */}
-            <div className="text-sm font-semibold text-primary">
-              Don’t have an account?{" "}
-              <span
-                className="cursor-pointer text-sm text-blue-500 hover:underline"
-                onClick={() => setByLogin(!byLogin)}
-              >
-                Sign up
-              </span>
-            </div>
-          </Form>
+            <FontAwesomeIcon icon={faXmark} size="lg" />
+          </Link>
         </div>
 
-        {/* Signup Form */}
-        <div
-          className={`${
-            byLogin ? "hidden" : "block"
-          } min-w-[300px] rounded-lg bg-white p-10 shadow-bs md:min-w-[500px]`}
-        >
-          {/* Form Header */}
-          <div className="mb-4 w-full text-left">
-            <span className="h3 uppercase  text-accent">Sign Up</span>
-          </div>
-
-          {/* Form */}
-          <Form
-            className="flex flex-col items-center justify-center gap-y-6"
-            method="post"
-            onSubmit={handleSignup}
+        {/* Nav links */}
+        <div className="flex w-full items-center justify-center gap-x-5">
+          <button
+            onClick={() => {
+              setByLogin(true);
+            }}
           >
-            {/* Username Field */}
-            <fieldset className="w-full">
-              {authError && <div className="text-red-500">{authError}</div>}
-              <label
-                htmlFor="username"
-                className="block text-sm font-semibold uppercase text-primary"
-              >
-                Username
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Username"
-                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
-                  required=""
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
-                  <FontAwesomeIcon icon={faUser} />
+            <span
+              className={`${
+                byLogin
+                  ? "border-b-2 border-accent text-accent"
+                  : "text-white hover:text-accent"
+              } pb-[0.2rem] text-sm font-[700] uppercase tracking-wider`}
+            >
+              Sign In
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              setByLogin(false);
+            }}
+          >
+            <span
+              className={`${
+                byLogin
+                  ? "text-white hover:text-accent"
+                  : "border-b-2 border-accent text-accent"
+              } pb-[0.2rem] text-sm font-[700] uppercase tracking-wider`}
+            >
+              Sign Up
+            </span>
+          </button>
+        </div>
+
+        <div className="flex w-full flex-col items-center justify-center py-[50px]">
+          {/* Sign in and sign up form */}
+          <div className="w-full max-w-[560px]">
+            <div className="mx-auto w-full max-w-[340px]">
+              {/* Form header */}
+              <div className="mb-[30px] w-full text-center">
+                <span className="h3 text-white">
+                  {byLogin ? "Sign in to your account" : "Create a new account"}
                 </span>
               </div>
-            </fieldset>
 
-            {/* Email Field */}
-            <fieldset className="w-full">
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold uppercase text-primary"
+              {/* Form */}
+              <Form
+                method="post"
+                onSubmit={byLogin ? handleLogin : handleSignup}
+                className="flex flex-col items-center justify-center"
               >
-                Email
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  placeholder="email@domain.com"
-                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
-                  required=""
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
-                  <FontAwesomeIcon icon={faEnvelope} />
-                </span>
-              </div>
-            </fieldset>
+                {/* Error message */}
+                {authError && (
+                  <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
+                    {authError}
+                  </div>
+                )}
 
-            {/* Password Field */}
-            <fieldset className="w-full">
-              <label
-                htmlFor="password"
-                className="block text-sm font-semibold uppercase text-primary"
-              >
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  className="block w-full rounded-md border border-gray-200 bg-white py-3 pl-10 pr-3 text-sm text-primary focus:outline-none"
-                  required=""
-                />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-primary">
-                  <FontAwesomeIcon icon={faLock} />
-                </span>
-              </div>
-            </fieldset>
+                {/* Username Field */}
+                <fieldset className="mb-4 w-full">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="username"
+                      id="username"
+                      placeholder="Username"
+                      className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
+                      required=""
+                    />
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
+                      <FontAwesomeIcon icon={faUser} />
+                    </span>
+                  </div>
+                </fieldset>
 
-            {/* Login Button */}
-            <fieldset className="w-full">
-              <button
-                type="submit"
-                className="w-full rounded-md bg-gray-700 px-4 py-3 text-sm font-bold uppercase text-white hover:bg-gray-600"
-              >
-                Sign up
-              </button>
-            </fieldset>
+                {/* Email Field */}
+                {!byLogin ? (
+                  <fieldset className="mb-4 w-full">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="Email"
+                        className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
+                        required=""
+                      />
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
+                        <FontAwesomeIcon icon={faEnvelope} />
+                      </span>
+                    </div>
+                  </fieldset>
+                ) : (
+                  <></>
+                )}
 
-            {/* Create Account Button */}
-            <div className="text-sm font-semibold text-primary">
-              Already have an account?{" "}
-              <span
-                className="cursor-pointer text-blue-500 hover:underline"
-                onClick={() => setByLogin(!byLogin)}
-              >
-                Log in
-              </span>
+                {/* Password Field */}
+                <fieldset className={`${byLogin ? "mb-0" : "mb-4"} w-full`}>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
+                      required=""
+                    />
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
+                      <FontAwesomeIcon icon={faLock} />
+                    </span>
+                  </div>
+                </fieldset>
+
+                {byLogin ? (
+                  <div className="mb-[40px] w-full p-0 text-left">
+                    <span className="cursor-pointer text-[10px] uppercase tracking-[1.6px] text-white transition-all duration-300 hover:text-accent">
+                      Forgot your password?
+                    </span>
+                  </div>
+                ) : (
+                  <></>
+                )}
+
+                {/* Confirm Password Field */}
+                {!byLogin ? (
+                  <fieldset className="mb-[40px] w-full">
+                    <div className="relative">
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Confirm password"
+                        className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
+                        required=""
+                      />
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
+                        <FontAwesomeIcon icon={faLock} />
+                      </span>
+                    </div>
+                  </fieldset>
+                ) : (
+                  <></>
+                )}
+
+                {/* Submit button */}
+                <fieldset className="w-full">
+                  <button
+                    type="submit"
+                    className="flex h-[65px] w-full items-center justify-center rounded bg-accent text-[12px] font-[700] uppercase text-white transition-all duration-300 hover:bg-[#ffae1a]"
+                  >
+                    {byLogin ? "Sign in" : "Create account"}
+                  </button>
+                </fieldset>
+              </Form>
             </div>
-          </Form>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

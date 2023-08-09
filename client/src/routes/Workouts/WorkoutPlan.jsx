@@ -160,156 +160,163 @@ export default function WorkoutPlan() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col items-center">
-      {/* Render the "Workout" heading only if no workout is selected */}
-      {!selectedWorkout && (
-        <div className="w-full p-4 text-center">
-          <span className="h2 font-bold">Your Workouts</span>
-        </div>
-      )}
+    <>
+      <div className="flex h-full w-full flex-col items-center">
+        {/* Render the "Workout" heading only if no workout is selected */}
+        {!selectedWorkout && (
+          <div className="w-full p-4 text-center">
+            <span className="h2 font-bold">Your Workouts</span>
+          </div>
+        )}
 
-      {selectedWorkout ? (
-        // Display only the selected workout
-        <div className="flex h-full w-full flex-col items-center px-6 py-4 sm:px-24">
-          {/* Workout header */}
-          <div className="mt-6 flex w-full flex-row items-center justify-between rounded bg-white p-4 shadow-md sm:w-[75%]">
-            {/* Go back button */}
-            <button
-              onClick={() => {
-                setSelectedWorkout(null);
-                setIsEdit(false);
-              }}
-              className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300"
-            >
-              <FontAwesomeIcon icon={faArrowLeftLong} />
-              <span className="text-md hidden font-light sm:inline-block">
-                Workouts
-              </span>
-            </button>
+        {selectedWorkout ? (
+          // Display only the selected workout
+          <div className="flex h-full w-full flex-col items-center px-6 py-4 sm:px-24">
+            {/* Workout header */}
+            <div className="mt-6 flex w-full flex-row items-center justify-between rounded bg-white p-4 shadow-md sm:w-[75%]">
+              {/* Go back button */}
+              <button
+                onClick={() => {
+                  setSelectedWorkout(null);
+                  setIsEdit(false);
+                }}
+                className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300"
+              >
+                <FontAwesomeIcon icon={faArrowLeftLong} />
+                <span className="text-md hidden font-light sm:inline-block">
+                  Workouts
+                </span>
+              </button>
 
-            {/* Edit workout name */}
-            {isEdit ? (
-              <div className="flex flex-col sm:flex-row">
-                <input
-                  type="text"
-                  id="updatedName"
-                  value={updatedName}
-                  placeholder={selectedWorkout.name}
-                  onChange={handleNameUpdate}
-                  className="border-r-1 mb-0 min-w-[100px] max-w-[150px] border border-secondary px-2 py-1 focus:outline-none sm:border-r-0"
-                />
+              {/* Edit workout name */}
+              {isEdit ? (
+                <div className="flex flex-col gap-y-2 sm:flex-row">
+                  <input
+                    type="text"
+                    id="updatedName"
+                    value={updatedName}
+                    placeholder={selectedWorkout.name}
+                    onChange={handleNameUpdate}
+                    className="border-r-1 mb-0 max-w-[150px] rounded-none  border border-secondary px-2 py-1 focus:border-accent focus:outline-none sm:rounded-l sm:border-r-0"
+                  />
+
+                  {/* Confirm edit */}
+                  <button
+                    onClick={() => {
+                      handleUpdateWorkout(selectedWorkout);
+                      setIsEdit(false);
+                    }}
+                    className="rounded-none border border-accent bg-accent px-2 py-1 text-sm text-white hover:bg-accent/90 sm:rounded-r"
+                  >
+                    Update
+                  </button>
+                </div>
+              ) : (
+                <span className="mb-0 text-[18px] sm:text-[24px]">
+                  {selectedWorkout.name}
+                </span>
+              )}
+
+              {/* Edit and delete options */}
+              <div className="flex items-center justify-center gap-x-2">
+                <button
+                  onClick={() => setIsEdit(!isEdit)}
+                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-accent hover:text-white"
+                >
+                  <FontAwesomeIcon icon={faPencil} />
+                </button>
+
                 <button
                   onClick={() => {
-                    handleUpdateWorkout(selectedWorkout);
-                    setIsEdit(false);
+                    setIsEdit(!isEdit);
+                    handleDeleteWorkout(selectedWorkout);
                   }}
-                  className="border border-secondary bg-blue-500 px-2 py-1 text-white hover:bg-blue-500/90"
+                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
                 >
-                  Update
+                  <FontAwesomeIcon icon={faXmark} />
                 </button>
               </div>
-            ) : (
-              <span className="mb-0 text-[18px] sm:text-[24px]">
-                {selectedWorkout.name}
-              </span>
-            )}
+            </div>
 
-            {/* Edit and delete options */}
-            <div className="flex items-center justify-center gap-x-2">
-              <button
-                onClick={() => setIsEdit(!isEdit)}
-                className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-orange-300 hover:text-white"
+            {/* Week navigation */}
+            <ButtonGroup
+              variant="text"
+              size="lg"
+              ripple={false}
+              className="my-6 divide-secondary"
+            >
+              {/* Previous week button */}
+              <Button
+                onClick={handlePrevWeek}
+                className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
               >
-                <FontAwesomeIcon icon={faPencil} />
-              </button>
+                <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+                Prev
+              </Button>
 
-              <button
-                onClick={() => handleDeleteWorkout(selectedWorkout)}
-                className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
+              {/* Display current week */}
+              <Button
+                onClick={handleThisWeek}
+                className="bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
+              >{`Week ${selectedWeek}`}</Button>
+
+              {/* Next week button */}
+              <Button
+                onClick={handleNextWeek}
+                className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
               >
-                <FontAwesomeIcon icon={faXmark} />
-              </button>
+                Next
+                <FontAwesomeIcon icon={faChevronRight} size="sm" />
+              </Button>
+            </ButtonGroup>
+
+            {/* List of days */}
+            <div className="flex w-full flex-col items-center justify-center gap-y-[10px]">
+              {daysOfWeek.map((day, index) => (
+                <div
+                  key={index}
+                  className="h-[75px] w-[50%] min-w-[250px] cursor-pointer rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+                >
+                  <Link
+                    to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
+                    className="flex h-full w-full flex-row items-center justify-start"
+                  >
+                    <div
+                      className="mx-4 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-primary"
+                      onClick={() => handleDayClick(day)}
+                    >
+                      <span className="text-lg font-bold capitalize">
+                        {day.slice(0, 3)}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* Week navigation */}
-          <ButtonGroup
-            variant="text"
-            size="lg"
-            ripple={false}
-            className="my-6 divide-secondary"
-          >
-            {/* Previous week button */}
-            <Button
-              onClick={handlePrevWeek}
-              className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
+        ) : (
+          // Display the list of workouts when no workout is selected
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <button
+              onClick={showModal}
+              className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md transition-all duration-300 hover:bg-accent/90 hover:shadow-xl "
             >
-              <FontAwesomeIcon icon={faChevronLeft} size="sm" />
-              Prev
-            </Button>
-
-            {/* Display current week */}
-            <Button
-              onClick={handleThisWeek}
-              className="bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
-            >{`Week ${selectedWeek}`}</Button>
-
-            {/* Next week button */}
-            <Button
-              onClick={handleNextWeek}
-              className="flex items-center justify-center gap-x-2 bg-gray-300 text-primary hover:bg-gray-400 active:bg-accent/60"
-            >
-              Next
-              <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            </Button>
-          </ButtonGroup>
-
-          {/* List of days */}
-          <div className="flex w-full flex-col items-center justify-center gap-y-[10px]">
-            {daysOfWeek.map((day, index) => (
-              <div
-                key={index}
-                className="h-[75px] w-[50%] min-w-[250px] cursor-pointer rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
-              >
-                <Link
-                  to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
-                  className="flex h-full w-full flex-row items-center justify-start"
+              <FontAwesomeIcon icon={faPlus} size="sm" />
+              <span className="font-semibold">Add Workout</span>
+            </button>
+            {workouts.length > 0 &&
+              workouts.map((workout) => (
+                <div
+                  key={workout.id}
+                  className="grid h-[200px] cursor-pointer place-items-center rounded bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+                  onClick={() => handleWorkoutClick(workout)}
                 >
-                  <div
-                    className="mx-4 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-primary"
-                    onClick={() => handleDayClick(day)}
-                  >
-                    <span className="text-lg font-bold capitalize">
-                      {day.slice(0, 3)}
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  <span className="text-xl font-bold">{workout.name}</span>
+                </div>
+              ))}
           </div>
-        </div>
-      ) : (
-        // Display the list of workouts when no workout is selected
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <button
-            onClick={showModal}
-            className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md hover:bg-accent/90 hover:shadow-xl"
-          >
-            <FontAwesomeIcon icon={faPlus} size="sm" />
-            <span className="font-semibold">Add a Workout</span>
-          </button>
-          {workouts.length > 0 &&
-            workouts.map((workout) => (
-              <div
-                key={workout.id}
-                className="grid h-[200px] cursor-pointer place-items-center rounded bg-white shadow-md transition-all duration-300 hover:shadow-xl"
-                onClick={() => handleWorkoutClick(workout)}
-              >
-                <span className="text-xl font-bold">{workout.name}</span>
-              </div>
-            ))}
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Create new workout form */}
       <Modal isVisible={isModalVisible} hideModal={hideModal}>
@@ -338,6 +345,6 @@ export default function WorkoutPlan() {
           </button>
         </div>
       </Modal>
-    </div>
+    </>
   );
 }
