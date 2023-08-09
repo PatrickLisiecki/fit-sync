@@ -107,7 +107,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
         })}
 
         {/* Logout */}
-        <li className="flex min-h-[60px] w-full cursor-pointer items-center p-4 text-white hover:border-l-[5px] hover:border-l-accent hover:bg-secondary">
+        <div className="flex min-h-[60px] w-full cursor-pointer items-center bg-none p-4 text-white hover:border-l-[5px] hover:border-l-accent hover:bg-secondary">
           {currentUser && (
             <Form
               method="post"
@@ -123,7 +123,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
               </button>
             </Form>
           )}
-        </li>
+        </div>
       </div>
 
       {/* Toggle sidebar */}
