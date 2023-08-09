@@ -152,7 +152,7 @@ export default function ExerciseLog() {
 
         {/* Display the exercise name */}
         {currentExercise && (
-          <span className="h3">{currentExercise.name} Log</span>
+          <span className="h3 text-center">{currentExercise.name} Log</span>
         )}
 
         {/* Add a set button */}
@@ -161,11 +161,11 @@ export default function ExerciseLog() {
           className="flex items-center justify-center gap-x-2 rounded bg-accent px-2 py-1 text-white hover:bg-accent/90 sm:px-4 sm:py-3"
         >
           <FontAwesomeIcon icon={faPlus} />
-          <span className="text-lg font-semibold">Add a Set</span>
+          <span className="text-lg font-semibold">Add Set</span>
         </button>
       </div>
 
-      <div className="grid w-full place-items-center px-6 py-4 sm:px-24">
+      <div className="grid w-full place-items-center overflow-x-scroll px-6 py-4 sm:px-24">
         <table className="w-full min-w-max table-auto rounded bg-gray-100 text-left shadow-md">
           {/* Column names */}
           <thead>
@@ -352,7 +352,7 @@ export default function ExerciseLog() {
             className="flex min-w-[135px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
-            <span className="font-semibold">Add a Set</span>
+            <span className="font-semibold">Add Set</span>
           </button>
         </div>
       </Modal>

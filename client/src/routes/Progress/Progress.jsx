@@ -71,7 +71,7 @@ export default function Progress() {
         </div> */}
 
         {/* Display user's exercises */}
-        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3 px-6 py-4 sm:px-24">
+        <div className="mt-4 grid gap-4 px-6 py-4 sm:px-24 md:grid-cols-2 lg:grid-cols-3">
           {exercises.length > 0 &&
             exercises.map((exercise) => (
               <Link
@@ -94,19 +94,19 @@ export default function Progress() {
                   <Chip
                     variant="ghost"
                     size="sm"
-                    color="cyan"
+                    color="orange"
                     value={exercise.type}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
-                    color="cyan"
+                    color="orange"
                     value={exercise.muscle}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
-                    color="cyan"
+                    color="orange"
                     value={exercise.equipment}
                   />
                 </div>
@@ -115,7 +115,7 @@ export default function Progress() {
                 <Button
                   ripple={false}
                   variant="filled"
-                  color="cyan"
+                  color="orange"
                   className="flex items-center justify-center gap-x-2"
                 >
                   <span className="text-white">Log</span>
