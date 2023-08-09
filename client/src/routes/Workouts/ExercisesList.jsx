@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";

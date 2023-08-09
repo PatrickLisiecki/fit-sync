@@ -24,20 +24,6 @@ router.get("/", authenticateUser, async (req, res, next) => {
   }
 });
 
-// // Get a specific set by ID
-// router.get("/:id", authenticateUser, async (req, res, next) => {
-//   try {
-//     const setId = req.params.id;
-//     const set = await Sets.findByPk(setId);
-//     if (!set) {
-//       return res.status(404).json({ message: "Set not found" });
-//     }
-//     res.json(set);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 // Get all sets from an exercise
 router.get("/:exerciseId", authenticateUser, async (req, res, next) => {
   try {

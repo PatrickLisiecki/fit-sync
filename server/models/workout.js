@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Workout extends Model {
     static associate(models) {
       this.belongsTo(models.User, {
-        foreignKey: "userId", // Specify the correct foreign key for the user association
+        foreignKey: "userId",
       });
       this.hasMany(models.Exercise, {
-        foreignKey: "workoutId", // Specify the correct foreign key for the exercise association
+        foreignKey: "workoutId",
       });
     }
   }

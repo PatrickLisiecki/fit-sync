@@ -23,18 +23,18 @@ router.post("/signup", async (req, res) => {
 
   try {
     const user = await User.create({
-      username: req.body.username, // Update here to use 'username'
+      username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
     });
 
     req.session.userId = user.id;
-    // Send a response to the client informing them that the user was successfully created
+
     res.status(201).json({
       message: "User created!",
       user: {
         id: user.id,
-        username: user.username, // Update here to use 'username'
+        username: user.username,
         email: user.email,
       },
     });
@@ -64,7 +64,7 @@ router.delete("/logout", (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     console.log("body", req.body);
-    // First, find the user by their username
+
     const user = await User.findOne({ where: { username: req.body.username } });
 
     if (user === null) {

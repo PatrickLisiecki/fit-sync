@@ -30,7 +30,6 @@ app.use(cors(corsOptions));
 app.use((req, res, next) => {
   console.log(`Request: ${req.method} ${req.originalUrl}`);
   res.on("finish", () => {
-    // the 'finish' event will be emitted when the response is handed over to the OS
     console.log(`Response Status: ${res.statusCode}`);
   });
   next();

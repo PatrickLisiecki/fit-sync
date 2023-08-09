@@ -1,5 +1,3 @@
-// authMiddleware.js
-
 const { User } = require("../models");
 
 const authenticateUser = async (req, res, next) => {

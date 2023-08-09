@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
+
 import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
-// AuthProvider.js
+
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
@@ -44,10 +44,10 @@ const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const { user } = await response.json();
-        console.log("User after successful login:", user); // Add this line to check the user object
+        console.log("User after successful login:", user); 
         setCurrentUser((prevUser) => ({
           ...prevUser,
-          ...user, // Spread the properties of the user object received from the response
+          ...user, 
         }));
         setAuthError(null);
       } else {

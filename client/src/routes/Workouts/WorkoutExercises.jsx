@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserExercisesList from "./UserExercisesList";
-import ExercisesList from "./ExercisesList"; // You should import the actual WorkoutList component file here
+import ExercisesList from "./ExercisesList"; 
 
 const UserExercises = () => {
   const [updated, setUpdated] = useState(false);

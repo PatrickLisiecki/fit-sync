@@ -1,27 +1,27 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCircle,
+  faDrumstickBite,
   faFire,
   faUtensils,
-  faDrumstickBite,
-  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Charts
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
 const NutritionPage = () => {
@@ -172,7 +172,7 @@ const NutritionPage = () => {
                     <span className="mr-2 text-lg font-semibold">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
-                  {/* Add more nutrition facts as needed */}
+                  
                 </ul>
               </div>
             ))}
@@ -180,7 +180,7 @@ const NutritionPage = () => {
 
           {/* Nutrition Visualization */}
           <div className="my-4 rounded border bg-white p-6 shadow-md">
-            {/* Header */}
+            
             <div className="w-full pb-4 text-center">
               <span className="h3">Nutrition Visualization</span>
             </div>

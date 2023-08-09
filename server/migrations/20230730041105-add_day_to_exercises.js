@@ -4,8 +4,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn("exercises", "day", {
-      type: Sequelize.STRING, // Change the data type if necessary
-      allowNull: true, // Set this to false if the day cannot be null
+      type: Sequelize.STRING,
+      allowNull: true,
     });
   },
 

@@ -10,7 +10,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       userId: {
-        // Add the workoutId column
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -21,7 +20,6 @@ module.exports = {
         onDelete: "CASCADE",
       },
       workoutId: {
-        // Add the workoutId column
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

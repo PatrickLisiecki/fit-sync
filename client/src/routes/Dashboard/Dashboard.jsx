@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -32,7 +32,7 @@ export default function Dashboard() {
           isExpanded={isExpanded}
         />
 
-        {/* Dynamic content based on path */}
+        
         <div
           className={`${
             isExpanded ? "pl-0 lg:pl-[250px]" : "pl-0"

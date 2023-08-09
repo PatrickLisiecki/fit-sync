@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import axios from "axios";
 
 import { useContext, useEffect, useState } from "react";
@@ -13,12 +13,12 @@ import Modal from "../../components/Modal";
 import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
   faArrowRightLong,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserExercisesList({ updated }) {
   // Access the exercises array and setExercises function from the ExerciseContext
@@ -40,7 +40,7 @@ export default function UserExercisesList({ updated }) {
   };
 
   useEffect(() => {
-    // Check if user is logged in and get the userId from the currentUser object
+    
     if (currentUser && workoutId) {
       // Check if workoutId exists before making the request
       const userId = currentUser.id;
@@ -67,7 +67,7 @@ export default function UserExercisesList({ updated }) {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
-        withCredentials: true, // Add this line
+        withCredentials: true, 
       })
       .then((response) => {
         console.log("Exercise deleted:", response.data);

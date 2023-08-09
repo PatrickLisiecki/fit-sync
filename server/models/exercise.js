@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
   class Exercise extends Model {
     static associate(models) {
       this.belongsTo(models.User, {
-        foreignKey: "userId", // Specify the correct foreign key for the user association
+        foreignKey: "userId",
       });
       this.belongsTo(models.Workout, {
-        foreignKey: "workoutId", // Specify the correct foreign key for the workout association
+        foreignKey: "workoutId",
       });
       this.hasMany(models.Sets, {
         foreignKey: "exerciseId",
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Exercise.init(
     {
-      workoutId: DataTypes.INTEGER, // Add the workoutId field
+      workoutId: DataTypes.INTEGER,
       type: DataTypes.STRING,
       name: DataTypes.STRING,
       muscle: DataTypes.STRING,

@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       this.hasMany(models.Workout, {
-        foreignKey: "userId", // Specify the correct foreign key for the workout association
+        foreignKey: "userId",
       });
 
       this.hasMany(models.Exercise, {
-        foreignKey: "userId", // Specify the correct foreign key for the exercise association
+        foreignKey: "userId",
       });
     }
   }
