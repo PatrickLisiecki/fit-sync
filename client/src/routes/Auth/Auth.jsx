@@ -2,9 +2,6 @@ import { useContext, useState } from "react";
 import { Form, Navigate, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
-// Material Tailwind
-import { Input } from "@material-tailwind/react";
-
 // Icons
 import {
   faEnvelope,
