@@ -71,9 +71,9 @@ export default function Progress() {
         </div> */}
 
         {/* Display user's exercises */}
-        <div className="mt-4 grid gap-4 px-6 py-4 sm:px-24 md:grid-cols-2 lg:grid-cols-3">
-          {exercises.length > 0 ? (
-            exercises.map((exercise) => (
+        {exercises.length > 0 ? (
+          <div className="mt-4 grid gap-4 px-6 py-4 sm:px-24 md:grid-cols-2 lg:grid-cols-3">
+            {exercises.map((exercise) => (
               <Link
                 to={`/dashboard/progress/${exercise.id}`}
                 key={exercise.id}
@@ -122,16 +122,24 @@ export default function Progress() {
                   <FontAwesomeIcon icon={faArrowRightLong} />
                 </Button>
               </Link>
-            ))
-          ) : (
-            <div className="grid h-full w-full place-items-center">
-              <div className="flex flex-col gap-y-2">
-                <span className="h3">No exercises found...</span>
-                <span className="text-xl text-white"></span>
-              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="flex flex-col">
+              <span className="h3 mb-0">No exercises found...</span>
+              <span className="text-center text-xl">
+                Add an exercise{" "}
+                <Link
+                  to="/dashboard/workouts"
+                  className="text-blue-500 transition-all duration-300 hover:underline"
+                >
+                  here
+                </Link>
+              </span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Add an exercise form */}
