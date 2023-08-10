@@ -10,41 +10,56 @@ import {
 export default function LandingPage() {
   return (
     <>
-      <section className="relative h-screen bg-gray-800 bg-image bg-cover bg-blend-overlay">
-        <div>
-          <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center ">
-            <h3 className="text-5xl font-semibold text-accent">
-              Welcome to Flex Fusion
-            </h3>
-            <p className="mt-6 text-xl text-white">
-              {" "}
-              Here at Flex Fusion, we offer a wide variety of different workouts
-              for every type of user. Whether you&apos;re just starting out and
-              looking for some guidance or if you&apos;re an advanced user and
-              you&apos;re looking for a challenge, you&apos;ve come to the right
-              place!
-            </p>
-            <button className="mt-8 scale-125 rounded-full bg-accent px-4 py-2 text-2xl font-bold text-white hover:bg-orange-700">
-              Workout Now!
-            </button>
-          </div>
+      {/* Hero Section */}
+      <section className="relative h-screen bg-primary sm:grid sm:place-items-center">
+        {/* Background Image for Hero Section */}
+        <img
+          src="https://images.unsplash.com/photo-1581009137042-c552e485697a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          alt="Background Image"
+          className="absolute left-0 top-0 h-full w-full object-cover brightness-50"
+        />
+
+        {/* Welcome */}
+        <div className="flex min-w-[300px] max-w-[800px] flex-col items-center justify-center pt-24 brightness-100 sm:pt-0">
+          <span className="h2 mb-0 text-center font-semibold uppercase tracking-wide text-accent">
+            Welcome to Flex Fusion
+          </span>
+          <p className="mb-8 mt-3 max-w-[300px] text-center text-xl text-white sm:max-w-[600px]">
+            Here at Flex Fusion, we offer a wide variety of different workouts
+            for every type of user. Whether you&apos;re just starting out and
+            looking for some guidance or if you&apos;re an advanced user and
+            you&apos;re looking for a challenge, you&apos;ve come to the right
+            place!
+          </p>
+          <button className="min-w-[300px] rounded bg-accent px-6 py-5 text-white hover:bg-accent/90">
+            <span className="h3 mb-0 uppercase tracking-wide">Workout Now</span>
+          </button>
         </div>
       </section>
-      <section className=" inline-block w-full bg-white shadow-md">
+
+      {/* Features Section */}
+      <section className="w-full bg-primary text-white shadow-md">
         <div className="container mx-auto px-4 py-8">
-          <h3 className="pt-8 text-center text-4xl font-semibold ">Features</h3>
-          <p className="text-center  font-light">
-            Everything you need to achieve your fitness goals, all in one place.
-          </p>
+          {/* Features header */}
+          <div className="flex flex-col items-center justify-center">
+            <span className="h2 mb-0 font-semibold">Features</span>
+            <p className="text-center font-light text-white">
+              Everything you need to achieve your fitness goals, all in one
+              place.
+            </p>
+          </div>
+
+          {/* Features */}
           <div className="my-8 grid grid-cols-1 place-items-center lg:grid-cols-2">
-            <div className="mt-8 flex flex-col items-center  ">
-              <div className=" h-24 w-24 rounded-full bg-accent text-center ">
-                <FontAwesomeIcon icon={faRobot} className="my-5 text-5xl" />
+            {/* AI Feature */}
+            <div className="mt-8 flex flex-col items-center">
+              <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
+                <FontAwesomeIcon icon={faRobot} className="text-5xl" />
               </div>
-              <h3 className="mt-2 text-center text-2xl font-semibold ">
+              <span className="h3 mb-0 mt-2 text-center font-semibold">
                 AI Generated Workouts
-              </h3>
-              <p className="mx-6 my-4 text-center text-sm text-secondary">
+              </span>
+              <p className="mx-6 my-4 text-center text-sm text-white">
                 Our app utilizes state-of-the-art AI technology to craft
                 workouts based on your exact needs, goals, and preferences.
                 Whether you&apos;re looking to build muscle, improve
@@ -54,14 +69,16 @@ export default function LandingPage() {
                 has never been easier.
               </p>
             </div>
+
+            {/* Exercise API */}
             <div className="mt-8 flex flex-col items-center">
-              <div className="h-24 w-24 rounded-full bg-accent text-center ">
-                <FontAwesomeIcon icon={faDumbbell} className="my-6 text-5xl" />
+              <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
+                <FontAwesomeIcon icon={faDumbbell} className="text-5xl" />
               </div>
-              <h3 className="mt-2 text-center text-2xl font-semibold">
+              <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Massive Workout Library
-              </h3>
-              <p className="mx-6  my-4 text-center text-sm text-secondary ">
+              </span>
+              <p className="mx-6 my-4 text-center text-sm text-white ">
                 Whether you&apos;re a seasoned fitness enthusiast or a beginner
                 just starting, our workout library has something for everyone.
                 Our app lets you filter workouts based on your specific
@@ -71,14 +88,16 @@ export default function LandingPage() {
                 create your personalized fitness plan.
               </p>
             </div>
+
+            {/* Nutrition Facts Feature */}
             <div className="mt-8 flex flex-col items-center lg:mb-8">
-              <div className=" h-24 w-24 rounded-full bg-accent text-center ">
-                <FontAwesomeIcon icon={faChartLine} className="my-6 text-5xl" />
+              <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
+                <FontAwesomeIcon icon={faChartLine} className="text-5xl" />
               </div>
-              <h3 className="mt-2 text-center text-2xl font-semibold">
+              <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Nutrition Analysis
-              </h3>
-              <p className="mx-6  my-4 text-center text-sm text-secondary ">
+              </span>
+              <p className="mx-6  my-4 text-center text-sm text-white ">
                 As you log your daily meals and nutrition, our intelligent
                 algorithm meticulously analyzes the nutritional content of your
                 diet. Our user-friendly dashboard presents you with detailed
@@ -87,17 +106,19 @@ export default function LandingPage() {
                 you to make informed dietary adjustments.
               </p>
             </div>
+
+            {/* Workout Plan Feature */}
             <div className="mb-8 mt-8 flex flex-col items-center">
-              <div className="h-24 w-24 rounded-full bg-accent text-center ">
+              <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
                 <FontAwesomeIcon
                   icon={faScrewdriverWrench}
-                  className="my-6 text-5xl"
+                  className="text-5xl"
                 />
               </div>
-              <h3 className="mt-2 text-center text-2xl font-semibold">
+              <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Create Workouts
-              </h3>
-              <p className="mx-6  my-4 text-center text-sm text-secondary">
+              </span>
+              <p className="mx-6  my-4 text-center text-sm text-white">
                 Creating your custom workout is as simple as it is empowering.
                 Mix and match strength training, cardio, yoga, and more to
                 design a routine that suits your unique needs. Adjust sets,
@@ -110,21 +131,28 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="relative h-screen bg-gray-800 bg-image2 bg-cover bg-blend-overlay">
-        <div>
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center ">
-            <button className="my-8 scale-125 rounded-full bg-accent px-4 py-2 text-2xl font-bold text-white hover:bg-orange-700">
-              Join our Community Now!
-            </button>
-            <p className="text-xl text-white">
-              {" "}
-              Unlock the Best Version of Yourself! Join our workout community
-              today and embark on a transformative journey towards a healthier,
-              stronger, and more confident you. Let&apos;s crush goals together
-              and make every step count! Your fitness success story starts here.
-              Join now and let&apos;s sweat, smile, and succeed together!
-            </p>
-          </div>
+
+      {/* Bottom Section */}
+      <section className="relative grid h-screen place-items-center bg-primary">
+        {/* Background Image for Bottom Section */}
+        <img
+          src="https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          alt="Background Image Two"
+          className="absolute left-0 top-0 h-full w-full object-cover brightness-50"
+        />
+
+        {/* Info */}
+        <div className="relative flex flex-col items-center justify-center gap-y-4">
+          <button className="min-w-[300px] rounded bg-accent px-6 py-5 text-base text-white hover:bg-accent/90 sm:text-lg">
+            Join our Community Now!
+          </button>
+          <p className="max-w-[300px] text-center text-base text-white sm:max-w-[500px] sm:text-lg md:max-w-[700px]">
+            Unlock the best version of yourself! Join our workout community
+            today and embark on a transformative journey towards a healthier,
+            stronger, and more confident you. Let&apos;s crush goals together
+            and make every step count! Your fitness success story starts here.
+            Join now and let&apos;s sweat, smile, and succeed together!
+          </p>
         </div>
       </section>
     </>
