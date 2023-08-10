@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -38,7 +37,6 @@ export default function WorkoutPlan() {
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(1);
-  const [selectedDay, setSelectedDay] = useState("");
   const [newWorkoutName, setNewWorkoutName] = useState("");
 
   // For editing a workout
@@ -74,10 +72,6 @@ export default function WorkoutPlan() {
 
   const handlePrevWeek = () => {
     setSelectedWeek((prevWeek) => (prevWeek === 1 ? 1 : prevWeek - 1));
-  };
-
-  const handleDayClick = (day) => {
-    setSelectedDay(day);
   };
 
   const handleThisWeek = () => {
@@ -165,7 +159,7 @@ export default function WorkoutPlan() {
         {/* Render the "Workout" heading only if no workout is selected */}
         {!selectedWorkout && (
           <div className="w-full p-4 text-center">
-            <span className="h2 font-bold">Your Workouts</span>
+            <span className="h2">Your Workouts</span>
           </div>
         )}
 
@@ -281,10 +275,7 @@ export default function WorkoutPlan() {
                     to={`/dashboard/workouts/${selectedWorkout.id}/week/${selectedWeek}/${day}`}
                     className="flex h-full w-full flex-row items-center justify-start"
                   >
-                    <div
-                      className="mx-4 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-primary"
-                      onClick={() => handleDayClick(day)}
-                    >
+                    <div className="mx-4 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-primary">
                       <span className="text-lg font-bold capitalize">
                         {day.slice(0, 3)}
                       </span>

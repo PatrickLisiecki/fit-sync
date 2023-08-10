@@ -95,9 +95,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ message: "An error occurred during the login process" });
+    res.status(500).json({ message: "An error occurred during the login process" });
   }
 });
 
