@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-
-import axios from "axios";
-
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
+
+// API functions
+import { getExercises, deleteExercise } from "../../api/exercises";
 
 // Components
 import Modal from "../../components/Modal";
@@ -14,12 +14,12 @@ import Modal from "../../components/Modal";
 import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
   faArrowRightLong,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserExercisesList({ updated }) {
   // Access the exercises array and setExercises function from the ExerciseContext
@@ -27,56 +27,46 @@ export default function UserExercisesList({ updated }) {
   const { currentUser } = useContext(AuthContext);
   const { workoutId, day, week } = useParams();
 
-  // Modal state and controls
+  // State variables
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
   const hideModal = () => {
     setIsModalVisible(false);
   };
 
-  const [selectedExercise, setSelectedExercise] = useState(null);
   const handleOpen = (exercise) => {
     setSelectedExercise(exercise);
     setIsModalVisible(!isModalVisible);
   };
 
+  // Get all the exercises
   useEffect(() => {
-    if (currentUser && workoutId) {
-      // Check if workoutId exists before making the request
-      const userId = currentUser.id;
+    async function fetchExercises() {
+      if (currentUser && workoutId) {
+        const userId = currentUser.id;
 
-      // Fetch exercises data from the server for the specified user, workout, and day
-      fetch(`/api/exercises/${userId}/${workoutId}/${week}/${day}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Update the exercises array in the ExerciseContext using the setExercises function
-          setExercises(data);
-        })
-        .catch((error) => console.log(error));
+        // Fetch exercises from the server for the specified user, workout, week, and day
+        const exercises = await getExercises(userId, workoutId, week, day);
+
+        // Update the exercises array in the ExerciseContext using the setExercises function
+        setExercises(exercises);
+      }
     }
+
+    fetchExercises();
   }, [currentUser, day, workoutId, week, updated, setExercises]);
 
-  // Deleting an exercise from the user's workout
-  const handleDeleteExercise = (exercise) => {
+  // Deleting an exercise
+  const handleDeleteExercise = async (exercise) => {
     const targetId = exercise.id;
-    const authToken = currentUser.token; // Assuming you have a 'token' property in the currentUser object
+    const authToken = currentUser.token;
 
-    // Make a DELETE request to the backend API with the authorization header and withCredentials option
-    axios
-      .delete(`/api/exercises/${targetId}`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log("Exercise deleted:", response.data);
-        // After deleting an exercise, update the exercises in the ExerciseContext
-        setExercises(exercises.filter((element) => element.id !== targetId));
-      })
-      .catch((error) => {
-        console.error("Error deleting exercise:", error);
-      });
+    // Make a DELETE request to the backend API with the authorization header
+    await deleteExercise(targetId, authToken);
+
+    // After deleting an exercise, update the exercises in the ExerciseContext
+    setExercises(exercises.filter((exercise) => exercise.id !== targetId));
   };
 
   return (
@@ -108,7 +98,7 @@ export default function UserExercisesList({ updated }) {
               className="rounded-lg bg-white p-4 shadow-lg"
             >
               {/* Exercise name and delete button */}
-              <div className="relative flex w-full flex-row items-center justify-between mb-4">
+              <div className="relative mb-4 flex w-full flex-row items-center justify-between">
                 <span className="pr-[50px] text-xl font-bold">
                   {exercise.name}
                 </span>
