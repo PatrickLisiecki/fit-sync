@@ -165,7 +165,7 @@ export default function ExerciseLog() {
         </button>
       </div>
 
-      <div className="grid w-full place-items-center overflow-x-scroll px-6 py-4 sm:px-24">
+      <div className="grid w-full place-items-center overflow-x-auto px-6 py-4 sm:px-24 ">
         <table className="w-full min-w-max table-auto rounded bg-gray-100 text-left shadow-md">
           {/* Column names */}
           <thead>

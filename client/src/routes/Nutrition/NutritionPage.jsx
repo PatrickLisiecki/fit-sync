@@ -71,7 +71,7 @@ const NutritionPage = () => {
     <div className="flex h-full w-full flex-col items-center">
       {/* Nutrition page header */}
       <div className="w-full p-4 text-center">
-        <span className="h2">Nutrition Facts</span>
+        <span className="h2">Nutrition Analysis</span>
       </div>
 
       {/* Search form */}

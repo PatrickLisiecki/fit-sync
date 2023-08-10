@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import axios from "axios";
 import { useContext, useState } from "react";
@@ -144,7 +145,7 @@ export default function ExercisesList({ onExerciseAdd }) {
               htmlFor="muscleSelect"
               className="mb-0 block text-lg font-light"
             >
-              Target Muscle:
+              Muscle:
             </label>
 
             {/* Menu */}
@@ -193,7 +194,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           {/* Submit */}
           <button
             type="submit"
-            className="min-w-[135px] cursor-pointer rounded-lg bg-accent py-2 text-lg text-white hover:bg-accent/90"
+            className="cursor-pointer rounded bg-accent px-3 py-2 text-white hover:bg-accent/90"
           >
             Search
           </button>
@@ -268,7 +269,7 @@ export default function ExercisesList({ onExerciseAdd }) {
                 onClick={() => handleOpen(exercise)}
                 ripple={false}
                 variant="gradient"
-                color="orange"
+                color="cyan"
                 className="flex items-center justify-center gap-x-2"
               >
                 <span className="text-white">View Info</span>

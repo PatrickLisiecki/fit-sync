@@ -132,7 +132,7 @@ export default function Progress() {
                 Add an exercise{" "}
                 <Link
                   to="/dashboard/workouts"
-                  className="text-blue-500 transition-all duration-300 hover:underline"
+                  className="text-blue-500 hover:underline"
                 >
                   here
                 </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import axios from "axios";
 
@@ -40,7 +41,6 @@ export default function UserExercisesList({ updated }) {
   };
 
   useEffect(() => {
-    
     if (currentUser && workoutId) {
       // Check if workoutId exists before making the request
       const userId = currentUser.id;
@@ -67,7 +67,7 @@ export default function UserExercisesList({ updated }) {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
-        withCredentials: true, 
+        withCredentials: true,
       })
       .then((response) => {
         console.log("Exercise deleted:", response.data);
@@ -108,11 +108,13 @@ export default function UserExercisesList({ updated }) {
               className="rounded-lg bg-white p-4 shadow-lg"
             >
               {/* Exercise name and delete button */}
-              <div className="flex w-full flex-row items-center justify-between">
-                <span className="text-xl font-bold">{exercise.name}</span>
+              <div className="relative flex w-full flex-row items-center justify-between mb-4">
+                <span className="pr-[50px] text-xl font-bold">
+                  {exercise.name}
+                </span>
                 <button
                   onClick={() => handleDeleteExercise(exercise)}
-                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
+                  className="absolute right-0 top-0 grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
@@ -123,19 +125,19 @@ export default function UserExercisesList({ updated }) {
                 <Chip
                   variant="ghost"
                   size="sm"
-                  color="cyan"
+                  color="orange"
                   value={exercise.type}
                 />
                 <Chip
                   variant="ghost"
                   size="sm"
-                  color="cyan"
+                  color="orange"
                   value={exercise.muscle}
                 />
                 <Chip
                   variant="ghost"
                   size="sm"
-                  color="cyan"
+                  color="orange"
                   value={exercise.equipment}
                 />
               </div>
@@ -145,7 +147,7 @@ export default function UserExercisesList({ updated }) {
                 onClick={() => handleOpen(exercise)}
                 ripple={false}
                 variant="filled"
-                color="cyan"
+                color="orange"
                 className="flex items-center justify-center gap-x-2"
               >
                 <span className="text-white">View Info</span>
