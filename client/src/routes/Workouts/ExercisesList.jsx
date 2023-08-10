@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
+
+// API functions
+import { createExercise } from "../../api/exercises";
 
 // Components
 import Modal from "../../components/Modal";
@@ -13,32 +15,96 @@ import Modal from "../../components/Modal";
 import { Button, Chip } from "@material-tailwind/react";
 
 // Icons
-import { faArrowRightLong, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightLong, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExercisesList({ onExerciseAdd }) {
   const { currentUser } = useContext(AuthContext);
   const { setExercises } = useContext(ExerciseContext);
-
   const { workoutId, week, day } = useParams();
 
-  const [workouts, setWorkouts] = useState([]);
+  const [externalExercises, setExternalExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [activeButton, setActiveButton] = useState(-1);
-
-  // Modal state and controls
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
   const hideModal = () => {
     setIsModalVisible(false);
   };
 
-  const [selectedExercise, setSelectedExercise] = useState(null);
   const handleOpen = (exercise) => {
     setSelectedExercise(exercise);
     setIsModalVisible(!isModalVisible);
+  };
+
+  const handleDifficultySelect = (difficulty, button) => {
+    setSelectedDifficulty(difficulty);
+    setActiveButton(button);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchWorkouts();
+  };
+
+  // Get exercises from external API
+  const fetchWorkouts = async () => {
+    setLoading(true);
+
+    await axios
+      .get("https://api.api-ninjas.com/v1/exercises", {
+        headers: {
+          "X-Api-Key": "8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t",
+        },
+        params: {
+          muscle: selectedMuscle,
+          difficulty: selectedDifficulty,
+        },
+      })
+      .then((response) => {
+        setExternalExercises(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching exercises from external API:", error);
+        setLoading(false);
+      });
+  };
+
+  const handleCreateExercise = async (exercise) => {
+    // Data required for exercise
+    const userId = currentUser.id;
+    const name = exercise.name;
+    const type = exercise.type;
+    const muscle = exercise.muscle;
+    const equipment = exercise.equipment;
+    const difficulty = exercise.difficulty;
+    const details = exercise.instructions;
+
+    // Make a POST request to the backend API to add the workout to the user's exercises
+    const newExercise = await createExercise(
+      userId,
+      day,
+      name,
+      type,
+      muscle,
+      equipment,
+      difficulty,
+      details,
+      week,
+      workoutId,
+    );
+
+    console.log("Exercise added:", newExercise);
+
+    // After adding a new exercise, update the exercises in the ExerciseContext
+    setExercises((prevExercises) => [...prevExercises, newExercise]);
+
+    // Call the callback function to inform UserExercisesList that it needs to update
+    onExerciseAdd();
   };
 
   const muscleGroups = [
@@ -61,70 +127,6 @@ export default function ExercisesList({ onExerciseAdd }) {
   ];
 
   const difficulties = ["beginner", "intermediate", "expert"];
-
-  const handleDifficultySelect = (difficulty, button) => {
-    setSelectedDifficulty(difficulty);
-    setActiveButton(button);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchWorkouts();
-  };
-
-  const fetchWorkouts = () => {
-    setLoading(true);
-    axios
-      .get("https://api.api-ninjas.com/v1/exercises", {
-        headers: {
-          "X-Api-Key": "8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t",
-        },
-        params: {
-          muscle: selectedMuscle,
-          difficulty: selectedDifficulty,
-        },
-      })
-      .then((response) => {
-        setWorkouts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching workout data:", error);
-        setLoading(false);
-      });
-  };
-
-  const handleAddToMyWorkout = (workout) => {
-    // Make a POST request to the backend API to add the workout to the user's exercises
-    axios
-      .post(
-        "/api/exercises/",
-        {
-          userId: currentUser.id,
-          day: day,
-          name: workout.name,
-          type: workout.type,
-          muscle: workout.muscle,
-          equipment: workout.equipment,
-          difficulty: workout.difficulty,
-          details: workout.instructions,
-          week: week,
-          workoutId: workoutId,
-        },
-        { withCredentials: true },
-      )
-
-      .then((response) => {
-        console.log("Workout added to My Workout:", response.data);
-        // After adding a new exercise, update the exercises in the ExerciseContext
-        setExercises((prevExercises) => [...prevExercises, response.data]);
-        // Call the callback function to inform UserExercisesList that it needs to update
-        onExerciseAdd();
-      })
-      .catch((error) => {
-        console.error("Error adding workout:", error);
-      });
-  };
 
   return (
     <div className="px-6 py-4 sm:px-24">
@@ -151,9 +153,9 @@ export default function ExercisesList({ onExerciseAdd }) {
             {/* Menu */}
             <select
               id="muscleSelect"
-              className="ml-2 cursor-pointer rounded-lg border-primary bg-gray-200 p-2 focus:outline-none"
               value={selectedMuscle}
               onChange={(e) => setSelectedMuscle(e.target.value)}
+              className="ml-2 cursor-pointer rounded-lg border-primary bg-gray-200 p-2 focus:outline-none"
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
@@ -223,60 +225,61 @@ export default function ExercisesList({ onExerciseAdd }) {
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {workouts.map((exercise, index) => (
-            <div key={index} className="rounded-lg bg-white p-4">
-              {/* Exercise name */}
-              <div className="flex w-full flex-row items-center justify-between gap-x-2">
-                <span className="text-xl font-bold">{exercise.name}</span>
-                <button
-                  onClick={() => handleAddToMyWorkout(exercise)}
-                  className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-green-500 hover:text-white"
+          {externalExercises &&
+            externalExercises.map((exercise, index) => (
+              <div key={index} className="rounded-lg bg-white p-4">
+                {/* Exercise name */}
+                <div className="flex w-full flex-row items-center justify-between gap-x-2">
+                  <span className="text-xl font-bold">{exercise.name}</span>
+                  <button
+                    onClick={() => handleCreateExercise(exercise)}
+                    className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-green-500 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </div>
+
+                {/* Exercise info */}
+                <div className="my-3 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
+                  <Chip
+                    variant="ghost"
+                    size="sm"
+                    color="cyan"
+                    value={exercise.type}
+                  />
+                  <Chip
+                    variant="ghost"
+                    size="sm"
+                    color="cyan"
+                    value={exercise.muscle}
+                  />
+                  <Chip
+                    variant="ghost"
+                    size="sm"
+                    color="cyan"
+                    value={exercise.equipment}
+                  />
+                  <Chip
+                    variant="ghost"
+                    size="sm"
+                    color="cyan"
+                    value={exercise.difficulty}
+                  />
+                </div>
+
+                {/* Button to open exercise modal */}
+                <Button
+                  onClick={() => handleOpen(exercise)}
+                  ripple={false}
+                  variant="gradient"
+                  color="cyan"
+                  className="flex items-center justify-center gap-x-2"
                 >
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
+                  <span className="text-white">View Info</span>
+                  <FontAwesomeIcon icon={faArrowRightLong} size="sm" />
+                </Button>
               </div>
-
-              {/* Exercise info */}
-              <div className="my-3 flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.type}
-                />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.muscle}
-                />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.equipment}
-                />
-                <Chip
-                  variant="ghost"
-                  size="sm"
-                  color="cyan"
-                  value={exercise.difficulty}
-                />
-              </div>
-
-              {/* Button to open exercise modal */}
-              <Button
-                onClick={() => handleOpen(exercise)}
-                ripple={false}
-                variant="gradient"
-                color="cyan"
-                className="flex items-center justify-center gap-x-2"
-              >
-                <span className="text-white">View Info</span>
-                <FontAwesomeIcon icon={faArrowRightLong} size="sm" />
-              </Button>
-            </div>
-          ))}
+            ))}
         </div>
       )}
 
