@@ -23,7 +23,7 @@ module.exports = withMT({
           "url('https://images.unsplash.com/photo-1581009137042-c552e485697a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')",
         image2:
           "url('https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')",
-        auth: "url('/AuthBG.svg')",
+        sprinkle: "url('/sprinkle.svg')",
       },
       colors: {
         primary: "#333333",
