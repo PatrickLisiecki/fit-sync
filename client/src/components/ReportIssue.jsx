@@ -1,4 +1,4 @@
-const ReportIssue = () => {
+export default function ReportIssue() {
   return (
     <>
       <div className="container mx-auto py-4">
@@ -50,7 +50,7 @@ const ReportIssue = () => {
             <div className=" justify-center">
               <button
                 type="submit"
-                className="rounded bg-orange-500 px-4 py-2 font-semibold text-white hover:bg-orange-600 "
+                className="rounded bg-accent px-4 py-2 font-semibold text-white hover:bg-accent/90"
               >
                 Submit Issue
               </button>
@@ -60,6 +60,4 @@ const ReportIssue = () => {
       </div>
     </>
   );
-};
-
-export default ReportIssue;
+}

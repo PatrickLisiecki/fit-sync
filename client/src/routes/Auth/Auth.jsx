@@ -21,9 +21,9 @@ export default function Auth() {
   }
 
   // Handle form submission for login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const credentials = Object.fromEntries(formData);
     await login(credentials);
   };
@@ -45,7 +45,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#333333]">
+    <div className="min-h-screen w-full bg-primary">
       <div className="w-full px-6 sm:px-24">
         {/* Header and close button */}
         <div className="flex w-full items-center justify-between py-[20px]">

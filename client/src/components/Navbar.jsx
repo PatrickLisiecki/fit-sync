@@ -33,7 +33,7 @@ const navData = [
 ];
 
 export default function Navbar() {
-  const { currentUser, login, logout } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -47,13 +47,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed z-[100] max-h-[100px] w-full bg-white p-8 shadow-bs">
+    <nav className="fixed z-[100] max-h-[100px] w-full bg-primary p-8 shadow-md">
       <div className="flex flex-row items-center justify-between lg:container lg:mx-auto">
         {/* Name / Logo */}
         <Link to="/">
           <div className="flex flex-row items-center justify-center gap-x-2 text-[28px] uppercase md:text-3xl">
             <img src="/logo.png" alt="Logo" width={40} height={40} />
-            <span className="text-primary">Flex</span>{" "}
+            <span className="text-white">Flex</span>{" "}
             <span className="text-accent">Fusion</span>
           </div>
         </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
                 <li key={index}>
                   <Link
                     to={item.link}
-                    className="mx-4 transition-all duration-300 hover:text-accent"
+                    className="mx-4 text-white transition-all duration-300 hover:text-accent"
                   >
                     {item.title}
                   </Link>
@@ -85,7 +85,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   to="/auth"
-                  className="mx-4 transition-all duration-300 hover:text-accent"
+                  className="mx-4 text-white transition-all duration-300 hover:text-accent"
                 >
                   <FontAwesomeIcon icon={faRightToBracket} />
                   <span className="ml-2">Log In</span>
@@ -99,7 +99,7 @@ export default function Navbar() {
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="flex items-center justify-center text-primary transition-all duration-300 hover:text-accent"
+            className="flex items-center justify-center text-white transition-all duration-300 hover:text-accent"
           >
             <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
           </button>

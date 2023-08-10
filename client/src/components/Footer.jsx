@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+// Components
 import ReportIssue from "./ReportIssue";
 import Modal from "./Modal";
 
-const Footer = () => {
+export default function Footer() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -17,18 +20,18 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="w-full bg-white p-8 shadow-bs">
+      <footer className="w-full bg-primary p-8 shadow-md">
         <div className="flex flex-row justify-between lg:container lg:mx-auto">
-          <p className="text-sm">
+          <p className="text-sm text-white">
             &copy; {currentYear} Flex Fusion. All rights reserved.
           </p>
-          <div className="text-sm">
-            <a
-              href="/policy"
+          <div className="text-sm text-white">
+            <Link
+              to="/policy"
               className="transition-all duration-300 hover:text-accent"
             >
               Privacy Policy
-            </a>{" "}
+            </Link>{" "}
             |{" "}
             <button
               onClick={showModal}
@@ -45,6 +48,4 @@ const Footer = () => {
       </Modal>
     </>
   );
-};
-
-export default Footer;
+}
