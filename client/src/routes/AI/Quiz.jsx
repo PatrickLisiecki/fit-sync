@@ -4,6 +4,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 const Quiz = () => {
   const [generatedWorkout, setGeneratedWorkout] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const workoutOptions = [
     {
@@ -78,6 +79,8 @@ const Quiz = () => {
   };
 
   const generateWorkoutPlan = async () => {
+    setLoading(true);
+
     const prompt = `As a fitness enthusiast, I want a workout plan that fits my preferences.
     I prefer ${answers.workoutType} workouts with ${answers.intensity} intensity.
     I want the workout to be ${answers.duration} long and ${answers.equipment} equipment.
@@ -86,7 +89,7 @@ const Quiz = () => {
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.`;
 
-    const apiKey = "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"; // Replace with your API key
+    const apiKey = "insert key here"; // Replace with your API key
     const openAi = new OpenAIApi(
       new Configuration({
         apiKey,
@@ -106,10 +109,12 @@ const Quiz = () => {
       });
 
       const generatedPlan = response.data.choices[0]?.message?.content;
-      setGeneratedWorkout(generatedPlan);
-    } catch (error) {
-      console.error("Error generating workout plan:", error);
-    }
+        setGeneratedWorkout(generatedPlan);
+      } catch (error) {
+        console.error("Error generating workout plan:", error);
+      } finally {
+        setLoading(false);
+      }
   };
 
   return (
@@ -160,20 +165,32 @@ const Quiz = () => {
               ? "bg-orange-500 text-white hover:bg-orange-600"
               : "cursor-not-allowed bg-gray-400 text-gray-600"
           } font-semibold transition-colors duration-300 ease-in-out`}
+          disabled={loading}
         >
-          Generate Workout Plan
+          {loading ? "Generating..." : "Generate Workout Plan"}
         </button>
-        {generatedWorkout && (
-          <div className="mt-6">
-            <h3 className="mb-2 text-xl font-semibold">
-              Generated Workout Plan
-            </h3>
-            <p className="rounded-lg bg-gray-100 p-4">{generatedWorkout}</p>
-          </div>
+        {loading ? (
+          <div className="mt-4 text-center text-gray-600">Generating your workout plan...</div>
+        ) : (
+          generatedWorkout && (
+            <div className="mt-6">
+              <h3 className="mb-2 text-xl font-semibold">
+                Generated Workout Plan
+              </h3>
+              <div className="rounded-lg bg-gray-100 p-4 whitespace-pre-line">
+                {generatedWorkout}
+              </div>
+            </div>
+          )
         )}
       </div>
     </div>
   );
-};
+};  
 
 export default Quiz;
+
+
+
+//
+
