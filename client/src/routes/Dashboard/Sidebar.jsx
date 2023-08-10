@@ -14,6 +14,7 @@ import {
   faRobot,
   faPowerOff,
   faArrowLeftLong,
+  faCircleUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Sidebar Data
@@ -47,10 +48,16 @@ const sidebarData = [
     icon: <FontAwesomeIcon icon={faAppleWhole} className="h-[20px] w-[20px]" />,
   },
   {
-    title: "AI Workout",
+    title: "AI",
     link: "/dashboard/ai",
     childPath: "/ai",
     icon: <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />,
+  },
+  {
+    title: "Profile",
+    link: "/dashboard/profile",
+    childPath: "/profile",
+    icon: <FontAwesomeIcon icon={faCircleUser} className="h-[20px] w-[20px]" />,
   },
 ];
 
