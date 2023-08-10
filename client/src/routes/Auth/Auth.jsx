@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 // Icons
 import {
   faEnvelope,
+  faEye,
   faLock,
   faUser,
   faXmark,
@@ -14,11 +15,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Auth() {
   const { currentUser, login, signup, authError } = useContext(AuthContext);
   const [byLogin, setByLogin] = useState(true);
+  const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
 
   // Redirect if user is already logged in
   if (currentUser) {
     return <Navigate to="/dashboard" />;
   }
+
+  // Toggle isShown state
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   // Handle form submission for login
   const handleLogin = async (event) => {
@@ -36,8 +44,12 @@ export default function Auth() {
 
     // Check if any of the required fields are empty
     if (!credentials.username || !credentials.email || !credentials.password) {
-      // Show an error message or set a state to display an error message
+      // Show error message
       console.error("All fields are required");
+      return;
+    }
+    if (credentials.password != confirmedPassword) {
+      console.error("Passwords do not match");
       return;
     }
 
@@ -45,7 +57,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-primary">
+    <div className="min-h-screen w-full bg-primary bg-sprinkle bg-cover">
       <div className="w-full px-6 sm:px-24">
         {/* Header and close button */}
         <div className="flex w-full items-center justify-between py-[20px]">
@@ -56,7 +68,7 @@ export default function Auth() {
             to="/"
             className="grid h-[50px] w-[50px] place-items-center rounded-full bg-none text-white transition-all duration-300 hover:bg-secondary hover:text-accent"
           >
-            <FontAwesomeIcon icon={faXmark} size="lg" />
+            <FontAwesomeIcon icon={faXmark} size="xl" />
           </Link>
         </div>
 
@@ -128,7 +140,6 @@ export default function Auth() {
                       id="username"
                       placeholder="Username"
                       className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
-                      required=""
                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
                       <FontAwesomeIcon icon={faUser} />
@@ -146,7 +157,6 @@ export default function Auth() {
                         id="email"
                         placeholder="Email"
                         className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
-                        required=""
                       />
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
                         <FontAwesomeIcon icon={faEnvelope} />
@@ -161,16 +171,27 @@ export default function Auth() {
                 <fieldset className={`${byLogin ? "mb-0" : "mb-4"} w-full`}>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={passwordShown ? "text" : "password"}
                       name="password"
                       id="password"
                       placeholder="Password"
-                      className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
-                      required=""
+                      className="block w-full cursor-text rounded border border-gray-500 bg-primary px-10 py-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
                       <FontAwesomeIcon icon={faLock} />
                     </span>
+                    <button
+                      type="button"
+                      onClick={togglePassword}
+                      className={`${
+                        passwordShown
+                          ? "text-accent hover:text-accent/90"
+                          : "text-white hover:text-accent"
+                      } absolute right-3 top-1/2 -translate-y-1/2 
+                      transform transition-all duration-200`}
+                    >
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
                   </div>
                 </fieldset>
 
@@ -189,12 +210,15 @@ export default function Auth() {
                   <fieldset className="mb-[40px] w-full">
                     <div className="relative">
                       <input
-                        type="password"
-                        name="password"
-                        id="password"
+                        type={passwordShown ? "text" : "password"}
+                        name="confirmedPassword"
+                        id="confirmedPassword"
                         placeholder="Confirm password"
-                        className="block w-full cursor-text rounded border border-gray-500 bg-primary py-3 pl-10 pr-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
-                        required=""
+                        value={confirmedPassword}
+                        onChange={(e) => {
+                          setConfirmedPassword(e.target.value);
+                        }}
+                        className="block w-full cursor-text rounded border border-gray-500 bg-primary px-10 py-3 text-sm text-white transition-all duration-200 placeholder:text-[#747778] focus:outline-none"
                       />
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-white">
                         <FontAwesomeIcon icon={faLock} />
