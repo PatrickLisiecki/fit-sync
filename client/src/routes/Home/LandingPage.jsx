@@ -2,9 +2,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRobot,
-  faDumbbell,
+  faCalendarDays,
   faChartLine,
-  faScrewdriverWrench,
+  faAppleWhole,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function LandingPage() {
@@ -73,10 +73,10 @@ export default function LandingPage() {
             {/* Exercise API */}
             <div className="mt-8 flex flex-col items-center">
               <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
-                <FontAwesomeIcon icon={faDumbbell} className="text-5xl" />
+                <FontAwesomeIcon icon={faCalendarDays} className="text-5xl" />
               </div>
               <span className="h3 mb-0 mt-2 text-center font-semibold">
-                Massive Workout Library
+                Workout Plan
               </span>
               <p className="mx-6 my-4 text-center text-sm text-white ">
                 Whether you&apos;re a seasoned fitness enthusiast or a beginner
@@ -92,7 +92,7 @@ export default function LandingPage() {
             {/* Nutrition Facts Feature */}
             <div className="mt-8 flex flex-col items-center lg:mb-8">
               <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
-                <FontAwesomeIcon icon={faChartLine} className="text-5xl" />
+                <FontAwesomeIcon icon={faAppleWhole} className="text-5xl" />
               </div>
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Nutrition Analysis
@@ -110,22 +110,19 @@ export default function LandingPage() {
             {/* Workout Plan Feature */}
             <div className="mb-8 mt-8 flex flex-col items-center">
               <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
-                <FontAwesomeIcon
-                  icon={faScrewdriverWrench}
-                  className="text-5xl"
-                />
+                <FontAwesomeIcon icon={faChartLine} className="text-5xl" />
               </div>
               <span className="h3 mb-0 mt-2 text-center font-semibold">
-                Create Workouts
+                Progress Tracker
               </span>
               <p className="mx-6  my-4 text-center text-sm text-white">
-                Creating your custom workout is as simple as it is empowering.
-                Mix and match strength training, cardio, yoga, and more to
-                design a routine that suits your unique needs. Adjust sets,
-                reps, and rest periods to tailor the intensity to your liking.
-                Feeling up for a challenge? Amp up the difficulty with advanced
-                variations. Prefer a quick, high-energy session? Opt for a
-                fast-paced circuit. The power is in your hands.
+                With our innovative tracker, you can effortlessly log your
+                workout sessions, recording every exercise completed. Stay on
+                top of your fitness journey by conveniently tracking each
+                session&apos;s date, helping you monitor your progress over
+                time. Whether you&apos;re aiming to build strength, increase
+                endurance, or simply stay active, our Progress Tracker empowers
+                you to set and achieve your fitness goals.
               </p>
             </div>
           </div>
