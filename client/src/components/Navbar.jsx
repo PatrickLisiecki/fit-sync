@@ -47,7 +47,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed z-[100] max-h-[100px] w-full bg-primary p-8 shadow-bs">
+    <nav className="fixed z-[100] max-h-[100px] w-full bg-primary p-8 shadow-md">
       <div className="flex flex-row items-center justify-between lg:container lg:mx-auto">
         {/* Name / Logo */}
         <Link to="/">

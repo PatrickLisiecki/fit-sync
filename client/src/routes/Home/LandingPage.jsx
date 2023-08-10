@@ -30,7 +30,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className=" inline-block w-full bg-white shadow-bs">
+      <section className=" inline-block w-full bg-white shadow-md">
         <div className="container mx-auto px-4 py-8">
           <h3 className="pt-8 text-center text-4xl font-semibold ">Features</h3>
           <p className="text-center  font-light">
