@@ -114,11 +114,11 @@ const Quiz = () => {
 
   return (
     <div className="mx-auto w-[65%] py-6">
-      <h1 className="pb-4 text-center text-4xl font-bold">Workout Quiz</h1>
+      <div className="h2 text-center">Workout Quiz</div>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md">
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
-            <h3 className="mb-3 text-xl font-semibold">{option.question}</h3>
+            <span className="h3 font-semibold">{option.question}</span>
             <ul
               className={`flex ${
                 option.field
