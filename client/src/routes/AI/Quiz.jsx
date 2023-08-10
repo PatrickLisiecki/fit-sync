@@ -109,16 +109,16 @@ const Quiz = () => {
       });
 
       const generatedPlan = response.data.choices[0]?.message?.content;
-        setGeneratedWorkout(generatedPlan);
-      } catch (error) {
-        console.error("Error generating workout plan:", error);
-      } finally {
-        setLoading(false);
-      }
+      setGeneratedWorkout(generatedPlan);
+    } catch (error) {
+      console.error("Error generating workout plan:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="mx-auto w-[65%]">
+    <div className="mx-auto mb-8 w-[65%]">
       <div className="w-full p-4 text-center">
         <span className="h2">Workout Quiz</span>
       </div>
@@ -170,14 +170,16 @@ const Quiz = () => {
           {loading ? "Generating..." : "Generate Workout Plan"}
         </button>
         {loading ? (
-          <div className="mt-4 text-center text-gray-600">Generating your workout plan...</div>
+          <div className="mt-4 text-center text-gray-600">
+            Generating your workout plan...
+          </div>
         ) : (
           generatedWorkout && (
             <div className="mt-6">
               <h3 className="mb-2 text-xl font-semibold">
                 Generated Workout Plan
               </h3>
-              <div className="rounded-lg bg-gray-100 p-4 whitespace-pre-line">
+              <div className="whitespace-pre-line rounded-lg bg-gray-100 p-4">
                 {generatedWorkout}
               </div>
             </div>
@@ -186,11 +188,8 @@ const Quiz = () => {
       </div>
     </div>
   );
-};  
+};
 
 export default Quiz;
 
-
-
 //
-
