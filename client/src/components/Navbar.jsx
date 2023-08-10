@@ -77,7 +77,7 @@ export default function Navbar() {
               {currentUser ? (
                 <button
                   onClick={handleLogout}
-                  className="mx-4 transition-all duration-300 hover:text-accent"
+                  className="mx-4 text-white transition-all duration-300 hover:text-accent"
                 >
                   <FontAwesomeIcon icon={faRightToBracket} flip="horizontal" />
                   <span className="ml-2">Log Out</span>
