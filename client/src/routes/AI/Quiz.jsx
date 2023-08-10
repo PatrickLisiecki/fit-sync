@@ -34,6 +34,7 @@ const Quiz = () => {
         "Lose Weight",
         "Improve Flexibility",
         "Increase Endurance",
+        "Tone Up",
       ],
     },
     {
@@ -112,15 +113,26 @@ const Quiz = () => {
   };
 
   return (
-    <div className="w-[65%] mx-auto py-6">
+    <div className="mx-auto w-[65%] py-6">
+      <h1 className="pb-4 text-center text-4xl font-bold">Workout Quiz</h1>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md">
-        <h1 className="pb-4 text-center text-4xl font-bold">Workout Quiz</h1>
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
             <h3 className="mb-3 text-xl font-semibold">{option.question}</h3>
-            <ul className="flex justify-center">
+            <ul
+              className={`flex ${
+                option.field
+              }-options ${"flex-col justify-center md:flex-col lg:flex-row"}`}
+            >
+              {" "}
+              {/* Use a conditional class */}
               {option.options.map((choice, optionIndex) => (
-                <li key={optionIndex} className="mx-2">
+                <li
+                  key={optionIndex}
+                  className={`my-2 ${optionIndex !== 0 && "sm:ml-2"}`}
+                >
+                  {" "}
+                  {/* Use a conditional class */}
                   <button
                     onClick={() =>
                       handleAnswerSelection(questionIndex, optionIndex)

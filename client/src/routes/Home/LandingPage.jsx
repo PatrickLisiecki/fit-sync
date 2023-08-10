@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen bg-primary sm:grid sm:place-items-center">
+      <section className="relative h-screen bg-primary pt-8 sm:grid sm:place-items-center">
         {/* Background Image for Hero Section */}
         <img
           src="https://images.unsplash.com/photo-1581009137042-c552e485697a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
