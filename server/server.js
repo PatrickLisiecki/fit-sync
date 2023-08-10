@@ -10,7 +10,7 @@ const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
 const workoutRouter = require("./routes/workouts");
 const setsRouter = require("./routes/sets");
-// const profilesRouter = require("./routes/profiles");
+const profilesRouter = require("./routes/profiles");
 
 const {
   forbiddenErrorHandler,
@@ -55,7 +55,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/workouts", workoutRouter);
 app.use("/api/sets", setsRouter);
-// app.use("/api/profile", profileRouter);
+app.use("/api/profiles", profilesRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

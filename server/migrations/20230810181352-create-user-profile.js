@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -27,19 +27,27 @@ module.exports = {
         type: Sequelize.STRING,
       },
       weight: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       height: {
         type: Sequelize.INTEGER,
       },
       state: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       age: {
         type: Sequelize.INTEGER,
       },
       displayName: {
         type: Sequelize.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
