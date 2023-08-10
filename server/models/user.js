@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Workout, {
         foreignKey: "userId",
       });
-
+      this.hasOne(models.UserProfile, {
+        foreignKey: "userId",
+      });
       this.hasMany(models.Exercise, {
         foreignKey: "userId",
       });
