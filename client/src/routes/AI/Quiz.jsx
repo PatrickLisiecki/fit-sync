@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
 
 const Quiz = () => {
   const [generatedWorkout, setGeneratedWorkout] = useState("");
   const [loading, setLoading] = useState(false);
+  const [savedWorkouts, setSavedWorkouts] = useState([]);
 
   const workoutOptions = [
     {
@@ -78,9 +80,23 @@ const Quiz = () => {
     });
   };
 
+  useEffect(() => {
+    const fetchSavedWorkouts = async () => {
+      try {
+        const response = await axios.get("/api/aiworkouts");
+        const fetchedWorkouts = response.data;
+        setSavedWorkouts(fetchedWorkouts);
+      } catch (error) {
+        console.error("Error fetching saved workouts:", error);
+      }
+    };
+
+    fetchSavedWorkouts();
+  }, []);
+
   const generateWorkoutPlan = async () => {
     setLoading(true);
-
+  
     const prompt = `As a fitness enthusiast, I want a workout plan that fits my preferences.
     I prefer ${answers.workoutType} workouts with ${answers.intensity} intensity.
     I want the workout to be ${answers.duration} long and ${answers.equipment} equipment.
@@ -88,15 +104,15 @@ const Quiz = () => {
     My fitness level is ${answers.fitnessLevel}.
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.`;
-
-    const apiKey = ""; // Replace with your API key
-    const openAi = new OpenAIApi(
-      new Configuration({
-        apiKey
-      }),
-    );
-
+  
     try {
+      const apiKey = ""; // Replace with your API key
+      const openAi = new OpenAIApi(
+        new Configuration({
+          apiKey
+        }),
+      );
+  
       const response = await openAi.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
@@ -107,15 +123,27 @@ const Quiz = () => {
           { role: "user", content: prompt },
         ],
       });
-
+  
       const generatedPlan = response.data.choices[0]?.message?.content;
       setGeneratedWorkout(generatedPlan);
+  
+      try {
+        // Send the generated plan to your backend API
+        const backendResponse = await axios.post("/api/aiworkouts", {
+          workout: generatedPlan,
+        });
+        const storedAIworkout = backendResponse.data;
+
+      } catch (error) {
+        console.error("Error storing workout plan:", error);
+      }
     } catch (error) {
       console.error("Error generating workout plan:", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="mx-auto mb-8 w-[65%]">
@@ -203,6 +231,7 @@ const Quiz = () => {
         )}
       </div>
     </div>
+    
   );
 };
 
