@@ -26,6 +26,7 @@ import Profile from "./routes/Profile/Profile";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
 import Quiz from "./routes/AI/Quiz";
+import SavedWorkouts from "./routes/AI/SavedWorkouts";
 
 import { ExerciseContextProvider } from "./contexts/ExerciseContext";
 
@@ -117,10 +118,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/ai",
+        path: "/dashboard/ai/generate",
         element: (
           <ProtectedRoute>
             <Quiz />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/ai/saved",
+        element: (
+          <ProtectedRoute>
+            <SavedWorkouts />
           </ProtectedRoute>
         ),
       },
