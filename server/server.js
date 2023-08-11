@@ -11,6 +11,7 @@ const exercisesRouter = require("./routes/exercises");
 const workoutRouter = require("./routes/workouts");
 const setsRouter = require("./routes/sets");
 const profilesRouter = require("./routes/profiles");
+const AIworkoutsRouter = require("./routes/aiworkouts");
 
 const {
   forbiddenErrorHandler,
@@ -56,6 +57,7 @@ app.use("/api/exercises", exercisesRouter);
 app.use("/api/workouts", workoutRouter);
 app.use("/api/sets", setsRouter);
 app.use("/api/profiles", profilesRouter);
+app.use("/api/aiworkouts", AIworkoutsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
