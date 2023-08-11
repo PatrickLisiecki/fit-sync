@@ -152,10 +152,10 @@ export default function DashboardHome() {
 
         {clickedMuscle && (
           <div className="mt-4 text-center">
-            <div className="h3 text-black">
+            <span className="h3 dark:text-white">
               You clicked the {clickedMuscle.muscle}!
-            </div>
-            <div className="text-black">
+            </span>
+            <div className="dark:text-white">
               {formatExercises(clickedMuscle.exercises)}
             </div>
           </div>
