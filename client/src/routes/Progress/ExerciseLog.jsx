@@ -147,16 +147,16 @@ export default function ExerciseLog() {
 
       <div className="w-full px-6 py-4 sm:px-24 ">
         <div className="overflow-x-auto">
-          <table className="w-full rounded bg-gray-100 text-left shadow-md">
+          <table className="w-full rounded bg-gray-100 text-left shadow-md dark:bg-primary">
             {/* Column names */}
             <thead>
               <tr>
                 {TABLE_HEAD.map((head, index) => (
                   <th
                     key={index}
-                    className="border-b border-gray-400 bg-gray-300 p-2"
+                    className="border-b border-gray-400 bg-gray-300 p-2 dark:bg-gray-600"
                   >
-                    <span className="leading-none text-primary opacity-70">
+                    <span className="leading-none text-primary opacity-70 dark:text-white">
                       {head}
                     </span>
                   </th>
@@ -186,10 +186,12 @@ export default function ExerciseLog() {
                                 return newData;
                               })
                             }
-                            className="max-w-[150px] border px-2 py-1 focus:outline-none"
+                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
                           />
                         ) : (
-                          <span className="text-secondary">{set.reps}</span>
+                          <span className="text-secondary dark:text-white">
+                            {set.reps}
+                          </span>
                         )}
                       </td>
 
@@ -207,10 +209,12 @@ export default function ExerciseLog() {
                                 return newData;
                               })
                             }
-                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
                           />
                         ) : (
-                          <span className="text-secondary">{set.weight}</span>
+                          <span className="text-secondary dark:text-white">
+                            {set.weight}
+                          </span>
                         )}
                       </td>
 
@@ -228,10 +232,12 @@ export default function ExerciseLog() {
                                 return newData;
                               })
                             }
-                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
                           />
                         ) : (
-                          <span className="text-secondary">{set.date}</span>
+                          <span className="text-secondary dark:text-white">
+                            {set.date}
+                          </span>
                         )}
                       </td>
 
@@ -300,7 +306,7 @@ export default function ExerciseLog() {
             name="reps"
             placeholder="Reps"
             onChange={handleInputChange}
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
           />
 
           {/* Weight input */}
@@ -310,7 +316,7 @@ export default function ExerciseLog() {
             name="weight"
             placeholder="Weight"
             onChange={handleInputChange}
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
           />
 
           {/* Date input */}
@@ -319,7 +325,7 @@ export default function ExerciseLog() {
             id="date"
             name="date"
             onChange={handleInputChange}
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none dark:text-primary"
           />
 
           {/* Submit button */}
@@ -328,7 +334,7 @@ export default function ExerciseLog() {
               handleCreateSet();
               hideModal();
             }}
-            className="flex min-w-[135px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
+            className="flex w-[200px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-2 text-white hover:bg-accent/90"
           >
             <FontAwesomeIcon icon={faPlus} size="sm" />
             <span className="font-semibold">Add Set</span>

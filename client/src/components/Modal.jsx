@@ -29,12 +29,12 @@ export default function Modal({ isVisible, hideModal, children }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative m-4 w-full min-w-[90%] max-w-[90%] rounded-lg bg-white text-base font-light leading-relaxed antialiased shadow-2xl md:w-3/4 md:min-w-[75%] md:max-w-[75%] lg:w-3/5 lg:min-w-[60%] lg:max-w-[60%] 2xl:w-2/5 2xl:min-w-[40%] 2xl:max-w-[40%]"
+        className="relative m-4 w-full min-w-[90%] max-w-[90%] rounded-lg bg-white text-base font-light leading-relaxed antialiased shadow-2xl dark:bg-primary md:w-3/4 md:min-w-[75%] md:max-w-[75%] lg:w-3/5 lg:min-w-[60%] lg:max-w-[60%] 2xl:w-2/5 2xl:min-w-[40%] 2xl:max-w-[40%]"
       >
         <div className="flex flex-row justify-end bg-transparent p-4">
           <button
             onClick={hideModal}
-            className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-gray-200 hover:text-accent"
+            className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary"
           >
             <FontAwesomeIcon icon={faXmark} />
           </button>

@@ -77,7 +77,7 @@ export default function Progress() {
               <Link
                 to={`/dashboard/progress/${exercise.id}`}
                 key={exercise.id}
-                className="rounded-lg bg-white p-4 shadow-lg"
+                className="rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:text-accent hover:shadow-xl dark:bg-primary hover:dark:bg-primary/60"
               >
                 {/* Exercise name and delete button
                 <div className="flex w-full flex-row items-center justify-between">
@@ -95,18 +95,21 @@ export default function Progress() {
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.type}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.muscle}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.equipment}
                   />
                 </div>
@@ -118,7 +121,9 @@ export default function Progress() {
                   color="orange"
                   className="flex items-center justify-center gap-x-2"
                 >
-                  <span className="text-white">Log</span>
+                  <span className="font-poppins tracking-wide text-white">
+                    Log
+                  </span>
                   <FontAwesomeIcon icon={faArrowRightLong} />
                 </Button>
               </Link>

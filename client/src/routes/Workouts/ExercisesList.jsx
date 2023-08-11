@@ -12,7 +12,7 @@ import { createExercise } from "../../api/exercises";
 import Modal from "../../components/Modal";
 
 // Material Tailwind
-import { Button, Chip } from "@material-tailwind/react";
+import { Button, Chip, Tooltip } from "@material-tailwind/react";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -131,7 +131,7 @@ export default function ExercisesList({ onExerciseAdd }) {
   return (
     <div className="px-6 py-4 sm:px-24">
       {/* Search for exercises form */}
-      <div className="mb-4 flex flex-col overflow-x-auto rounded-lg bg-white p-4 shadow-lg">
+      <div className="mb-4 flex flex-col overflow-x-auto rounded-lg bg-white p-4 shadow-md dark:bg-primary">
         <span className="mb-2 text-center text-xl font-bold sm:text-left">
           Search for Exercises
         </span>
@@ -155,15 +155,11 @@ export default function ExercisesList({ onExerciseAdd }) {
               id="muscleSelect"
               value={selectedMuscle}
               onChange={(e) => setSelectedMuscle(e.target.value)}
-              className="ml-2 cursor-pointer rounded-lg border-primary bg-gray-200 p-2 focus:outline-none"
+              className="ml-2 cursor-pointer rounded border-primary bg-gray-200 p-2 uppercase focus:outline-none dark:bg-sidebar"
             >
               <option value="">Select Muscle Group</option>
               {muscleGroups.map((muscle) => (
-                <option
-                  key={muscle}
-                  value={muscle}
-                  className="capitalize hover:bg-accent"
-                >
+                <option key={muscle} value={muscle} className="uppercase">
                   {muscle}
                 </option>
               ))}
@@ -181,8 +177,8 @@ export default function ExercisesList({ onExerciseAdd }) {
                   className={`${
                     activeButton === index
                       ? "border-blue-500 bg-blue-500 text-white hover:bg-blue-500/90"
-                      : "border-primary bg-none text-primary hover:bg-primary/10"
-                  } grid min-w-[135px] cursor-pointer place-items-center border py-2`}
+                      : "border-primary bg-none text-primary hover:bg-primary/10 dark:border-white dark:text-white dark:hover:bg-secondary"
+                  } grid min-w-[135px] cursor-pointer place-items-center border py-2 transition-all duration-300`}
                   onClick={() => {
                     handleDifficultySelect(difficulty, index);
                   }}
@@ -196,7 +192,7 @@ export default function ExercisesList({ onExerciseAdd }) {
           {/* Submit */}
           <button
             type="submit"
-            className="cursor-pointer rounded bg-accent px-3 py-2 text-white hover:bg-accent/90"
+            className="cursor-pointer bg-accent px-3 py-2 text-white hover:bg-accent/90"
           >
             Search
           </button>
@@ -227,16 +223,25 @@ export default function ExercisesList({ onExerciseAdd }) {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {externalExercises &&
             externalExercises.map((exercise, index) => (
-              <div key={index} className="rounded-lg bg-white p-4">
+              <div
+                key={index}
+                className="rounded-lg bg-white p-4 dark:bg-primary"
+              >
                 {/* Exercise name */}
                 <div className="flex w-full flex-row items-center justify-between gap-x-2">
                   <span className="text-xl font-bold">{exercise.name}</span>
-                  <button
-                    onClick={() => handleCreateExercise(exercise)}
-                    className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-green-500 hover:text-white"
+                  <Tooltip
+                    content="Add to Workout"
+                    placement="bottom"
+                    className="bg-secondary font-poppins text-sm text-white dark:bg-black"
                   >
-                    <FontAwesomeIcon icon={faPlus} />
-                  </button>
+                    <button
+                      onClick={() => handleCreateExercise(exercise)}
+                      className="grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-green-500 hover:text-white dark:text-white"
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </Tooltip>
                 </div>
 
                 {/* Exercise info */}
@@ -245,24 +250,28 @@ export default function ExercisesList({ onExerciseAdd }) {
                     variant="ghost"
                     size="sm"
                     color="cyan"
+                    className="font-poppins dark:text-white"
                     value={exercise.type}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="cyan"
+                    className="font-poppins dark:text-white"
                     value={exercise.muscle}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="cyan"
+                    className="font-poppins dark:text-white"
                     value={exercise.equipment}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="cyan"
+                    className="font-poppins dark:text-white"
                     value={exercise.difficulty}
                   />
                 </div>
@@ -275,8 +284,10 @@ export default function ExercisesList({ onExerciseAdd }) {
                   color="cyan"
                   className="flex items-center justify-center gap-x-2"
                 >
-                  <span className="text-white">View Info</span>
-                  <FontAwesomeIcon icon={faArrowRightLong} size="sm" />
+                  <span className="font-poppins tracking-wide text-white">
+                    View Info
+                  </span>
+                  <FontAwesomeIcon icon={faArrowRightLong} />
                 </Button>
               </div>
             ))}
@@ -286,13 +297,13 @@ export default function ExercisesList({ onExerciseAdd }) {
       {/* Modal for exercise info */}
       {selectedExercise && (
         <Modal isVisible={isModalVisible} hideModal={hideModal}>
-          <div className="flex shrink-0 items-center border-b border-primary p-4">
-            <span className="text-2xl font-semibold leading-snug text-primary antialiased">
+          <div className="flex shrink-0 items-center border-b border-primary p-4 dark:border-secondary">
+            <span className="text-2xl font-semibold leading-snug text-primary antialiased dark:text-white">
               {selectedExercise.name}
             </span>
           </div>
-          <div className="relative border-b border-primary p-4 antialiased">
-            <p className="text-base font-light leading-relaxed text-secondary">
+          <div className="relative border-b border-primary p-4 antialiased dark:border-secondary">
+            <p className="text-base font-light leading-relaxed text-secondary dark:text-white">
               {selectedExercise.instructions}
             </p>
           </div>
@@ -303,6 +314,7 @@ export default function ExercisesList({ onExerciseAdd }) {
               color="red"
               ripple={false}
               onClick={() => handleOpen(null)}
+              className="font-poppins"
             >
               Close
             </Button>
