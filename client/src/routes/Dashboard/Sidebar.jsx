@@ -95,7 +95,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
       <div className="flex h-[100px] flex-col items-center justify-center p-4">
         <Link
           to="/"
-          className="mb-0 text-[24px] font-bold uppercase text-white"
+          className="mb-0 text-2xl font-bold uppercase tracking-wider text-white"
         >
           Flex <span className="text-accent">Fusion</span>
         </Link>
