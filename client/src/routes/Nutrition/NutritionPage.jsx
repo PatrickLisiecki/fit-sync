@@ -24,7 +24,7 @@ import {
   YAxis,
 } from "recharts";
 
-const NutritionPage = () => {
+export default function NutritionPage() {
   const [query, setQuery] = useState("");
   const [nutritionFacts, setNutritionFacts] = useState(null);
   const [totalCalories, setTotalCalories] = useState(0);
@@ -71,7 +71,7 @@ const NutritionPage = () => {
     <div className="flex h-full w-full flex-col items-center">
       {/* Nutrition page header */}
       <div className="w-full p-4 text-center">
-        <span className="h2">Nutrition Facts</span>
+        <span className="h2">Nutrition Analysis</span>
       </div>
 
       {/* Search form */}
@@ -86,7 +86,7 @@ const NutritionPage = () => {
         />
         <button
           onClick={fetchNutritionFacts}
-          className="min-w-[135px] cursor-pointer rounded bg-accent py-2 text-lg text-white shadow-md hover:bg-accent/90"
+          className="text-md cursor-pointer rounded bg-accent px-3 py-2 text-center text-white shadow-md hover:bg-accent/90"
         >
           Get Nutrition
         </button>
@@ -172,7 +172,6 @@ const NutritionPage = () => {
                     <span className="mr-2 text-lg font-semibold">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
-                  
                 </ul>
               </div>
             ))}
@@ -180,7 +179,6 @@ const NutritionPage = () => {
 
           {/* Nutrition Visualization */}
           <div className="my-4 rounded border bg-white p-6 shadow-md">
-            
             <div className="w-full pb-4 text-center">
               <span className="h3">Nutrition Visualization</span>
             </div>
@@ -231,6 +229,4 @@ const NutritionPage = () => {
       )}
     </div>
   );
-};
-
-export default NutritionPage;
+}

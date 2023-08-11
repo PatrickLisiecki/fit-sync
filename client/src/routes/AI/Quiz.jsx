@@ -118,8 +118,10 @@ const Quiz = () => {
   };
 
   return (
-    <div className="mx-auto w-[65%] py-6">
-      <div className="h2 text-center">Workout Quiz</div>
+    <div className="mx-auto mb-8 w-[65%]">
+      <div className="w-full p-4 text-center">
+        <span className="h2">Workout Quiz</span>
+      </div>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md">
         {workoutOptions.map((option, questionIndex) => (
           <div key={questionIndex} className="mb-10">
