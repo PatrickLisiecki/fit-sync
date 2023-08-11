@@ -35,7 +35,7 @@ const Quiz = () => {
         "Lose Weight",
         "Improve Flexibility",
         "Increase Endurance",
-        "Tone Up",
+        "Tone Up Muscles",
       ],
     },
     {
@@ -89,10 +89,10 @@ const Quiz = () => {
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.`;
 
-    const apiKey = "insert key here"; // Replace with your API key
+    const apiKey = ""; // Replace with your API key
     const openAi = new OpenAIApi(
       new Configuration({
-        apiKey,
+        apiKey
       }),
     );
 
@@ -129,7 +129,7 @@ const Quiz = () => {
             <ul
               className={`flex ${
                 option.field
-              }-options ${"flex-col justify-start gap-x-4 md:flex-col lg:flex-row"}`}
+              }-options ${"flex-col justify-center gap-x-4 md:flex-col lg:flex-row"}`}
             >
               {" "}
               {/* Use a conditional class */}
@@ -192,10 +192,10 @@ const Quiz = () => {
         ) : (
           generatedWorkout && (
             <div className="mt-6">
-              <h3 className="mb-2 text-xl font-semibold">
+              <span className="h3 font-semibold">
                 Generated Workout Plan
-              </h3>
-              <div className="whitespace-pre-line rounded-lg bg-gray-100 dark:bg-primary p-4">
+              </span>
+              <div className="whitespace-pre-line rounded-lg bg-gray-100 p-4 dark:bg-primary">
                 {generatedWorkout}
               </div>
             </div>
