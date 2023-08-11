@@ -65,27 +65,23 @@ router.put("/:userId", authenticateUser, async (req, res) => {
 });
 
 // Delete AI workout by user ID
-router.delete("/:userId", authenticateUser, async (req, res) => {
+router.delete("/:aiWorkoutId", authenticateUser, async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const aiWorkoutId = req.params.aiWorkoutId;
 
-    const aiWorkouts = await AIworkout.findAll({
-      where: { userId },
+    const aiWorkout = await AIworkout.findOne({
+      where: { id: aiWorkoutId },
     });
 
-    if (!aiWorkouts.length) {
-      return res.status(404).json({ error: "AI workouts not found" });
+    if (!aiWorkout) {
+      return res.status(404).json({ error: "AI workout not found" });
     }
 
-    await Promise.all(
-      aiWorkouts.map(async (aiWorkout) => {
-        await aiWorkout.destroy();
-      })
-    );
+    await aiWorkout.destroy();
 
-    res.json({ message: "AI workouts deleted successfully" });
+    res.json({ message: "AI workout deleted successfully" });
   } catch (error) {
-    console.error("Error deleting AI workouts:", error);
+    console.error("Error deleting AI workout:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
