@@ -195,7 +195,7 @@ const Quiz = () => {
               <h3 className="mb-2 text-xl font-semibold">
                 Generated Workout Plan
               </h3>
-              <div className="whitespace-pre-line rounded-lg bg-gray-100 p-4">
+              <div className="whitespace-pre-line rounded-lg bg-gray-100 dark:bg-primary p-4">
                 {generatedWorkout}
               </div>
             </div>
