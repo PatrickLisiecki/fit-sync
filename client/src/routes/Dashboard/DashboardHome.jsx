@@ -126,6 +126,7 @@ export default function DashboardHome() {
               width: "15rem",
             }}
             onClick={handleClick}
+            highlightedColors={["#FFB869"]}
           />
         )}
         {activeModel === "back" && (
@@ -136,6 +137,7 @@ export default function DashboardHome() {
             }}
             onClick={handleClick}
             type="posterior"
+            highlightedColors={["#FFB869"]}
           />
         )}
 
@@ -150,10 +152,12 @@ export default function DashboardHome() {
 
         {clickedMuscle && (
           <div className="mt-4 text-center">
-            <h2 className="text-lg font-semibold">
+            <div className="h3 text-black">
               You clicked the {clickedMuscle.muscle}!
-            </h2>
-            <p>{formatExercises(clickedMuscle.exercises)}</p>
+            </div>
+            <div className="text-black">
+              {formatExercises(clickedMuscle.exercises)}
+            </div>
           </div>
         )}
       </div>
