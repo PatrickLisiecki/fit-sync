@@ -90,4 +90,27 @@ router.delete("/:userId", authenticateUser, async (req, res) => {
   }
 });
 
+router.delete("/:exerciseId", authenticateUser, async (req, res) => {
+  try {
+    const { exerciseId } = req.params;
+
+    // Find the exercise in the database
+    const exercise = await Exercise.findByPk(exerciseId);
+
+    if (!exercise) {
+      return res.status(404).json({ error: "Exercise not found" });
+    }
+
+    // Delete the exercise from the database
+    await exercise.destroy();
+
+    // Return a success message as JSON response
+    res.json({ message: "Exercise deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting exercise:", error);
+    // Handle the error, e.g., return an error response to the client
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
