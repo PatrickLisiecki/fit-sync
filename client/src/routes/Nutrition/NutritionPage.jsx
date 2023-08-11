@@ -82,7 +82,7 @@ export default function NutritionPage() {
           onChange={handleQueryChange}
           onKeyPress={handleKeyPress}
           placeholder="Enter your meal here..."
-          className="text-md w-[300px] rounded border p-4 shadow-md transition-all duration-500 focus:outline-none md:w-[350px] lg:w-[450px] xl:w-[650px]"
+          className="text-md w-[300px] rounded border p-4 shadow-md transition-all duration-500 focus:outline-none dark:text-primary md:w-[350px] lg:w-[450px] xl:w-[650px]"
         />
         <button
           onClick={fetchNutritionFacts}
@@ -100,7 +100,7 @@ export default function NutritionPage() {
             {nutritionFacts.map((nutritionFact, index) => (
               <div
                 key={index}
-                className="rounded bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-[2px]"
+                className="rounded bg-white p-6 shadow-md transition-all duration-300 hover:shadow-xl dark:bg-primary"
               >
                 <span className="h3 capitalize">{nutritionFact.name}</span>
                 <ul className="flex flex-col items-start justify-center gap-y-2">
@@ -109,7 +109,7 @@ export default function NutritionPage() {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faFire}
-                      className="mr-4 text-3xl text-yellow-500"
+                      className="mr-4 text-3xl text-red-400"
                     />
                     <span className="mr-2 font-semibold">Calories:</span>
                     {nutritionFact.calories}
@@ -131,7 +131,7 @@ export default function NutritionPage() {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faFire}
-                      className="mr-4 text-3xl text-yellow-600"
+                      className="mr-4 text-3xl text-orange-600"
                     />
                     <span className="mr-2 text-lg font-semibold">
                       Total Fat:{" "}
@@ -143,7 +143,7 @@ export default function NutritionPage() {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faCircle}
-                      className="mr-4 text-3xl text-yellow-600"
+                      className="mr-4 text-3xl text-orange-600"
                     />
                     <span className="mr-2 text-lg font-semibold">
                       Saturated Fat:{" "}
@@ -178,12 +178,12 @@ export default function NutritionPage() {
           </div>
 
           {/* Nutrition Visualization */}
-          <div className="my-4 rounded border bg-white p-6 shadow-md">
+          <div className="my-4 rounded border bg-white p-6 shadow-md dark:bg-primary">
             <div className="w-full pb-4 text-center">
               <span className="h3">Nutrition Visualization</span>
             </div>
 
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col dark:text-primary lg:flex-row">
               {/* Calories Bar Chart */}
               <BarChart width={300} height={300} data={nutritionFacts}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -208,8 +208,8 @@ export default function NutritionPage() {
                   outerRadius={80}
                   fill="#8884d8"
                 >
-                  <Cell fill="#82ca9d" />
                   <Cell fill="#8884d8" />
+                  <Cell fill="#82ca9d" />
                 </Pie>
                 <Tooltip />
               </PieChart>

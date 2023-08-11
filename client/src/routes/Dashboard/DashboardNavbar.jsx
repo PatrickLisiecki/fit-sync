@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 // Material Tailwind
@@ -33,21 +33,30 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
   const [darkMode, setDarkMode] = useState(true);
   const [profileView, setProfileView] = useState(false);
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    // Apply the selected mode's class to the root HTML element
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
   return (
     <nav
       className={`${
         isExpanded ? "pl-0 md:pl-[250px]" : ""
-      } shadow-bs max-h-[100px] min-h-[60px] w-full bg-white p-[8px] transition-all duration-500 sm:p-4`}
+      } shadow-bs max-h-[100px] min-h-[60px] w-full bg-white p-[8px] transition-all duration-500 dark:bg-primary dark:text-white sm:p-4`}
     >
       <div className="flex h-full w-full flex-row items-center justify-between px-0 sm:px-[24px]">
         {/* Toggle sidebar button */}
         <Tooltip
           content="Menu"
           placement="bottom"
-          className="bg-secondary text-sm text-white"
+          className="bg-secondary font-poppins text-sm text-white dark:bg-black"
         >
           <button
-            className="grid h-[50px] w-[50px] place-items-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent"
+            className="grid h-[50px] w-[50px] place-items-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary"
             onClick={toggleSidebar}
           >
             <FontAwesomeIcon icon={faBars} />
@@ -63,7 +72,7 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
                 key={index}
                 content={item.title}
                 placement="bottom"
-                className="bg-secondary text-sm text-white"
+                className="bg-secondary font-poppins text-sm text-white dark:bg-black"
               >
                 <a
                   href={item.link}
@@ -79,18 +88,22 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
           <Tooltip
             content={darkMode ? "Light Mode" : "Dark Mode"}
             placement="bottom"
-            className="bg-secondary text-sm text-white"
+            className="bg-secondary font-poppins text-sm text-white dark:bg-black"
           >
-            <span
-              onClick={() => setDarkMode(!darkMode)}
+            <div
+              onClick={toggleDarkMode}
               className="mx-4 cursor-pointer transition-all duration-300 hover:text-accent"
             >
               {darkMode ? (
-                <FontAwesomeIcon icon={faCloudSun} />
+                <button id="light">
+                  <FontAwesomeIcon icon={faCloudSun} />
+                </button>
               ) : (
-                <FontAwesomeIcon icon={faCloudMoon} />
+                <button id="dark">
+                  <FontAwesomeIcon icon={faCloudMoon} />
+                </button>
               )}
-            </span>
+            </div>
           </Tooltip>
 
           <div className="relative">
@@ -114,13 +127,13 @@ export default function Navbar({ toggleSidebar, isExpanded }) {
             <div
               className={`${
                 profileView ? "block" : "hidden"
-              } absolute right-0 mt-2 min-w-[300px] rounded bg-gray-200 p-4 shadow-md`}
+              } absolute right-0 mt-2 min-w-[300px] rounded bg-gray-200 p-4 shadow-md dark:bg-gray-600 dark:text-white`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-xl">User Profile</span>{" "}
                 <button
                   onClick={() => setProfileView(false)}
-                  className="grid h-[50px] w-[50px] place-items-center rounded-full bg-none transition-all duration-300 hover:bg-gray-300 hover:text-accent"
+                  className="grid h-[50px] w-[50px] place-items-center rounded-full bg-none transition-all duration-300 hover:bg-gray-300 hover:text-accent dark:hover:bg-secondary"
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>

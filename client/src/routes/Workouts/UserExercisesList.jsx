@@ -75,7 +75,7 @@ export default function UserExercisesList({ updated }) {
         {/* Go back button */}
         <Link
           to="/dashboard/workouts"
-          className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300"
+          className="flex cursor-pointer items-center justify-center gap-x-2 rounded p-3 hover:bg-gray-300 dark:hover:bg-primary"
         >
           <FontAwesomeIcon icon={faArrowLeftLong} />
           <span className="text-md hidden font-light sm:inline-block">
@@ -95,7 +95,7 @@ export default function UserExercisesList({ updated }) {
           exercises.map((exercise) => (
             <div
               key={exercise.id}
-              className="rounded-lg bg-white p-4 shadow-lg"
+              className="rounded-lg bg-white p-4 shadow-md dark:bg-primary"
             >
               {/* Exercise name and delete button */}
               <div className="relative mb-4 flex w-full flex-row items-center justify-between">
@@ -104,7 +104,7 @@ export default function UserExercisesList({ updated }) {
                 </span>
                 <button
                   onClick={() => handleDeleteExercise(exercise)}
-                  className="absolute right-0 top-0 grid h-[40px] w-[40px] cursor-pointer place-items-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white"
+                  className="absolute right-0 top-0 flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full text-black transition-all duration-200 hover:bg-red-500 hover:text-white dark:text-white"
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
@@ -116,18 +116,21 @@ export default function UserExercisesList({ updated }) {
                   variant="ghost"
                   size="sm"
                   color="orange"
+                  className="font-poppins dark:text-white"
                   value={exercise.type}
                 />
                 <Chip
                   variant="ghost"
                   size="sm"
                   color="orange"
+                  className="font-poppins dark:text-white"
                   value={exercise.muscle}
                 />
                 <Chip
                   variant="ghost"
                   size="sm"
                   color="orange"
+                  className="font-poppins dark:text-white"
                   value={exercise.equipment}
                 />
               </div>
@@ -140,7 +143,9 @@ export default function UserExercisesList({ updated }) {
                 color="orange"
                 className="flex items-center justify-center gap-x-2"
               >
-                <span className="text-white">View Info</span>
+                <span className="font-poppins tracking-wide text-white">
+                  Details
+                </span>
                 <FontAwesomeIcon icon={faArrowRightLong} />
               </Button>
             </div>
@@ -150,13 +155,14 @@ export default function UserExercisesList({ updated }) {
       {/* Modal for exercise info */}
       {selectedExercise && (
         <Modal isVisible={isModalVisible} hideModal={hideModal}>
-          <div className="flex shrink-0 items-center border-b border-primary p-4">
-            <span className="text-2xl font-semibold leading-snug text-primary antialiased">
+          <div className="flex shrink-0 items-center border-b border-primary p-4 dark:border-secondary">
+            <span className="text-2xl font-semibold leading-snug text-primary antialiased dark:text-white">
               {selectedExercise.name}
             </span>
           </div>
-          <div className="relative border-b border-primary p-4 antialiased">
-            <p className="text-base font-light leading-relaxed text-secondary">
+
+          <div className="relative border-b border-primary p-4 antialiased dark:border-secondary">
+            <p className="text-base font-light leading-relaxed text-secondary dark:text-white">
               {selectedExercise.details}
             </p>
           </div>
@@ -167,6 +173,7 @@ export default function UserExercisesList({ updated }) {
               color="red"
               ripple={false}
               onClick={() => handleOpen(null)}
+              className="font-poppins"
             >
               Close
             </Button>
