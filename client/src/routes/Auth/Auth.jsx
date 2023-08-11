@@ -61,7 +61,7 @@ export default function Auth() {
       <div className="w-full px-6 sm:px-24">
         {/* Header and close button */}
         <div className="flex w-full items-center justify-between py-[20px]">
-          <Link to="/" className="h3 mb-0 uppercase text-white">
+          <Link to="/" className="h3 mb-0 uppercase tracking-wider text-white">
             Flex <span className="text-accent">Fusion</span>
           </Link>
           <Link
