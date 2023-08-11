@@ -71,13 +71,13 @@ export default function Progress() {
         </div> */}
 
         {/* Display user's exercises */}
-        <div className="mt-4 grid gap-4 px-6 py-4 sm:px-24 md:grid-cols-2 lg:grid-cols-3">
-          {exercises.length > 0 &&
-            exercises.map((exercise) => (
+        {exercises.length > 0 ? (
+          <div className="mt-4 grid gap-4 px-6 py-4 sm:px-24 md:grid-cols-2 lg:grid-cols-3">
+            {exercises.map((exercise) => (
               <Link
                 to={`/dashboard/progress/${exercise.id}`}
                 key={exercise.id}
-                className="rounded-lg bg-white p-4 shadow-lg"
+                className="rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:text-accent hover:shadow-xl dark:bg-primary hover:dark:bg-primary/60"
               >
                 {/* Exercise name and delete button
                 <div className="flex w-full flex-row items-center justify-between">
@@ -95,18 +95,21 @@ export default function Progress() {
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.type}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.muscle}
                   />
                   <Chip
                     variant="ghost"
                     size="sm"
                     color="orange"
+                    className="font-poppins dark:text-white"
                     value={exercise.equipment}
                   />
                 </div>
@@ -118,12 +121,30 @@ export default function Progress() {
                   color="orange"
                   className="flex items-center justify-center gap-x-2"
                 >
-                  <span className="text-white">Log</span>
+                  <span className="font-poppins tracking-wide text-white">
+                    Log
+                  </span>
                   <FontAwesomeIcon icon={faArrowRightLong} />
                 </Button>
               </Link>
             ))}
-        </div>
+          </div>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="flex flex-col">
+              <span className="h3 mb-0">No exercises found...</span>
+              <span className="text-center text-xl">
+                Add an exercise{" "}
+                <Link
+                  to="/dashboard/workouts"
+                  className="text-blue-500 hover:underline"
+                >
+                  here
+                </Link>
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Add an exercise form */}

@@ -24,7 +24,7 @@ import {
   YAxis,
 } from "recharts";
 
-const NutritionPage = () => {
+export default function NutritionPage() {
   const [query, setQuery] = useState("");
   const [nutritionFacts, setNutritionFacts] = useState(null);
   const [totalCalories, setTotalCalories] = useState(0);
@@ -71,7 +71,7 @@ const NutritionPage = () => {
     <div className="flex h-full w-full flex-col items-center">
       {/* Nutrition page header */}
       <div className="w-full p-4 text-center">
-        <span className="h2">Nutrition Facts</span>
+        <span className="h2">Nutrition Analysis</span>
       </div>
 
       {/* Search form */}
@@ -82,11 +82,11 @@ const NutritionPage = () => {
           onChange={handleQueryChange}
           onKeyPress={handleKeyPress}
           placeholder="Enter your meal here..."
-          className="text-md w-[300px] rounded border p-4 shadow-md transition-all duration-500 focus:outline-none md:w-[350px] lg:w-[450px] xl:w-[650px]"
+          className="text-md w-[300px] rounded border p-4 shadow-md transition-all duration-500 focus:outline-none dark:text-primary md:w-[350px] lg:w-[450px] xl:w-[650px]"
         />
         <button
           onClick={fetchNutritionFacts}
-          className="min-w-[135px] cursor-pointer rounded bg-accent py-2 text-lg text-white shadow-md hover:bg-accent/90"
+          className="text-md cursor-pointer rounded bg-accent px-3 py-2 text-center text-white shadow-md hover:bg-accent/90"
         >
           Get Nutrition
         </button>
@@ -100,7 +100,7 @@ const NutritionPage = () => {
             {nutritionFacts.map((nutritionFact, index) => (
               <div
                 key={index}
-                className="rounded bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-[2px]"
+                className="rounded bg-white p-6 shadow-md transition-all duration-300 hover:shadow-xl dark:bg-primary"
               >
                 <span className="h3 capitalize">{nutritionFact.name}</span>
                 <ul className="flex flex-col items-start justify-center gap-y-2">
@@ -109,7 +109,7 @@ const NutritionPage = () => {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faFire}
-                      className="mr-4 text-3xl text-yellow-500"
+                      className="mr-4 text-3xl text-red-400"
                     />
                     <span className="mr-2 font-semibold">Calories:</span>
                     {nutritionFact.calories}
@@ -131,7 +131,7 @@ const NutritionPage = () => {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faFire}
-                      className="mr-4 text-3xl text-yellow-600"
+                      className="mr-4 text-3xl text-orange-600"
                     />
                     <span className="mr-2 text-lg font-semibold">
                       Total Fat:{" "}
@@ -143,7 +143,7 @@ const NutritionPage = () => {
                   <li className="flex items-center">
                     <FontAwesomeIcon
                       icon={faCircle}
-                      className="mr-4 text-3xl text-yellow-600"
+                      className="mr-4 text-3xl text-orange-600"
                     />
                     <span className="mr-2 text-lg font-semibold">
                       Saturated Fat:{" "}
@@ -172,20 +172,18 @@ const NutritionPage = () => {
                     <span className="mr-2 text-lg font-semibold">Sodium: </span>
                     {nutritionFact.sodium_mg} mg
                   </li>
-                  
                 </ul>
               </div>
             ))}
           </div>
 
           {/* Nutrition Visualization */}
-          <div className="my-4 rounded border bg-white p-6 shadow-md">
-            
+          <div className="my-4 rounded border bg-white p-6 shadow-md dark:bg-primary">
             <div className="w-full pb-4 text-center">
               <span className="h3">Nutrition Visualization</span>
             </div>
 
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col dark:text-primary lg:flex-row">
               {/* Calories Bar Chart */}
               <BarChart width={300} height={300} data={nutritionFacts}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -210,8 +208,8 @@ const NutritionPage = () => {
                   outerRadius={80}
                   fill="#8884d8"
                 >
-                  <Cell fill="#82ca9d" />
                   <Cell fill="#8884d8" />
+                  <Cell fill="#82ca9d" />
                 </Pie>
                 <Tooltip />
               </PieChart>
@@ -231,6 +229,4 @@ const NutritionPage = () => {
       )}
     </div>
   );
-};
-
-export default NutritionPage;
+}

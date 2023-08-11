@@ -1,7 +1,6 @@
-
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
-
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -44,10 +43,10 @@ const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const { user } = await response.json();
-        console.log("User after successful login:", user); 
+        console.log("User after successful login:", user);
         setCurrentUser((prevUser) => ({
           ...prevUser,
-          ...user, 
+          ...user,
         }));
         setAuthError(null);
       } else {

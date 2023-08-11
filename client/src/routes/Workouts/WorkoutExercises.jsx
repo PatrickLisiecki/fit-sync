@@ -1,8 +1,8 @@
 import { useState } from "react";
 import UserExercisesList from "./UserExercisesList";
-import ExercisesList from "./ExercisesList"; 
+import ExercisesList from "./ExercisesList";
 
-const UserExercises = () => {
+export default function WorkoutExercises() {
   const [updated, setUpdated] = useState(false);
 
   const handleExerciseUpdate = () => {
@@ -15,6 +15,4 @@ const UserExercises = () => {
       <ExercisesList onExerciseAdd={handleExerciseUpdate} />
     </>
   );
-};
-
-export default UserExercises;
+}

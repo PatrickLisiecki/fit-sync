@@ -14,6 +14,7 @@ import {
   faRobot,
   faPowerOff,
   faArrowLeftLong,
+  faCircleUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Sidebar Data
@@ -47,10 +48,16 @@ const sidebarData = [
     icon: <FontAwesomeIcon icon={faAppleWhole} className="h-[20px] w-[20px]" />,
   },
   {
-    title: "AI Workout",
+    title: "AI",
     link: "/dashboard/ai",
     childPath: "/ai",
     icon: <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />,
+  },
+  {
+    title: "Profile",
+    link: "/dashboard/profile",
+    childPath: "/profile",
+    icon: <FontAwesomeIcon icon={faCircleUser} className="h-[20px] w-[20px]" />,
   },
 ];
 
@@ -71,7 +78,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
     <nav
       className={`${
         isExpanded ? "left-0" : "-left-[250px]"
-      } fixed z-[999] h-screen w-[250px] bg-sidebar transition-all duration-500`}
+      } fixed z-[999] h-screen w-[250px] bg-sidebar shadow-2xl transition-all duration-500`}
     >
       {/* Header */}
       <div className="flex flex-col items-center justify-center p-4">

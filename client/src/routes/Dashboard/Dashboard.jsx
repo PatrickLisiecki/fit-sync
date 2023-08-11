@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -32,11 +31,10 @@ export default function Dashboard() {
           isExpanded={isExpanded}
         />
 
-        
         <div
           className={`${
-            isExpanded ? "pl-0 lg:pl-[250px]" : "pl-0"
-          } h-full w-full bg-gray-200 transition-all duration-500`}
+            isExpanded ? "pl-0 xl:pl-[250px]" : "pl-0"
+          } h-full w-full bg-gray-200 transition-all duration-500 dark:bg-secondary dark:text-white`}
         >
           <Outlet />
         </div>
