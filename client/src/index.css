@@ -19,3 +19,7 @@
     @apply mb-6 font-poppins text-[26px] font-semibold leading-[46px];
   }
 }
+
+.rbh polygon:hover {
+  fill: #0c85ff !important;
+}
