@@ -39,6 +39,19 @@ export async function createExercise(
   }
 }
 
+// Get a specific exercise
+export async function getExercise(exerciseId) {
+  try {
+    // Send GET request to server
+    const response = await axios.get(`/api/exercises/exercise/${exerciseId}`);
+
+    // Extract the data from the response
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching exercise:", error);
+  }
+}
+
 // Get all the exercises for a user's workout on a specific week and day
 export async function getExercises(userId, workoutId, week, day) {
   try {

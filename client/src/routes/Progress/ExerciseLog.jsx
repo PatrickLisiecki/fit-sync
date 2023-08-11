@@ -1,13 +1,17 @@
-import axios from "axios";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+// API functions
+import { getSets, createSet, updateSet, deleteSet } from "../../api/sets";
+import { getExercise } from "../../api/exercises";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencil,
   faPlus,
-  faBan,
+  faXmark,
   faCheck,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
@@ -65,81 +69,57 @@ export default function ExerciseLog() {
     toggleEditState(setId); // Turn off edit mode after saving
   };
 
-  // Fetch the exercise data
-  const fetchExercise = () => {
-    axios
-      .get(`/api/exercises/exercise/${exerciseId}`)
-      .then((response) => {
-        console.log(response.data);
-        setCurrentExercise(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching exercise:", error);
-      });
-  };
-
-  // Fetch the log for the current exercise
-  const fetchSets = () => {
-    axios
-      .get(`/api/sets/${exerciseId}`)
-      .then((response) => {
-        console.log(response.data);
-        setLogData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching sets:", error);
-      });
-  };
-
   useEffect(() => {
-    fetchSets();
-    fetchExercise();
+    // Fetch the log for the current exercise
+    async function fetchData() {
+      const allSets = await getSets(exerciseId);
+
+      // Update state
+      setLogData(allSets);
+
+      const exercise = await getExercise(exerciseId);
+
+      // Update state
+      setCurrentExercise(exercise);
+    }
+
+    fetchData();
   }, []);
 
-  // Create a Set
-  const handleCreateSet = () => {
-    axios
-      .post(`/api/sets/`, newSetData)
-      .then((response) => {
-        setLogData([...logData, response.data]);
-        setNewSetData({
-          reps: 0,
-          weight: 0,
-          date: "",
-          exerciseId: exerciseId,
-        });
-      })
-      .catch((error) => {
-        console.error("Error creating set:", error);
-      });
+  // Create a set
+  const handleCreateSet = async () => {
+    const newSet = await createSet(newSetData);
+
+    // Add the new set to the log
+    setLogData([...logData, newSet]);
+
+    // Reset the data state
+    setNewSetData({
+      reps: 0,
+      weight: 0,
+      date: "",
+      exerciseId: exerciseId,
+    });
   };
 
   // Update a Set
-  const handleUpdateSet = (setId, updatedSetData) => {
-    axios
-      .put(`/api/sets/${setId}`, updatedSetData)
-      .then((response) => {
-        const updatedLogData = logData.map((set) =>
-          set.id === setId ? response.data : set,
-        );
-        setLogData(updatedLogData);
-      })
-      .catch((error) => {
-        console.error("Error updating set:", error);
-      });
+  const handleUpdateSet = async (setId, updatedSetData) => {
+    const updatedSet = await updateSet(setId, updatedSetData);
+
+    // Update state
+    const updatedLogData = logData.map((set) =>
+      set.id === setId ? updatedSet : set,
+    );
+    setLogData(updatedLogData);
   };
 
   // Delete a set
-  const handleDeleteSet = (setId) => {
-    axios
-      .delete(`/api/sets/${setId}`)
-      .then(() => {
-        const updatedLogData = logData.filter((set) => set.id !== setId);
-        setLogData(updatedLogData);
-      })
-      .catch((error) => {
-        console.error("Error deleting set:", error);
-      });
+  const handleDeleteSet = async (setId) => {
+    await deleteSet(setId);
+
+    // Update state
+    const updatedLogData = logData.filter((set) => set.id !== setId);
+    setLogData(updatedLogData);
   };
 
   const TABLE_HEAD = ["Reps", "Weight", "Date", "Edit", "Delete"];
@@ -165,150 +145,149 @@ export default function ExerciseLog() {
         </button>
       </div>
 
-      <div className="grid w-full place-items-center overflow-x-auto px-6 py-4 sm:px-24 ">
-        <table className="w-full min-w-max table-auto rounded bg-gray-100 text-left shadow-md">
-          {/* Column names */}
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head, index) => (
-                <th
-                  key={index}
-                  className="border-b border-blue-gray-100 bg-gray-300 p-4"
-                >
-                  <span className="leading-none text-primary opacity-70">
-                    {head}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
+      <div className="w-full px-6 py-4 sm:px-24 ">
+        <div className="overflow-x-auto">
+          <table className="w-full rounded bg-gray-100 text-left shadow-md">
+            {/* Column names */}
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head, index) => (
+                  <th
+                    key={index}
+                    className="border-b border-gray-400 bg-gray-300 p-2"
+                  >
+                    <span className="leading-none text-primary opacity-70">
+                      {head}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-          {/* Sets */}
-          <tbody>
-            {logData != null && logData.length > 0 ? (
-              logData.map((set, index) => {
-                const isLast = index === logData.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+            {/* Sets */}
+            <tbody>
+              {logData != null && logData.length > 0 ? (
+                logData.map((set, index) => {
+                  const classes = "p-2";
 
-                return (
-                  <tr key={index}>
-                    {/* Reps column */}
-                    <td className={classes}>
-                      {/* Edit reps */}
-                      {editState[set.id] ? (
-                        <input
-                          type="number"
-                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
-                          value={set.reps}
-                          onChange={(e) =>
-                            setLogData((prevData) => {
-                              const newData = [...prevData];
-                              newData[index].reps = e.target.value;
-                              return newData;
-                            })
-                          }
-                        />
-                      ) : (
-                        <span className="text-secondary">{set.reps}</span>
-                      )}
-                    </td>
+                  return (
+                    <tr key={index}>
+                      {/* Reps column */}
+                      <td className={classes}>
+                        {/* Edit reps */}
+                        {editState[set.id] ? (
+                          <input
+                            type="number"
+                            value={set.reps}
+                            onChange={(e) =>
+                              setLogData((prevData) => {
+                                const newData = [...prevData];
+                                newData[index].reps = e.target.value;
+                                return newData;
+                              })
+                            }
+                            className="max-w-[150px] border px-2 py-1 focus:outline-none"
+                          />
+                        ) : (
+                          <span className="text-secondary">{set.reps}</span>
+                        )}
+                      </td>
 
-                    {/* Weight column */}
-                    <td className={classes}>
-                      {/* Edit weight */}
-                      {editState[set.id] ? (
-                        <input
-                          type="number"
-                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
-                          value={set.weight}
-                          onChange={(e) =>
-                            setLogData((prevData) => {
-                              const newData = [...prevData];
-                              newData[index].weight = e.target.value;
-                              return newData;
-                            })
-                          }
-                        />
-                      ) : (
-                        <span className="text-secondary">{set.weight}</span>
-                      )}
-                    </td>
+                      {/* Weight column */}
+                      <td className={classes}>
+                        {/* Edit weight */}
+                        {editState[set.id] ? (
+                          <input
+                            type="number"
+                            value={set.weight}
+                            onChange={(e) =>
+                              setLogData((prevData) => {
+                                const newData = [...prevData];
+                                newData[index].weight = e.target.value;
+                                return newData;
+                              })
+                            }
+                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                          />
+                        ) : (
+                          <span className="text-secondary">{set.weight}</span>
+                        )}
+                      </td>
 
-                    {/* Date column */}
-                    <td className={classes}>
-                      {/* Edit date */}
-                      {editState[set.id] ? (
-                        <input
-                          type="date"
-                          className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
-                          value={set.date}
-                          onChange={(e) =>
-                            setLogData((prevData) => {
-                              const newData = [...prevData];
-                              newData[index].date = e.target.value;
-                              return newData;
-                            })
-                          }
-                        />
-                      ) : (
-                        <span className="text-secondary">{set.date}</span>
-                      )}
-                    </td>
+                      {/* Date column */}
+                      <td className={classes}>
+                        {/* Edit date */}
+                        {editState[set.id] ? (
+                          <input
+                            type="date"
+                            value={set.date}
+                            onChange={(e) =>
+                              setLogData((prevData) => {
+                                const newData = [...prevData];
+                                newData[index].date = e.target.value;
+                                return newData;
+                              })
+                            }
+                            className="max-w-[150px] rounded border px-2 py-1 focus:outline-none"
+                          />
+                        ) : (
+                          <span className="text-secondary">{set.date}</span>
+                        )}
+                      </td>
 
-                    {/* Edit buttons */}
-                    <td className={classes}>
-                      {editState[set.id] ? (
-                        <div className="flex flex-row items-center justify-start gap-x-2">
-                          {/* Cancel edit button */}
+                      {/* Edit buttons */}
+                      <td className={classes}>
+                        {editState[set.id] ? (
+                          <div className="flex flex-row items-center justify-start gap-x-2">
+                            {/* Cancel edit button */}
+                            <button
+                              onClick={() => toggleEditState(set.id)}
+                              className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
+                            >
+                              <FontAwesomeIcon icon={faXmark} />
+                            </button>
+
+                            {/* Confirm edit button */}
+                            <button
+                              onClick={() => saveSetData(set.id, set)}
+                              className="grid place-items-center rounded bg-green-500 p-3 text-white hover:bg-green-500/90"
+                            >
+                              <FontAwesomeIcon icon={faCheck} />
+                            </button>
+                          </div>
+                        ) : (
+                          // Begin editing button
                           <button
                             onClick={() => toggleEditState(set.id)}
-                            className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
+                            className="grid place-items-center rounded bg-orange-500 p-3 text-white hover:bg-orange-500/90"
                           >
-                            <FontAwesomeIcon icon={faBan} />
+                            <FontAwesomeIcon icon={faPencil} />
                           </button>
+                        )}
+                      </td>
 
-                          {/* Confirm edit button */}
-                          <button
-                            onClick={() => saveSetData(set.id, set)}
-                            className="grid place-items-center rounded bg-green-500 p-3 text-white hover:bg-green-500/90"
-                          >
-                            <FontAwesomeIcon icon={faCheck} />
-                          </button>
-                        </div>
-                      ) : (
-                        // Begin editing button
+                      {/* Delete button */}
+                      <td className={classes}>
                         <button
-                          onClick={() => toggleEditState(set.id)}
-                          className="grid place-items-center rounded bg-orange-500 p-3 text-white hover:bg-orange-500/90"
+                          onClick={() => handleDeleteSet(set.id)}
+                          className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
                         >
-                          <FontAwesomeIcon icon={faPencil} />
+                          <FontAwesomeIcon icon={faTrash} />
                         </button>
-                      )}
-                    </td>
-
-                    {/* Delete button */}
-                    <td className={classes}>
-                      <button
-                        onClick={() => handleDeleteSet(set.id)}
-                        className="grid place-items-center rounded bg-red-500 p-3 text-white hover:bg-red-500/90"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td className="border-b border-blue-gray-50 p-4">
-                  <span className="text-secondary">No records found..</span>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td className="border-b border-blue-gray-50 p-4">
+                    <span className="text-secondary">No records found..</span>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Create set form */}
@@ -320,8 +299,8 @@ export default function ExerciseLog() {
             id="reps"
             name="reps"
             placeholder="Reps"
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
             onChange={handleInputChange}
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
           />
 
           {/* Weight input */}
@@ -330,8 +309,8 @@ export default function ExerciseLog() {
             id="weight"
             name="weight"
             placeholder="Weight"
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
             onChange={handleInputChange}
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
           />
 
           {/* Date input */}
@@ -339,8 +318,8 @@ export default function ExerciseLog() {
             type="date"
             id="date"
             name="date"
-            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
             onChange={handleInputChange}
+            className="w-[200px] rounded border px-2 py-1 focus:outline-none"
           />
 
           {/* Submit button */}
