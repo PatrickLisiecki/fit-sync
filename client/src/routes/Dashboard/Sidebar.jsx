@@ -8,13 +8,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
-  faCalendarDays,
   faChartLine,
   faAppleWhole,
   faRobot,
   faPowerOff,
   faArrowLeftLong,
-  faCircleUser,
+  faDumbbell,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Sidebar Data
@@ -31,9 +30,7 @@ const sidebarData = [
     title: "Workout Plan",
     link: "/dashboard/workouts",
     childPath: "/workouts",
-    icon: (
-      <FontAwesomeIcon icon={faCalendarDays} className="h-[20px] w-[20px]" />
-    ),
+    icon: <FontAwesomeIcon icon={faDumbbell} className="h-[20px] w-[20px]" />,
   },
   {
     title: "Progress",
@@ -52,12 +49,6 @@ const sidebarData = [
     link: "/dashboard/ai",
     childPath: "/ai",
     icon: <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />,
-  },
-  {
-    title: "Profile",
-    link: "/dashboard/profile",
-    childPath: "/profile",
-    icon: <FontAwesomeIcon icon={faCircleUser} className="h-[20px] w-[20px]" />,
   },
 ];
 
@@ -81,7 +72,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
       } fixed z-[999] h-screen w-[250px] bg-sidebar shadow-2xl transition-all duration-500`}
     >
       {/* Header */}
-      <div className="flex flex-col items-center justify-center p-4">
+      <div className="flex h-[100px] flex-col items-center justify-center p-4">
         <Link
           to="/"
           className="mb-0 text-[24px] font-bold uppercase text-white"
