@@ -140,8 +140,8 @@ export default function LandingPage() {
 
         {/* Info */}
         <div className="relative flex flex-col items-center justify-center gap-y-4">
-          <button className="min-w-[300px] rounded bg-accent px-6 py-5 text-base text-white hover:bg-accent/90 sm:text-lg">
-            Join our Community Now!
+          <button className="mb-0 min-w-[300px] rounded bg-accent px-6 py-5 text-base font-semibold uppercase tracking-wide text-white hover:bg-accent/90 sm:text-lg">
+            Join our community now
           </button>
           <p className="max-w-[300px] text-center text-base text-white sm:max-w-[500px] sm:text-lg md:max-w-[700px]">
             Unlock the best version of yourself! Join our workout community
