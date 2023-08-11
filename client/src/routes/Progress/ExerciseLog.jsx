@@ -286,8 +286,10 @@ export default function ExerciseLog() {
                 })
               ) : (
                 <tr>
-                  <td className="border-b border-blue-gray-50 p-4">
-                    <span className="text-secondary">No records found..</span>
+                  <td className="p-2">
+                    <span className="text-secondary dark:text-white">
+                      No records found..
+                    </span>
                   </td>
                 </tr>
               )}
