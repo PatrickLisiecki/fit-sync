@@ -2,9 +2,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRobot,
-  faCalendarDays,
   faChartLine,
   faAppleWhole,
+  faDumbbell,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function LandingPage() {
@@ -73,7 +73,7 @@ export default function LandingPage() {
             {/* Exercise API */}
             <div className="mt-8 flex flex-col items-center">
               <div className="grid h-24 w-24 place-items-center rounded-full bg-accent">
-                <FontAwesomeIcon icon={faCalendarDays} className="text-5xl" />
+                <FontAwesomeIcon icon={faDumbbell} className="text-5xl" />
               </div>
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Workout Plan

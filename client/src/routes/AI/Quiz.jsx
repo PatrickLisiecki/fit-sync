@@ -104,15 +104,15 @@ const Quiz = () => {
     My fitness level is ${answers.fitnessLevel}.
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.`;
-  
+
+    const apiKey = ""; // Replace with your API key
+    const openAi = new OpenAIApi(
+      new Configuration({
+        apiKey,
+      }),
+    );
+
     try {
-      const apiKey = ""; // Replace with your API key
-      const openAi = new OpenAIApi(
-        new Configuration({
-          apiKey
-        }),
-      );
-  
       const response = await openAi.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
@@ -220,9 +220,7 @@ const Quiz = () => {
         ) : (
           generatedWorkout && (
             <div className="mt-6">
-              <span className="h3 font-semibold">
-                Generated Workout Plan
-              </span>
+              <span className="h3 font-semibold">Generated Workout Plan</span>
               <div className="whitespace-pre-line rounded-lg bg-gray-100 p-4 dark:bg-primary">
                 {generatedWorkout}
               </div>

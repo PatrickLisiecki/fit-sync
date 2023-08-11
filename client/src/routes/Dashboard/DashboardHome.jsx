@@ -113,12 +113,12 @@ export default function DashboardHome() {
   }, []);
 
   return (
-    <div className="mb-8 flex h-full w-full flex-col items-center ">
+    <div className="mb-8 flex h-full w-full flex-col items-center">
       {/* Dashboard home header */}
       <div className="w-full p-4 text-center">
         <span className="h2">Welcome, {currentUser.username}!</span>
       </div>
-      <div className="flex w-[90%] flex-col items-center justify-center rounded-lg bg-white px-4 py-4 shadow-md md:w-[50%] lg:w-[60%]">
+      <div className="flex w-[90%] flex-col items-center justify-center rounded-lg bg-white px-4 py-4 shadow-md dark:bg-primary md:w-[50%] lg:w-[60%]">
         {activeModel === "front" && (
           <Model
             data={data}
@@ -142,7 +142,7 @@ export default function DashboardHome() {
         )}
 
         <button
-          className="mt-4 rounded-md bg-accent px-2 py-1 text-white hover:bg-orange-600"
+          className="mt-4 rounded bg-accent px-4 py-3 text-white hover:bg-accent/90"
           onClick={() =>
             setActiveModel(activeModel === "front" ? "back" : "front")
           }
@@ -152,10 +152,10 @@ export default function DashboardHome() {
 
         {clickedMuscle && (
           <div className="mt-4 text-center">
-            <div className="h3 text-black">
+            <span className="h3 dark:text-white">
               You clicked the {clickedMuscle.muscle}!
-            </div>
-            <div className="text-black">
+            </span>
+            <div className="dark:text-white">
               {formatExercises(clickedMuscle.exercises)}
             </div>
           </div>

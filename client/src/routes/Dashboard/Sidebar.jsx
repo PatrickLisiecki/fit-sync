@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Form, redirect } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
@@ -8,13 +8,15 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
-  faCalendarDays,
   faChartLine,
   faAppleWhole,
   faRobot,
   faPowerOff,
   faArrowLeftLong,
-  faCircleUser,
+  faDumbbell,
+  faChevronDown,
+  faBookmark,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Sidebar Data
@@ -31,9 +33,7 @@ const sidebarData = [
     title: "Workout Plan",
     link: "/dashboard/workouts",
     childPath: "/workouts",
-    icon: (
-      <FontAwesomeIcon icon={faCalendarDays} className="h-[20px] w-[20px]" />
-    ),
+    icon: <FontAwesomeIcon icon={faDumbbell} className="h-[20px] w-[20px]" />,
   },
   {
     title: "Progress",
@@ -47,22 +47,23 @@ const sidebarData = [
     childPath: "/nutrition",
     icon: <FontAwesomeIcon icon={faAppleWhole} className="h-[20px] w-[20px]" />,
   },
-  {
-    title: "AI",
-    link: "/dashboard/ai",
-    childPath: "/ai",
-    icon: <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />,
-  },
-  {
-    title: "Profile",
-    link: "/dashboard/profile",
-    childPath: "/profile",
-    icon: <FontAwesomeIcon icon={faCircleUser} className="h-[20px] w-[20px]" />,
-  },
 ];
 
 export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
   const { currentUser, logout } = useContext(AuthContext);
+
+  const [openSubmenu, setOpenSubmenu] = useState(false);
+
+  const toggleSubmenu = () => {
+    if (
+      isLinkActive(`/dashboard/ai/generate`) ||
+      isLinkActive(`/dashboard/ai/saved`)
+    ) {
+      setOpenSubmenu(true);
+    } else {
+      setOpenSubmenu(!openSubmenu);
+    }
+  };
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -81,7 +82,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
       } fixed z-[999] h-screen w-[250px] bg-sidebar shadow-2xl transition-all duration-500`}
     >
       {/* Header */}
-      <div className="flex flex-col items-center justify-center p-4">
+      <div className="flex h-[100px] flex-col items-center justify-center p-4">
         <Link
           to="/"
           className="mb-0 text-[24px] font-bold uppercase text-white"
@@ -112,6 +113,59 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
             </Link>
           );
         })}
+
+        <div
+          onClick={toggleSubmenu}
+          className="flex min-h-[60px] w-full cursor-pointer items-center bg-none p-4 text-white hover:border-l-[5px] hover:border-l-accent hover:bg-secondary"
+        >
+          <div className="relative ml-4 h-full w-full">
+            <FontAwesomeIcon icon={faRobot} className="h-[20px] w-[20px]" />
+            <span className="ml-4 inline-block">AI</span>
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={`${
+                openSubmenu ? "rotate-180" : "rotate-0"
+              } absolute right-2 top-1/2 -translate-y-1/2 transition-all duration-300`}
+            />
+          </div>
+        </div>
+
+        {openSubmenu && (
+          <>
+            <Link
+              to="/dashboard/ai/generate"
+              className={`${
+                isLinkActive(`/dashboard/ai/generate`)
+                  ? "bg-accent hover:bg-accent/90"
+                  : "bg-none hover:border-l-[5px] hover:border-l-accent hover:bg-secondary"
+              } flex min-h-[60px] w-full cursor-pointer items-center p-4 text-white`}
+            >
+              <div className="ml-10 h-full w-full">
+                <FontAwesomeIcon
+                  icon={faScrewdriverWrench}
+                  className="h-[20px] w-[20px]"
+                />
+                <span className="ml-4 inline-block">Generate</span>
+              </div>
+            </Link>
+            <Link
+              to="/dashboard/ai/saved"
+              className={`${
+                isLinkActive(`/dashboard/ai/saved`)
+                  ? "bg-accent hover:bg-accent/90"
+                  : "bg-none hover:border-l-[5px] hover:border-l-accent hover:bg-secondary"
+              } flex min-h-[60px] w-full cursor-pointer items-center p-4 text-white`}
+            >
+              <div className="ml-10 h-full w-full">
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  className="h-[20px] w-[20px]"
+                />
+                <span className="ml-4 inline-block">Saved</span>
+              </div>
+            </Link>
+          </>
+        )}
 
         {/* Logout */}
         <div className="flex min-h-[60px] w-full cursor-pointer items-center bg-none p-4 text-white hover:border-l-[5px] hover:border-l-accent hover:bg-secondary">
