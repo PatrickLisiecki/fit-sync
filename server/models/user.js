@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Exercise, {
         foreignKey: "userId",
       });
+      this.hasMany(models.AIworkout, {
+        foreignKey: "userId",
+      });
     }
   }
   User.init(
