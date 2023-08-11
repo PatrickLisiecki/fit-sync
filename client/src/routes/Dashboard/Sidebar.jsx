@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Form, redirect } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
@@ -74,6 +75,15 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
   const isLinkActive = (linkPath) => {
     return currentPath === linkPath;
   };
+
+  useEffect(() => {
+    if (
+      isLinkActive(`/dashboard/ai/generate`) ||
+      isLinkActive(`/dashboard/ai/saved`)
+    ) {
+      setOpenSubmenu(true);
+    }
+  }, []);
 
   return (
     <nav
