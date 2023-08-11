@@ -176,7 +176,7 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
               {/* Profile link */}
               <Link
                 to="/dashboard/profile"
-                className="flex flex-row items-center justify-start gap-x-4 border-b border-secondary px-6 py-3 hover:bg-secondary dark:border-white"
+                className="flex flex-row items-center justify-start gap-x-4 border-b border-secondary px-6 py-3 hover:bg-gray-300 dark:border-white dark:hover:bg-secondary"
               >
                 <div className="grid place-items-center rounded bg-gray-400 p-3">
                   <FontAwesomeIcon

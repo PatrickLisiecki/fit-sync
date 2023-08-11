@@ -274,7 +274,13 @@ export default function WorkoutPlan() {
           </div>
         ) : (
           // Display the list of workouts when no workout is selected
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div
+            className={`${
+              workouts.length === 0
+                ? "flex h-[100px] w-full items-center justify-center"
+                : "grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            } `}
+          >
             <button
               onClick={showModal}
               className="flex min-w-[250px] cursor-pointer items-center justify-center gap-x-2 rounded bg-accent px-4 py-4 text-white shadow-md transition-all duration-300 hover:bg-accent/90 hover:shadow-xl "
