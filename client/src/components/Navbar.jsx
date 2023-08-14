@@ -47,7 +47,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed z-[100] max-h-[100px] w-full bg-primary p-8 shadow-md">
+    <header className="fixed z-[100] max-h-[100px] w-full bg-primary p-8 shadow-md">
       <div className="flex flex-row items-center justify-between lg:container lg:mx-auto">
         {/* Name / Logo */}
         <Link to="/">
@@ -59,7 +59,7 @@ export default function Navbar() {
         </Link>
 
         {/* Nav links */}
-        <div className="hidden lg:block">
+        <nav className="hidden lg:block">
           <ul className="flex flex-row">
             {navData.map((item, index) => {
               return (
@@ -93,7 +93,7 @@ export default function Navbar() {
               )}
             </li>
           </ul>
-        </div>
+        </nav>
 
         {/* Mobile menu button */}
         <div className="lg:hidden">
@@ -107,7 +107,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div
+      <nav
         className={`${
           isOpen ? "left-0 w-full" : "-left-32 w-0"
         } fixed top-0 z-[999] flex h-screen items-center justify-center bg-white duration-500 lg:hidden`}
@@ -157,7 +157,7 @@ export default function Navbar() {
             )}
           </li>
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
