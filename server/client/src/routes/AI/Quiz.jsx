@@ -105,7 +105,7 @@ const Quiz = () => {
     I plan to work out ${answers.days} a week.
     Generate a workout plan for me.`;
 
-    const apiKey = ""; // Replace with your API key
+    const apiKey = process.env.GPT_AI; // Replace with your API key
     const openAi = new OpenAIApi(
       new Configuration({
         apiKey,
