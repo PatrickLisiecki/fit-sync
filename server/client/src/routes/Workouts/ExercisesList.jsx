@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
+require("dotenv").config();
 
 // API functions
 import { createExercise } from "../../api/exercises";
@@ -50,6 +51,9 @@ export default function ExercisesList({ onExerciseAdd }) {
     fetchWorkouts();
   };
 
+  const API_KEY = process.env.NINJA_API;
+  
+
   // Get exercises from external API
   const fetchWorkouts = async () => {
     setLoading(true);
@@ -57,7 +61,7 @@ export default function ExercisesList({ onExerciseAdd }) {
     await axios
       .get("https://api.api-ninjas.com/v1/exercises", {
         headers: {
-          "X-Api-Key": "8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t",
+          "X-Api-Key": API_KEY,
         },
         params: {
           muscle: selectedMuscle,
