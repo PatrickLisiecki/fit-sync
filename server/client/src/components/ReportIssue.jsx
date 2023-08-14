@@ -30,8 +30,8 @@ export default function ReportIssue() {
   return (
     <>
       <div className="container mx-auto py-4">
-        <h1 className="mb-4 text-3xl font-bold">Report an Issue</h1>
-        <div className="rounded bg-white px-8 py-4 shadow-md">
+        <h1 className="mb-4 text-3xl font-bold dark:text-white">Report an Issue</h1>
+        <div className="rounded bg-white px-8 py-4 shadow-md dark:bg-gray-700">
           {messageSent ? (
             <p className="mb-4 font-semibold text-green-500">
               Message sent successfully!
