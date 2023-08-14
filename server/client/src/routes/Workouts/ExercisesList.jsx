@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
-require("dotenv").config();
+
 
 // API functions
 import { createExercise } from "../../api/exercises";
