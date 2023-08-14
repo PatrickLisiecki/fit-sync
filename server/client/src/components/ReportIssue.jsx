@@ -29,9 +29,11 @@ export default function ReportIssue() {
 
   return (
     <>
-      <div className="container mx-auto py-4">
-        <h1 className="mb-4 text-3xl font-bold">Report an Issue</h1>
-        <div className="rounded bg-white px-8 py-4 shadow-md">
+      <div className="container mx-auto py-4 ">
+        <h1 className="mb-4 text-3xl font-bold dark:text-white">
+          Report an Issue
+        </h1>
+        <div className="rounded bg-white px-8 py-4 shadow-md dark:bg-gray-700">
           {messageSent ? (
             <p className="mb-4 font-semibold text-green-500">
               Message sent successfully!
@@ -39,13 +41,16 @@ export default function ReportIssue() {
           ) : null}
           <form ref={form} onSubmit={sendEmail}>
             <div className="mb-4">
-              <label htmlFor="issue-type" className="mb-2 block font-semibold">
+              <label
+                htmlFor="issue-type"
+                className="mb-2 block font-semibold dark:text-white"
+              >
                 Issue Type
               </label>
               <select
                 id="issue-type"
                 name="issue-type"
-                className="w-full rounded border p-2"
+                className="w-full rounded border p-2 "
                 required
               >
                 <option value="bug">Bug</option>
@@ -56,7 +61,7 @@ export default function ReportIssue() {
             <div className="mb-4">
               <label
                 htmlFor="issue-description"
-                className="mb-2 block font-semibold"
+                className="mb-2 block font-semibold dark:text-white"
               >
                 Issue Description
               </label>
@@ -69,7 +74,10 @@ export default function ReportIssue() {
               ></textarea>
             </div>
             <div className="mb-4">
-              <label htmlFor="user-email" className="mb-2 block font-semibold">
+              <label
+                htmlFor="user-email"
+                className="mb-2 block font-semibold dark:text-white"
+              >
                 Your Email
               </label>
               <input
