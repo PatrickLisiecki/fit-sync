@@ -20,12 +20,12 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-primary p-8">
+      <footer className="w-full bg-white p-8 dark:bg-primary">
         <div className="flex flex-row justify-between lg:container lg:mx-auto">
-          <p className="text-sm text-white">
+          <p className="text-sm dark:text-white">
             &copy; {currentYear} Flex Fusion. All rights reserved.
           </p>
-          <div className="text-sm text-white">
+          <div className="text-sm dark:text-white">
             <Link
               to="/policy"
               className="transition-all duration-300 hover:text-accent"
