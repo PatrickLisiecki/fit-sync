@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+require("dotenv").config();
 
 // Icons
 import {
@@ -29,7 +30,7 @@ export default function NutritionPage() {
   const [nutritionFacts, setNutritionFacts] = useState(null);
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProteins, setTotalProteins] = useState(0);
-  const API_KEY = "duVW5E6BSkAgwi62UVJorA==xW9asge73X0q5CsP"; // Replace with your actual API key
+  const API_KEY = process.env.NINJA_API;
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
