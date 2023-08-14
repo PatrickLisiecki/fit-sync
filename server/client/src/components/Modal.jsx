@@ -34,7 +34,7 @@ export default function Modal({ isVisible, hideModal, children }) {
         <div className="flex flex-row justify-end bg-transparent p-4">
           <button
             onClick={hideModal}
-            className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary"
+            className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary dark:text-white"
           >
             <FontAwesomeIcon icon={faXmark} />
           </button>
