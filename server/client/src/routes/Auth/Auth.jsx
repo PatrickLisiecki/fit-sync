@@ -17,6 +17,7 @@ export default function Auth() {
   const [byLogin, setByLogin] = useState(true);
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
+  const [errors, setErrors] = useState({});
 
   // Redirect if user is already logged in
   if (currentUser) {
@@ -39,17 +40,40 @@ export default function Auth() {
   // Handle form submission for signup
   const handleSignup = async (event) => {
     event.preventDefault();
+
+    // Get form data
     const formData = new FormData(event.target);
     const credentials = Object.fromEntries(formData);
 
+    // Clear previous errors
+    setErrors({});
+
+    // Perform validation checks
+    const newErrors = {};
+
     // Check if any of the required fields are empty
     if (!credentials.username || !credentials.email || !credentials.password) {
-      // Show error message
+      // Add error message
+      newErrors.allFields = "All fields are required";
       console.error("All fields are required");
-      return;
     }
     if (credentials.password != confirmedPassword) {
+      // Add error message
+      newErrors.passwordMatch = "Passwords do not match";
       console.error("Passwords do not match");
+    }
+    if (credentials.password.length < 3) {
+      newErrors.password = "Password is too short";
+      console.error("Password is too short");
+    }
+    if (credentials.username.length > 16) {
+      newErrors.username = "Username is too long";
+      console.error("Username is too long");
+    }
+
+    // Check for existing errors
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -124,10 +148,38 @@ export default function Auth() {
                 onSubmit={byLogin ? handleLogin : handleSignup}
                 className="flex flex-col items-center justify-center"
               >
-                {/* Error message */}
+                {/* Login error message */}
                 {authError && (
                   <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
                     {authError}
+                  </div>
+                )}
+
+                {/* Missing fields error message */}
+                {errors.allFields && (
+                  <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
+                    {errors.allFields}
+                  </div>
+                )}
+
+                {/* Error message for long username */}
+                {errors.username && (
+                  <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
+                    {errors.username}
+                  </div>
+                )}
+
+                {/* Error message for short password */}
+                {errors.password && (
+                  <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
+                    {errors.password}
+                  </div>
+                )}
+
+                {/* Error message for non-matching passwords */}
+                {errors.passwordMatch && (
+                  <div className="mb-2 text-center text-sm font-semibold uppercase text-red-500">
+                    {errors.passwordMatch}
                   </div>
                 )}
 

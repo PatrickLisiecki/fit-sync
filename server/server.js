@@ -5,6 +5,7 @@ const session = require("express-session");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
@@ -58,6 +59,12 @@ app.use("/api/workouts", workoutRouter);
 app.use("/api/sets", setsRouter);
 app.use("/api/profiles", profilesRouter);
 app.use("/api/aiworkouts", AIworkoutsRouter);
+
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

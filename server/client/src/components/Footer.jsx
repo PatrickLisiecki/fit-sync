@@ -20,7 +20,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-primary p-8 shadow-md dark:bg-white">
+      <footer className="w-full bg-primary p-8 shadow-md ">
         <div className="flex flex-row justify-between lg:container lg:mx-auto">
           <p className="text-sm text-white">
             &copy; {currentYear} Flex Fusion. All rights reserved.
