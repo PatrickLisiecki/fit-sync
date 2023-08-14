@@ -30,7 +30,7 @@ export default function NutritionPage() {
   const [nutritionFacts, setNutritionFacts] = useState(null);
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProteins, setTotalProteins] = useState(0);
-  const API_KEY = process.env.NINJA_API;
+  const API_KEY = process.env.NUTRI_API;
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
