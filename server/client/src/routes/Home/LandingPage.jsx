@@ -38,12 +38,12 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="w-full bg-primary text-white shadow-md">
+      <section className="w-full bg-white shadow-md dark:bg-primary dark:text-white">
         <div className="container mx-auto px-4 py-8">
           {/* Features header */}
           <div className="flex flex-col items-center justify-center">
             <span className="h2 mb-0 font-semibold">Features</span>
-            <p className="text-center font-light text-white">
+            <p className="text-center font-light dark:text-white">
               Everything you need to achieve your fitness goals, all in one
               place.
             </p>
@@ -59,7 +59,7 @@ export default function LandingPage() {
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 AI Generated Workouts
               </span>
-              <p className="mx-6 my-4 text-center text-sm text-white">
+              <p className="mx-6 my-4 text-center text-sm dark:text-white">
                 Our app utilizes state-of-the-art AI technology to craft
                 workouts based on your exact needs, goals, and preferences.
                 Whether you&apos;re looking to build muscle, improve
@@ -78,7 +78,7 @@ export default function LandingPage() {
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Workout Plan
               </span>
-              <p className="mx-6 my-4 text-center text-sm text-white ">
+              <p className="mx-6 my-4 text-center text-sm dark:text-white ">
                 Whether you&apos;re a seasoned fitness enthusiast or a beginner
                 just starting, our workout library has something for everyone.
                 Our app lets you filter workouts based on your specific
@@ -97,7 +97,7 @@ export default function LandingPage() {
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Nutrition Analysis
               </span>
-              <p className="mx-6  my-4 text-center text-sm text-white ">
+              <p className="mx-6  my-4 text-center text-sm dark:text-white ">
                 As you log your daily meals and nutrition, our intelligent
                 algorithm meticulously analyzes the nutritional content of your
                 diet. Our user-friendly dashboard presents you with detailed
@@ -115,7 +115,7 @@ export default function LandingPage() {
               <span className="h3 mb-0 mt-2 text-center font-semibold">
                 Progress Tracker
               </span>
-              <p className="mx-6  my-4 text-center text-sm text-white">
+              <p className="mx-6  my-4 text-center text-sm dark:text-white">
                 With our innovative tracker, you can effortlessly log your
                 workout sessions, recording every exercise completed. Stay on
                 top of your fitness journey by conveniently tracking each

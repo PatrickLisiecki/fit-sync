@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-tailwind/react": "^2.0.8",
     "axios": "^1.4.0",
+    "emailjs": "^4.0.2",
     "openai": "^3.3.0",
     "react": "^18.2.0",
     "react-body-highlighter": "^2.0.5",

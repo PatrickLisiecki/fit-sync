@@ -13,9 +13,9 @@ import {
   faBars,
   faCircleUser,
   faHouse,
-  faCloudSun,
+  faSun,
   faChevronDown,
-  faCloudMoon,
+  faMoon,
   faXmark,
   faGear,
   faPowerOff,
@@ -35,7 +35,6 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
 
   const [darkMode, setDarkMode] = useState(true);
   const [profileView, setProfileView] = useState(false);
-  const [randomPicture, setRandomPicture] = useState("");
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -89,12 +88,9 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
                 placement="bottom"
                 className="bg-secondary font-poppins text-sm text-white dark:bg-black"
               >
-                <a
-                  href={item.link}
-                  className="mx-4 transition-all duration-300 hover:text-accent"
-                >
-                  {item.icon}
-                </a>
+                <div className="mx-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary">
+                  <a href={item.link}>{item.icon}</a>
+                </div>
               </Tooltip>
             );
           })}
@@ -107,15 +103,17 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
           >
             <div
               onClick={toggleDarkMode}
-              className="mx-4 cursor-pointer transition-all duration-300 hover:text-accent"
+              className={`${
+                darkMode ? "hover:text-accent" : "hover:text-blue-800"
+              } mx-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-200 dark:hover:bg-secondary`}
             >
               {darkMode ? (
                 <button id="light">
-                  <FontAwesomeIcon icon={faCloudSun} />
+                  <FontAwesomeIcon icon={faSun} />
                 </button>
               ) : (
                 <button id="dark">
-                  <FontAwesomeIcon icon={faCloudMoon} />
+                  <FontAwesomeIcon icon={faMoon} />
                 </button>
               )}
             </div>
@@ -125,17 +123,17 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
             {/* User greeting */}
             <div
               onClick={toggleProfileView}
-              className="flex cursor-pointer flex-row items-center justify-center p-[8px] transition-all duration-300 hover:text-accent"
+              className="mx-2 flex cursor-pointer flex-row items-center justify-center transition-all duration-300 hover:text-accent"
             >
               <FontAwesomeIcon icon={faCircleUser} />
-              <span className="px-2 text-center text-[16px]">
-                Hi,{" "}
+              <div className="flex flex-row items-center justify-center gap-x-2 px-2 text-[16px]">
+                <span className="">Hi, </span>
                 <span className="font-semibold">{currentUser.username}</span>
-              </span>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="h-[15px] w-[15px]"
-              />
+                <FontAwesomeIcon
+                  icon={faChevronDown}
+                  className="h-[15px] w-[15px]"
+                />
+              </div>
             </div>
 
             {/* User profile menu */}
