@@ -13,6 +13,7 @@ const workoutRouter = require("./routes/workouts");
 const setsRouter = require("./routes/sets");
 const profilesRouter = require("./routes/profiles");
 const AIworkoutsRouter = require("./routes/aiworkouts");
+const externalRouter = require("./routes/external");
 
 const {
   forbiddenErrorHandler,
@@ -59,6 +60,7 @@ app.use("/api/workouts", workoutRouter);
 app.use("/api/sets", setsRouter);
 app.use("/api/profiles", profilesRouter);
 app.use("/api/aiworkouts", AIworkoutsRouter);
+app.use("/api/external", externalRouter)
 
 app.use(express.static(path.join(__dirname, "client/dist")));
 

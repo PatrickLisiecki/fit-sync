@@ -29,7 +29,6 @@ export default function NutritionPage() {
   const [nutritionFacts, setNutritionFacts] = useState(null);
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProteins, setTotalProteins] = useState(0);
-  const API_KEY = process.env.NUTRI_API;
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
@@ -37,27 +36,15 @@ export default function NutritionPage() {
 
   const fetchNutritionFacts = () => {
     axios
-      .get(`https://api.calorieninjas.com/v1/nutrition?query=${query}`, {
-        headers: {
-          "X-Api-Key": API_KEY,
-        },
-      })
+      .get(`/api/external/nutrition?query=${query}`)
       .then((response) => {
-        setNutritionFacts(response.data.items);
-        // Calculate total calories and proteins
-        const totalCalories = response.data.items.reduce(
-          (acc, item) => acc + item.calories,
-          0,
-        );
+        const { nutritionFacts, totalCalories, totalProteins } = response.data;
+        setNutritionFacts(nutritionFacts);
         setTotalCalories(totalCalories);
-        const totalProteins = response.data.items.reduce(
-          (acc, item) => acc + item.protein_g,
-          0,
-        );
         setTotalProteins(totalProteins);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
   };
 

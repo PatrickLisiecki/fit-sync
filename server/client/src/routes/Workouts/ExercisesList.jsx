@@ -51,32 +51,25 @@ export default function ExercisesList({ onExerciseAdd }) {
     fetchWorkouts();
   };
 
-  const API_KEY = process.env.NINJA_API;
-  
-
-  // Get exercises from external API
   const fetchWorkouts = async () => {
     setLoading(true);
-
-    await axios
-      .get("https://api.api-ninjas.com/v1/exercises", {
-        headers: {
-          "X-Api-Key": API_KEY,
-        },
+  
+    try {
+      const response = await axios.get("/api/external/exercises", {
         params: {
           muscle: selectedMuscle,
           difficulty: selectedDifficulty,
         },
-      })
-      .then((response) => {
-        setExternalExercises(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching exercises from external API:", error);
-        setLoading(false);
       });
+  
+      setExternalExercises(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching exercises from external API:", error);
+      setLoading(false);
+    }
   };
+  
 
   const handleCreateExercise = async (exercise) => {
     // Data required for exercise
