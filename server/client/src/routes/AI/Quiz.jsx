@@ -96,52 +96,31 @@ const Quiz = () => {
 
   const generateWorkoutPlan = async () => {
     setLoading(true);
-
-    const prompt = `As a fitness enthusiast, I want a workout plan that fits my preferences.
-    I prefer ${answers.workoutType} workouts with ${answers.intensity} intensity.
-    I want the workout to be ${answers.duration} long and ${answers.equipment} equipment.
-    My fitness goal is to ${answers.fitnessGoal}.
-    My fitness level is ${answers.fitnessLevel}.
-    I plan to work out ${answers.days} a week.
-    Generate a workout plan for me.`;
-
-    const apiKey = ""; // Replace with your API key
-    const openAi = new OpenAIApi(
-      new Configuration({
-        apiKey,
-      }),
-    );
-
+  
     try {
-      const response = await openAi.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content: "You are a fitness enthusiast seeking a workout plan.",
-          },
-          { role: "user", content: prompt },
-        ],
+      const response = await axios.post("/api/external/generateplan", {
+        answers,
       });
-
-      const generatedPlan = response.data.choices[0]?.message?.content;
+      const generatedPlan = response.data.generatedPlan;
       setGeneratedWorkout(generatedPlan);
-
+  
       try {
-        // Send the generated plan to your backend API
         const backendResponse = await axios.post("/api/aiworkouts", {
           workout: generatedPlan,
         });
         const storedAIworkout = backendResponse.data;
-      } catch (error) {
-        console.error("Error storing workout plan:", error);
+        console.log("AI workout plan stored:", storedAIworkout);
+      } catch (backendError) {
+        console.error("Error storing workout plan in backend:", backendError);
       }
-    } catch (error) {
-      console.error("Error generating workout plan:", error);
+    } catch (generationError) {
+      console.error("Error generating workout plan:", generationError);
     } finally {
       setLoading(false);
     }
   };
+  
+
 
   return (
     <div className="mx-auto mb-8 w-[65%]">

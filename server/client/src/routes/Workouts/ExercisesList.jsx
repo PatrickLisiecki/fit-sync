@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ExerciseContext } from "../../contexts/ExerciseContext";
 
+
 // API functions
 import { createExercise } from "../../api/exercises";
 
@@ -50,29 +51,25 @@ export default function ExercisesList({ onExerciseAdd }) {
     fetchWorkouts();
   };
 
-  // Get exercises from external API
   const fetchWorkouts = async () => {
     setLoading(true);
-
-    await axios
-      .get("https://api.api-ninjas.com/v1/exercises", {
-        headers: {
-          "X-Api-Key": "8iEGI6IQMoO9RRPmguQztMrEwgUNxV9qETUa7a5t",
-        },
+  
+    try {
+      const response = await axios.get("/api/external/exercises", {
         params: {
           muscle: selectedMuscle,
           difficulty: selectedDifficulty,
         },
-      })
-      .then((response) => {
-        setExternalExercises(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching exercises from external API:", error);
-        setLoading(false);
       });
+  
+      setExternalExercises(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching exercises from external API:", error);
+      setLoading(false);
+    }
   };
+  
 
   const handleCreateExercise = async (exercise) => {
     // Data required for exercise
