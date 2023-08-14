@@ -45,12 +45,12 @@ export default function Contact() {
       </p>
 
       {/* Contact cards */}
-      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 ">
+      <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2">
         {contactData.map((contact, index) => {
           return (
             <div
               key={index}
-              className="my-10 flex transform flex-col items-center justify-center rounded-xl p-4 shadow-lg transition-transform hover:scale-105 dark:bg-white"
+              className="flex transform flex-col items-center justify-center rounded-xl bg-white p-4 shadow-lg transition-transform hover:scale-105 dark:bg-primary"
             >
               <img
                 src={contact.image}
