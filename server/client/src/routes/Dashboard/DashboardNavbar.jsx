@@ -141,7 +141,7 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
             <div
               className={`${
                 profileView ? "block" : "hidden"
-              } absolute right-0 mt-2 flex min-w-[300px] flex-col rounded bg-gray-200 p-4 shadow-md dark:bg-gray-600 dark:text-white`}
+              } z-[999] absolute right-0 mt-2 flex min-w-[300px] flex-col rounded bg-gray-200 p-4 shadow-md dark:bg-gray-600 dark:text-white`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-xl">User Profile</span>{" "}
