@@ -41,6 +41,7 @@ const SavedWorkouts = () => {
       console.error("Error deleting workout:", error);
     }
   };
+  
   const handleWorkoutClick = (workout) => {
     setSelectedWorkout(selectedWorkout === workout ? null : workout);
   };
