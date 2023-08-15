@@ -31,9 +31,10 @@ export default function LandingPage() {
             you&apos;re looking for a challenge, you&apos;ve come to the right
             place!
           </p>
-          <button className="min-w-[300px] rounded bg-accent px-6 py-5 text-white hover:bg-accent/90">
+          <a href="/dashboard">
+          <button className="min-w-[300px] rounded bg-accent px-6 py-5 text-white hover:bg-accent/90" href="">
             <span className="h3 mb-0 uppercase tracking-wide">Workout Now</span>
-          </button>
+          </button></a>
         </div>
       </section>
 
@@ -140,9 +141,10 @@ export default function LandingPage() {
 
         {/* Info */}
         <div className="relative flex flex-col items-center justify-center gap-y-4">
+          <a href="/auth">
           <button className="mb-0 min-w-[300px] rounded bg-accent px-6 py-5 text-base font-semibold uppercase tracking-wide text-white hover:bg-accent/90 sm:text-lg">
             Join our community now
-          </button>
+          </button></a>
           <p className="max-w-[300px] text-center text-base text-white sm:max-w-[500px] sm:text-lg md:max-w-[700px]">
             Unlock the best version of yourself! Join our workout community
             today and embark on a transformative journey towards a healthier,

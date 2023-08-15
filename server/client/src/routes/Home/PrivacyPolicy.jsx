@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
         account, including your name and email address.
       </p>
       <p className="mb-4">
-        We collect usage data when you interact with our mobile app, such as
+        We collect usage data when you interact with our web application, such as
         workout routines completed, progress tracking, and other analytics to
         improve our services.
       </p>
@@ -38,17 +38,18 @@ export default function PrivacyPolicy() {
         We do not sell or rent your personal information to third parties. We do
         not share your information with third parties except in aggregate form.
       </p>
-      <h2 className="mb-4 text-2xl font-semibold">Your Choices</h2>
-      <p className="mb-4">
-        You can access and delete your profile information at any time by
-        logging into your account. You can deactivate your account through app
-        settings.
-      </p>
-      <p className="mb-4">
-        You can opt-out of receiving promotional communications from us by
-        following the unsubscribe instructions in those emails. You may not
-        opt-out of receiving service-related communications.
-      </p>
+      <h2 className="mb-4 text-2xl font-semibold">Cookies</h2>
+  <p className="mb-4">
+    We may use cookies and similar technologies to collect information about
+    your interactions with our app. Cookies are small data files stored on
+    your device that help us analyze usage patterns, optimize user experience,
+    and deliver targeted content.
+  </p>
+  <p className="mb-8">
+    You can manage your cookie preferences through your browser settings. By
+    continuing to use our app, you consent to the use of cookies as described
+    in this policy.
+  </p>
 
       <h2 className="mb-4 text-2xl font-semibold">Security</h2>
       <p className="mb-4">
