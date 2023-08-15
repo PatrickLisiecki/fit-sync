@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 
 // API functions
@@ -9,7 +10,7 @@ import { getAIWorkouts } from "../../api/aiworkouts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const SavedWorkouts = () => {
+export default function SavedWorkouts() {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -41,7 +42,7 @@ const SavedWorkouts = () => {
       console.error("Error deleting workout:", error);
     }
   };
-  
+
   const handleWorkoutClick = (workout) => {
     setSelectedWorkout(selectedWorkout === workout ? null : workout);
   };
@@ -51,43 +52,77 @@ const SavedWorkouts = () => {
       <div className="w-full p-4 text-center">
         <span className="h2">Saved Workouts</span>
       </div>
+      <div className="w-full p-4 text-center">
+        <span className="h2">Saved Workouts</span>
+      </div>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md dark:bg-secondary dark:shadow-none">
         {savedWorkouts.map((workout, index) => (
-          <div
-            key={index}
-            className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
-          >
-            <div className="flex items-center justify-between">
-              <span
-                className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
-                onClick={() => handleWorkoutClick(workout)}
-              >
-                AI Workout {index + 1}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  size="xs"
-                  className={`ml-2 transform transition-all duration-300 ${
-                    selectedWorkout === workout ? "rotate-180" : ""
-                  }`}
-                />
-              </span>
-              <div className="flex flex-row items-center justify-end bg-transparent p-4">
-                <button
-                  onClick={() => handleDelete(workout.id)}
-                  className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
+          <>
+            <div
+              key={index}
+              className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
+                  onClick={() => handleWorkoutClick(workout)}
                 >
-                  <FontAwesomeIcon icon={faXmark} />
-                </button>
+                  AI Workout {index + 1}
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    size="xs"
+                    className={`ml-2 transform transition-all duration-300 ${
+                      selectedWorkout === workout ? "rotate-180" : ""
+                    }`}
+                  />
+                </span>
+                <div className="flex flex-row items-center justify-end bg-transparent p-4">
+                  <button
+                    onClick={() => handleDelete(workout.id)}
+                    className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                  </button>
+                </div>
               </div>
+              {selectedWorkout === workout && (
+                <div className="whitespace-pre-line">{workout.workout}</div>
+              )}
             </div>
-            {selectedWorkout === workout && (
-              <div className="whitespace-pre-line">{workout.workout}</div>
-            )}
-          </div>
+            <div
+              key={index}
+              className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
+                  onClick={() => handleWorkoutClick(workout)}
+                >
+                  AI Workout {index + 1}
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    size="xs"
+                    className={`ml-2 transform transition-all duration-300 ${
+                      selectedWorkout === workout ? "rotate-180" : ""
+                    }`}
+                  />
+                </span>
+                <div className="flex flex-row items-center justify-end bg-transparent p-4">
+                  <button
+                    onClick={() => handleDelete(workout.id)}
+                    className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                  </button>
+                </div>
+              </div>
+              {selectedWorkout === workout && (
+                <div className="whitespace-pre-line">{workout.workout}</div>
+              )}
+            </div>
+          </>
         ))}
       </div>
     </div>
   );
-};
-
-export default SavedWorkouts;
+}
