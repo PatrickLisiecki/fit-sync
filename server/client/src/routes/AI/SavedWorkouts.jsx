@@ -51,9 +51,6 @@ export default function SavedWorkouts() {
       <div className="w-full p-4 text-center">
         <span className="h2">Saved Workouts</span>
       </div>
-      <div className="w-full p-4 text-center">
-        <span className="h2">Saved Workouts</span>
-      </div>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md dark:bg-secondary dark:shadow-none">
         {savedWorkouts.map((workout, index) => (
           <>
