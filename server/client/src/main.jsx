@@ -22,7 +22,6 @@ import DashboardHome from "./routes/Dashboard/DashboardHome";
 import Progress from "./routes/Progress/Progress";
 import ExerciseLog from "./routes/Progress/ExerciseLog";
 import NutritionPage from "./routes/Nutrition/NutritionPage";
-import Profile from "./routes/Profile/Profile";
 import WorkoutExercises from "./routes/Workouts/WorkoutExercises";
 import WorkoutPlan from "./routes/Workouts/WorkoutPlan";
 import Quiz from "./routes/AI/Quiz";
@@ -130,14 +129,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <SavedWorkouts />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/dashboard/profile",
-        element: (
-          <ProtectedRoute>
-            <Profile />
           </ProtectedRoute>
         ),
       },
