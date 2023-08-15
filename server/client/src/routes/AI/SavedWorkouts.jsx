@@ -53,70 +53,37 @@ export default function SavedWorkouts() {
       </div>
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md dark:bg-secondary dark:shadow-none">
         {savedWorkouts.map((workout, index) => (
-          <>
-            <div
-              key={index}
-              className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
-            >
-              <div className="flex items-center justify-between">
-                <span
-                  className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
-                  onClick={() => handleWorkoutClick(workout)}
+          <div
+            key={index}
+            className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
+          >
+            <div className="flex items-center justify-between">
+              <span
+                className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
+                onClick={() => handleWorkoutClick(workout)}
+              >
+                AI Workout {index + 1}
+                <FontAwesomeIcon
+                  icon={faChevronDown}
+                  size="xs"
+                  className={`ml-2 transform transition-all duration-300 ${
+                    selectedWorkout === workout ? "rotate-180" : ""
+                  }`}
+                />
+              </span>
+              <div className="flex flex-row items-center justify-end bg-transparent p-4">
+                <button
+                  onClick={() => handleDelete(workout.id)}
+                  className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
                 >
-                  AI Workout {index + 1}
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    size="xs"
-                    className={`ml-2 transform transition-all duration-300 ${
-                      selectedWorkout === workout ? "rotate-180" : ""
-                    }`}
-                  />
-                </span>
-                <div className="flex flex-row items-center justify-end bg-transparent p-4">
-                  <button
-                    onClick={() => handleDelete(workout.id)}
-                    className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
-                  >
-                    <FontAwesomeIcon icon={faXmark} />
-                  </button>
-                </div>
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
               </div>
-              {selectedWorkout === workout && (
-                <div className="whitespace-pre-line">{workout.workout}</div>
-              )}
             </div>
-            <div
-              key={index}
-              className="mb-4 rounded-lg bg-gray-100 p-4 dark:bg-primary"
-            >
-              <div className="flex items-center justify-between">
-                <span
-                  className="h3 mb-0 flex w-full cursor-pointer items-center font-semibold"
-                  onClick={() => handleWorkoutClick(workout)}
-                >
-                  AI Workout {index + 1}
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    size="xs"
-                    className={`ml-2 transform transition-all duration-300 ${
-                      selectedWorkout === workout ? "rotate-180" : ""
-                    }`}
-                  />
-                </span>
-                <div className="flex flex-row items-center justify-end bg-transparent p-4">
-                  <button
-                    onClick={() => handleDelete(workout.id)}
-                    className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
-                  >
-                    <FontAwesomeIcon icon={faXmark} />
-                  </button>
-                </div>
-              </div>
-              {selectedWorkout === workout && (
-                <div className="whitespace-pre-line">{workout.workout}</div>
-              )}
-            </div>
-          </>
+            {selectedWorkout === workout && (
+              <div className="whitespace-pre-line">{workout.workout}</div>
+            )}
+          </div>
         ))}
       </div>
     </div>
