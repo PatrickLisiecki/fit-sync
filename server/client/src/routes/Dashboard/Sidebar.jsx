@@ -89,7 +89,7 @@ export default function Sidebar({ toggleSidebar, isExpanded, currentPath }) {
     <nav
       className={`${
         isExpanded ? "left-0" : "-left-[250px]"
-      } fixed z-[999] h-screen w-[250px] bg-sidebar shadow-2xl transition-all duration-500`}
+      } fixed z-[999] h-[100dvh] w-[250px] bg-sidebar shadow-2xl transition-all duration-500`}
     >
       {/* Header */}
       <div className="flex h-[100px] flex-col items-center justify-center p-4">
