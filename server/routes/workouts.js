@@ -1,38 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { authenticateUser } = require("../middleware/authMiddleware");
-const { ForbiddenError, NotFoundError } = require("../errors");
-const { User, Exercise, Workout } = require("../models");
-
-const getWorkout = async (id) => {
-  const workout = await Workout.findByPk(parseInt(id, 10));
-  if (!workout) {
-    throw new NotFoundError("Workout not found");
-  }
-  return workout;
-};
-
-const authorizeEdit = (session, workout) => {
-  if (parseInt(session.userId, 10) !== workout.UserId) {
-    throw new ForbiddenError("You are not authorized to edit this workout");
-  }
-};
-
-const authorizeDelete = (session, workout) => {
-  if (parseInt(session.userId, 10) !== workout.UserId) {
-    throw new ForbiddenError("You are not authorized to delete this job");
-  }
-};
-
-const handleErrors = (err, res) => {
-  console.error(err);
-  if (err.name === "SequelizeValidationError") {
-    return res
-      .status(422)
-      .json({ errors: err.errors.map((e) => e.message).join(", ") });
-  }
-  res.status(500).send({ errors: err.message });
-};
+const { Workout } = require("../models");
 
 // Route handler for getting all workouts for a specific user
 router.get("/:userId", authenticateUser, async (req, res) => {

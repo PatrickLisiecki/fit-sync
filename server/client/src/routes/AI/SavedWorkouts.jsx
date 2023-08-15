@@ -1,6 +1,9 @@
-import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+
+// API functions
+import { getAIWorkouts } from "../../api/aiworkouts";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,9 +20,9 @@ const SavedWorkouts = () => {
         const userId = currentUser.id;
 
         try {
-          const response = await axios.get(`/api/aiworkouts/${userId}`);
-          const fetchedWorkouts = response.data;
-          setSavedWorkouts(fetchedWorkouts);
+          const savedWorkouts = await getAIWorkouts(userId);
+
+          setSavedWorkouts(savedWorkouts);
         } catch (error) {
           console.error("Error fetching saved workouts:", error);
         }
@@ -32,7 +35,9 @@ const SavedWorkouts = () => {
   const handleDelete = async (workoutId) => {
     try {
       await axios.delete(`/api/aiworkouts/${workoutId}`);
-      setSavedWorkouts(savedWorkouts.filter(workout => workout.id !== workoutId));
+      setSavedWorkouts(
+        savedWorkouts.filter((workout) => workout.id !== workoutId),
+      );
     } catch (error) {
       console.error("Error deleting workout:", error);
     }
@@ -45,35 +50,17 @@ const handleWorkoutClick = (workout) => {
     <div className="mx-auto mb-8 w-full sm:w-[80%] md:w-[65%]">
       <div className="w-full rounded-lg bg-white px-4 py-4 shadow-md dark:bg-secondary dark:shadow-none">
         {savedWorkouts.map((workout, index) => (
-          <div key={index} className="mb-4 p-4 bg-gray-100 dark:bg-primary rounded-lg">
-            <div className="flex justify-between items-center ">
-              <span
-                className="h3 mb-0 font-semibold cursor-pointer flex items-center"
-                onClick={() => handleWorkoutClick(workout)}
-              >
-                AI Workout {index + 1}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  size="xs"
-                  className={`ml-2 transform transition-all duration-300 ${
-                    selectedWorkout === workout ? "rotate-180" : ""
-                  }`}
-                />
-              </span>
-              <div className="flex flex-row justify-end bg-transparent p-4 items-center">
-                <button
-                  onClick={() => handleDelete(workout.id)}
-                  className="grid h-[50px] w-[50px] place-items-center rounded-full p-3 transition-all duration-300 hover:bg-red-500 dark:text-white"
-                >
-                  <FontAwesomeIcon icon={faXmark} />
-                </button>
-              </div>
+          <div key={index} className="mb-4">
+            <span className="h3 font-semibold">Workout {index + 1}</span>
+            <div className="whitespace-pre-line rounded-lg bg-gray-100 p-4 dark:bg-primary">
+              {workout.workout} {/* Render the 'workout' string */}
             </div>
-            {selectedWorkout === workout && (
-              <div className="whitespace-pre-line">
-                {workout.workout}
-              </div>
-            )}
+            <button
+              onClick={() => handleDelete(workout.id)}
+              className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

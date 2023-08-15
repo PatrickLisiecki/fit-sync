@@ -1,28 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { authenticateUser } = require("../middleware/authMiddleware");
-const { ForbiddenError, NotFoundError } = require("../errors");
-const { User, Exercise } = require("../models");
-
-const getExercise = async (id) => {
-  const Exercise = await Exercise.findByPk(parseInt(id, 10));
-  if (!Exercise) {
-    throw new NotFoundError("Exercise not found");
-  }
-  return Exercise;
-};
-
-const authorizeEdit = (session, Exercise) => {
-  if (parseInt(session.userId, 10) !== Exercise.UserId) {
-    throw new ForbiddenError("You are not authorized to edit this Exercise");
-  }
-};
-
-const authorizeDelete = (session, Exercise) => {
-  if (parseInt(session.userId, 10) !== Exercise.UserId) {
-    throw new ForbiddenError("You are not authorized to delete this job");
-  }
-};
+const { Exercise } = require("../models");
 
 // Read all exercises for a specific user
 router.get("/:userId", authenticateUser, async (req, res) => {

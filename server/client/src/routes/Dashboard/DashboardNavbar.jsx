@@ -88,9 +88,12 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
                 placement="bottom"
                 className="bg-secondary font-poppins text-sm text-white dark:bg-black"
               >
-                <div className="mx-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary">
-                  <a href={item.link}>{item.icon}</a>
-                </div>
+                <Link
+                  to={item.link}
+                  className="mx-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-200 hover:text-accent dark:hover:bg-secondary"
+                >
+                  {item.icon}
+                </Link>
               </Tooltip>
             );
           })}
@@ -101,25 +104,21 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
             placement="bottom"
             className="bg-secondary font-poppins text-sm text-white dark:bg-black"
           >
-            <div
+            <button
               onClick={toggleDarkMode}
               className={`${
                 darkMode ? "hover:text-accent" : "hover:text-blue-800"
               } mx-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-gray-200 dark:hover:bg-secondary`}
             >
               {darkMode ? (
-                <button id="light">
-                  <FontAwesomeIcon icon={faSun} />
-                </button>
+                <FontAwesomeIcon icon={faSun} />
               ) : (
-                <button id="dark">
-                  <FontAwesomeIcon icon={faMoon} />
-                </button>
+                <FontAwesomeIcon icon={faMoon} />
               )}
-            </div>
+            </button>
           </Tooltip>
 
-          <div className="relative">
+          <div className="relative mx-2">
             {/* User greeting */}
             <div
               onClick={toggleProfileView}
@@ -127,11 +126,13 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
             >
               <FontAwesomeIcon icon={faCircleUser} />
               <div className="flex flex-row items-center justify-center gap-x-2 px-2 text-[16px]">
-                <span className="">Hi, </span>
-                <span className="font-semibold">{currentUser.username}</span>
+                <span className="hidden sm:block">Hi, </span>
+                <span className="hidden font-semibold sm:block">
+                  {currentUser.username}
+                </span>
                 <FontAwesomeIcon
                   icon={faChevronDown}
-                  className="h-[15px] w-[15px]"
+                  className="hidden h-[15px] w-[15px] sm:block"
                 />
               </div>
             </div>
@@ -140,7 +141,7 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
             <div
               className={`${
                 profileView ? "block" : "hidden"
-              } absolute right-0 mt-2 flex min-w-[300px] flex-col rounded bg-gray-200 p-4 shadow-md dark:bg-gray-600 dark:text-white`}
+              } z-[999] absolute right-0 mt-2 flex min-w-[300px] flex-col rounded bg-gray-200 p-4 shadow-md dark:bg-gray-600 dark:text-white`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-xl">User Profile</span>{" "}
@@ -172,10 +173,7 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
               </div>
 
               {/* Profile link */}
-              <Link
-                to="/dashboard/profile"
-                className="flex flex-row items-center justify-start gap-x-4 border-b border-secondary px-6 py-3 hover:bg-gray-300 dark:border-white dark:hover:bg-secondary"
-              >
+              <div className="flex flex-row items-center justify-start gap-x-4 border-b border-secondary px-6 py-3 hover:bg-gray-300 dark:border-white dark:hover:bg-secondary">
                 <div className="grid place-items-center rounded bg-gray-400 p-3">
                   <FontAwesomeIcon
                     icon={faGear}
@@ -191,7 +189,7 @@ export default function DashboardNavbar({ toggleSidebar, isExpanded }) {
                     Your Info
                   </span>
                 </div>
-              </Link>
+              </div>
 
               {/* Logout */}
               <div className="flex items-center justify-center pt-3">

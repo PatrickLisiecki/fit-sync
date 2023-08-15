@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Configuration, OpenAIApi } from "openai";
 import axios from "axios";
+
+// API functions
+import { getAIWorkouts } from "../../api/aiworkouts";
 
 const Quiz = () => {
   const [generatedWorkout, setGeneratedWorkout] = useState("");
@@ -96,14 +98,14 @@ const Quiz = () => {
 
   const generateWorkoutPlan = async () => {
     setLoading(true);
-  
+
     try {
       const response = await axios.post("/api/external/generateplan", {
         answers,
       });
       const generatedPlan = response.data.generatedPlan;
       setGeneratedWorkout(generatedPlan);
-  
+
       try {
         const backendResponse = await axios.post("/api/aiworkouts", {
           workout: generatedPlan,
@@ -119,8 +121,6 @@ const Quiz = () => {
       setLoading(false);
     }
   };
-  
-
 
   return (
     <div className="mx-auto mb-8 w-[65%]">

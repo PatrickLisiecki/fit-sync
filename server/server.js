@@ -11,14 +11,10 @@ const authRouter = require("./routes/auth");
 const exercisesRouter = require("./routes/exercises");
 const workoutRouter = require("./routes/workouts");
 const setsRouter = require("./routes/sets");
-const profilesRouter = require("./routes/profiles");
 const AIworkoutsRouter = require("./routes/aiworkouts");
 const externalRouter = require("./routes/external");
 
-const {
-  forbiddenErrorHandler,
-  notFoundErrorHandler,
-} = require("./middleware/errorHandlers");
+const { forbiddenErrorHandler, notFoundErrorHandler } = require("./middleware/errorHandlers");
 
 app.use(cookieParser());
 
@@ -58,9 +54,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/workouts", workoutRouter);
 app.use("/api/sets", setsRouter);
-app.use("/api/profiles", profilesRouter);
 app.use("/api/aiworkouts", AIworkoutsRouter);
-app.use("/api/external", externalRouter)
+app.use("/api/external", externalRouter);
 
 app.use(express.static(path.join(__dirname, "client/dist")));
 
