@@ -1,5 +1,4 @@
-# 💪 Flex Fusion
-
+# Flex Fusion 💪
 
 <p align="center">
   <img src="https://github.com/PatrickLisiecki/flex-fusion/assets/96704934/a0cea041-899a-4c02-98e6-2f407614c57c" alt="Flex Fusion Logo" />
@@ -7,7 +6,7 @@
 
 <p align="center">Your ultimate fitness and nutrition companion. This full-stack application empowers users to take charge of their fitness journey and nutritional intake, providing a seamless experience that encompasses tracking workouts, accessing personalized exercise plans, and obtaining vital nutrition information.</p>
 
-## 🚀 Features
+## 💫 Features
 
 ### 🗓️ Workout Planning
 
@@ -25,7 +24,7 @@ Simplify your nutritional choices by entering your meals into Flex Fusion. Our i
 
 Embark on a truly personalized fitness journey through Flex Fusion's AI-driven workout quiz. Take the quiz to share your fitness level, preferences, and goals, and experience the power of OpenAI integration. Our system leverages advanced AI algorithms to generate workout plans tailored specifically to your unique requirements. With the expertise of ChatGPT technology, your generated workout plan becomes a strategic roadmap, offering exercises, intensities, and progressions that resonate with your aspirations.
 
-## 💻 Technologies Used
+## 🧪 Technologies Used
 
 - React.JS
 - Node.JS
@@ -34,7 +33,7 @@ Embark on a truly personalized fitness journey through Flex Fusion's AI-driven w
 - Sequelize
 - TailwindCSS
 
-## 📄 License
+## 📜 License
 
 This project operates under the [MIT License](LICENSE).
 
