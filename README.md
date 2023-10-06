@@ -6,6 +6,14 @@
 
 <p align="center">Your ultimate fitness and nutrition companion. This full-stack application empowers users to take charge of their fitness journey and nutritional intake, providing a seamless experience that encompasses tracking workouts, accessing personalized exercise plans, and obtaining vital nutrition information.</p>
 
+## 💻 Demo
+
+https://github.com/PatrickLisiecki/flex-fusion/assets/96704934/ad0b3b18-8e86-467b-9c89-b91d0209aa19
+
+https://github.com/PatrickLisiecki/flex-fusion/assets/96704934/2a1a83f9-3030-4e5e-b919-c11f4f041168
+
+https://github.com/PatrickLisiecki/flex-fusion/assets/96704934/2f9e2794-3d0d-43fa-b185-399b6e73d918
+
 ## 💫 Features
 
 ### 🗓️ Workout Planning
