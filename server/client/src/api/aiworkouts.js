@@ -9,6 +9,6 @@ export async function getAIWorkouts(userId) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error fetching exercises:", error);
+    console.error("Error fetching exercises:", error);
   }
 }

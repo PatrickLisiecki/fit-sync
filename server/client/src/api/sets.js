@@ -9,7 +9,7 @@ export async function createSet(newData) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error creating new set:", error);
+    console.error("Error creating new set:", error);
   }
 }
 
@@ -22,7 +22,7 @@ export async function getSets(exerciseId) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error fetching sets:", error);
+    console.error("Error fetching sets:", error);
   }
 }
 
