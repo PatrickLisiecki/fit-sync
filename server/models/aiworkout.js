@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "AIworkout",
       tableName: "ai_workouts",
-    }
+    },
   );
   return AIworkout;
 };

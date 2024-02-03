@@ -78,7 +78,6 @@ router.post("/login", async (req, res) => {
     bcrypt.compare(req.body.password, user.password, (error, result) => {
       if (result) {
         // Passwords match
-
         req.session.userId = user.id;
         res.status(200).json({
           message: "Logged in successfully",
@@ -95,7 +94,9 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "An error occurred during the login process" });
+    res
+      .status(500)
+      .json({ message: "An error occurred during the login process" });
   }
 });
 

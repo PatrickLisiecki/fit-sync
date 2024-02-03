@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Sets } = require("../models"); // Assuming you have the Sets model defined
+const { Sets } = require("../models");
 const { authenticateUser } = require("../middleware/authMiddleware");
 
 // Create a new set
