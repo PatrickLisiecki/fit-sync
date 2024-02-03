@@ -85,11 +85,11 @@ router.post("/generateplan", async (req, res) => {
       Generate a workout plan for me.`;
 
     // Generate workout plan using OpenAI
-    const API_KEY = process.env.GPT_API;
+    const apiKey = process.env.GPT_API;
 
     const openAi = new OpenAIApi(
       new Configuration({
-        API_KEY,
+        apiKey,
       }),
     );
 
