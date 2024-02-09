@@ -9,7 +9,7 @@ export async function getWorkouts(userId) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error fetching workouts:", error);
+    console.error("Error fetching workouts:", error);
   }
 }
 
@@ -25,7 +25,7 @@ export async function createWorkout(userId, newData) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error saving new workout:", error);
+    console.error("Error saving new workout:", error);
   }
 }
 

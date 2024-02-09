@@ -35,7 +35,7 @@ export async function createExercise(
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error creating exercise:", error);
+    console.error("Error creating exercise:", error);
   }
 }
 
@@ -48,7 +48,7 @@ export async function getExercise(exerciseId) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error fetching exercise:", error);
+    console.error("Error fetching exercise:", error);
   }
 }
 
@@ -63,7 +63,7 @@ export async function getExercises(userId, workoutId, week, day) {
     // Extract the data from the response
     return response.data;
   } catch (error) {
-    console.log("Error fetching exercises:", error);
+    console.error("Error fetching exercises:", error);
   }
 }
 
@@ -78,6 +78,6 @@ export async function deleteExercise(exerciseId, authToken) {
       withCredentials: true,
     });
   } catch (error) {
-    console.log("Error deleting exercise:", error);
+    console.error("Error deleting exercise:", error);
   }
 }

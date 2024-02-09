@@ -26,7 +26,7 @@ router.get("/:userId", authenticateUser, async (req, res) => {
 router.post("/:userId", authenticateUser, async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { name } = req.body; // Assuming you have a name for the new workout
+    const { name } = req.body;
 
     // Create the new workout in the database
     const newWorkout = await Workout.create({
@@ -45,7 +45,7 @@ router.post("/:userId", authenticateUser, async (req, res) => {
 router.put("/:workoutId", authenticateUser, async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
-    const { name } = req.body; // Assuming you have a name for updating the workout
+    const { name } = req.body;
 
     // Find the workout in the database
     const workout = await Workout.findByPk(workoutId);

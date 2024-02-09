@@ -82,20 +82,6 @@ const Quiz = () => {
     });
   };
 
-  useEffect(() => {
-    const fetchSavedWorkouts = async () => {
-      try {
-        const response = await axios.get("/api/aiworkouts");
-        const fetchedWorkouts = response.data;
-        setSavedWorkouts(fetchedWorkouts);
-      } catch (error) {
-        console.error("Error fetching saved workouts:", error);
-      }
-    };
-
-    fetchSavedWorkouts();
-  }, []);
-
   const generateWorkoutPlan = async () => {
     setLoading(true);
 

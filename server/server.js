@@ -14,7 +14,10 @@ const setsRouter = require("./routes/sets");
 const AIworkoutsRouter = require("./routes/aiworkouts");
 const externalRouter = require("./routes/external");
 
-const { forbiddenErrorHandler, notFoundErrorHandler } = require("./middleware/errorHandlers");
+const {
+  forbiddenErrorHandler,
+  notFoundErrorHandler,
+} = require("./middleware/errorHandlers");
 
 app.use(cookieParser());
 
@@ -44,7 +47,7 @@ app.use(
     cookie: {
       maxAge: 3600000, // 1 hour
     },
-  })
+  }),
 );
 
 app.use(forbiddenErrorHandler);

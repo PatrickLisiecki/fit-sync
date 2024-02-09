@@ -54,7 +54,7 @@ router.put("/:userId", authenticateUser, async (req, res) => {
     await Promise.all(
       aiWorkouts.map(async (aiWorkout) => {
         await aiWorkout.update({ workout });
-      })
+      }),
     );
 
     res.json(aiWorkouts);

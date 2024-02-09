@@ -42,34 +42,48 @@ router.get("/exercise/:exerciseId", authenticateUser, async (req, res) => {
 });
 
 // Read all exercises for a specific user and day
-router.get("/:userId/:workoutId/:week/:day", authenticateUser, async (req, res) => {
-  try {
-    const { userId, day, week, workoutId } = req.params;
+router.get(
+  "/:userId/:workoutId/:week/:day",
+  authenticateUser,
+  async (req, res) => {
+    try {
+      const { userId, day, week, workoutId } = req.params;
 
-    // Fetch exercises data from the database based on userId and day
-    const exercises = await Exercise.findAll({
-      where: {
-        userId,
-        day,
-        week,
-        workoutId,
-      },
-    });
+      // Fetch exercises data from the database based on userId and day
+      const exercises = await Exercise.findAll({
+        where: {
+          userId,
+          day,
+          week,
+          workoutId,
+        },
+      });
 
-    // Return the exercises data as JSON response
-    res.json(exercises);
-  } catch (error) {
-    console.error("Error fetching exercises:", error);
-    // Handle the error, e.g., return an error response to the client
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+      // Return the exercises data as JSON response
+      res.json(exercises);
+    } catch (error) {
+      console.error("Error fetching exercises:", error);
+      // Handle the error, e.g., return an error response to the client
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+);
 
 // Create a new exercise
 router.post("/", authenticateUser, async (req, res) => {
   try {
-    const { userId, day, name, type, muscle, equipment, difficulty, details, workoutId, week } =
-      req.body;
+    const {
+      userId,
+      day,
+      name,
+      type,
+      muscle,
+      equipment,
+      difficulty,
+      details,
+      workoutId,
+      week,
+    } = req.body;
 
     // Create the exercise in the database
     const exercise = await Exercise.create({
