@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_DB=flex
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    
+  api:
+    container_name: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres_password
+      - DB_NAME=flex
+      - DB_PORT=5432
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+
+  client:
+    container_name: client
+    stdin_open: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - '5173:5173'
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3050:80"
+    depends_on:
+      - api
+      - client
+
+volumes:
+  pgdata: {}
